@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NPT48 Official - ABOUT</title>
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Kanit:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/site.css">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: #fbfeff;
+      color: var(--npt-ink);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .about-box {
+      max-width: 760px; margin: 0 auto; padding: clamp(30px, 6vw, 56px) clamp(20px, 5vw, 56px);
+      background: var(--npt-mist); border-radius: var(--radius-xl); text-align: center;
+    }
+    .about-logo { display: block; height: clamp(70px, 14vw, 110px); width: auto; margin: 0 auto 20px; border-radius: 20px; }
+    .about-title { font-family: var(--font-display); color: var(--npt-ink); letter-spacing: 2px; margin-bottom: 6px; font-weight: 600; font-size: clamp(28px, 6vw, 40px); }
+    .sub-title { color: var(--npt-ink-soft); font-size: clamp(0.9rem, 2.5vw, 1.05rem); margin-bottom: 34px; letter-spacing: 3px; font-weight: 600; }
+    .text-content { line-height: 1.85; color: var(--npt-ink-soft); font-size: clamp(0.95rem, 2.8vw, 1.08rem); text-align: center; }
+    .text-content p { margin-bottom: 20px; }
+    .highlight {
+      color: var(--npt-ink); font-weight: 700; background: linear-gradient(transparent 65%, var(--npt-sky) 65%);
+      display: inline; padding-bottom: 1px;
+    }
+    .slogan {
+      margin-top: 36px; font-family: var(--font-display); color: var(--npt-ink); font-size: clamp(1.05rem, 3vw, 1.25rem);
+      font-weight: 500; padding-top: 24px; border-top: 2px solid var(--npt-white);
+    }
+    @media (max-width: 680px) {
+      .text-content { text-align: left; }
+      .text-content p { text-align: justify; text-justify: inter-word; }
+      .slogan { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="site-header"></div>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/nav.js"></script>
+
+  <main class="page-shell">
+    <div class="page-hero">
+      <h1 class="page-hero-title" data-i18n="about_header">ABOUT</h1>
+      <div class="page-hero-underline"></div>
+    </div>
+
+    <div class="about-box">
+      <img class="about-logo" src="assets/images/logo.png" alt="NPT48 Logo">
+      <h2 class="about-title">NPT48</h2>
+      <div class="sub-title">( NATURE 48 )</div>
+
+      <div class="text-content">
+        <p><span class="highlight" data-i18n="about_p1">NPT48 is an idol group inspired by the mountains and the sea.</span></p>
+        <p data-i18n="about_p2">NPT48 brings music and performances that carry the cool calm of the mountains and the freshness of the ocean, expressed through our brand color #66cbff.</p>
+        <p data-i18n="about_p3">The word "Nature" represents simplicity, sincerity, and growing together with the world around us.</p>
+        <p data-i18n="about_p4">The group focuses on sincere, approachable performances, sharing positive energy, freshness, and natural smiles with audiences everywhere.</p>
+        <div class="slogan" data-i18n="about_slogan">NPT48 – From the mountains to the sea, songs from nature.</div>
+      </div>
+    </div>
+
+  </main>
+
+  <div id="site-footer"></div>
+
+</body>
+</html>
