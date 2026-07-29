@@ -1,6 +1,6 @@
 /* =========================================================
    NPT48 — Language Dictionary & Apply Helper
-   Supported: th (default), en, ja
+   Supported: en (default), th, jp
    ========================================================= */
 (function (window) {
   var STORAGE_KEY = 'npt48_lang';
@@ -30,9 +30,9 @@
       members_cta: "ดูสมาชิกทั้งหมด",
 
       about_header: "เกี่ยวกับเรา",
-      about_p1: "NPT48 คือกลุ่มไอดอลที่ได้แรงบันดาลใจจากธรรมชาติของภูเขาและท้องทะเล",
-      about_p2: "NPT48 นำเสนอดนตรีและการแสดงที่ถ่ายทอดความรู้สึกเย็นสบายของขุนเขาและความสดชื่นของท้องทะเล ผ่านสีประจำวง #66cbff ที่สื่อถึงท้องฟ้าและผืนน้ำอันกว้างใหญ่",
-      about_p3: "คำว่า “ธรรมชาติ” สื่อถึงความเรียบง่าย ความจริงใจ และการเติบโตไปพร้อมกับสภาพแวดล้อมรอบตัว NPT48 จึงเป็นพื้นที่สร้างสรรค์ที่สมาชิกได้เรียนรู้ แสดงออกถึงตัวตน และเติบโตไปพร้อมกับเหล่าแฟนคลับ",
+      about_p1: "NPT48 (ย่อมาจาก New Planet 48) คือกลุ่มไอดอลเสมือนจริง (Virtual Idol) สัญชาติไทย แบบไม่แสวงหาผลกำไร มีสีประจำวงเป็นสีฟ้าอ่อน (baby blue) ที่ได้แรงบันดาลใจจากความสงบของขุนเขาและท้องทะเล",
+      about_p2: "เช่นเดียวกับ BNK48 ทาง NPT48 จะจัดออดิชันรับสมัครสมาชิกใหม่อยู่เป็นประจำ ผู้ที่ผ่านการคัดเลือกจะเริ่มต้นในฐานะ Trainee หรือสมาชิกฝึกหัด ซึ่งเป็นทีมที่คอยเป็นตัวสำรองและสนับสนุนสมาชิกตัวจริงในกิจกรรมต่างๆ",
+      about_p3: "เมื่อสมาชิกตัวจริงคนใดคนหนึ่งจบการศึกษา (graduate) ออกจากวง สมาชิก Trainee จะได้รับการเลื่อนขั้นขึ้นมาเติมเต็มตำแหน่งที่ว่างลง เพื่อให้ NPT48 เดินหน้าต่อไปได้ด้วยพลังใหม่ๆ",
       about_p4: "กลุ่มมุ่งเน้นการแสดงที่จริงใจและเข้าถึงง่าย พร้อมส่งต่อพลังบวก ความสดชื่น และรอยยิ้มแบบธรรมชาติสู่ผู้ชมทุกที่",
       about_slogan: "NPT48 – จากขุนเขาสู่ท้องทะเล เสียงเพลงจากธรรมชาติ",
 
@@ -81,9 +81,9 @@
       members_cta: "SEE ALL MEMBERS",
 
       about_header: "ABOUT",
-      about_p1: "NPT48 is an idol group inspired by the mountains and the sea.",
-      about_p2: "NPT48 brings music and performances that carry the cool calm of the mountains and the freshness of the ocean, expressed through our brand color #66cbff — the color of open sky and water.",
-      about_p3: "The word “Nature” represents simplicity, sincerity, and growing together with the world around us. NPT48 serves as a creative space where members can learn, express themselves, and grow alongside their fans.",
+      about_p1: "NPT48 (short for New Planet 48) is a Thai non-commercial virtual idol group, with a baby blue brand color inspired by the calm of the mountains and the sea.",
+      about_p2: "Just like BNK48, NPT48 holds regular auditions to recruit new members. Successful candidates begin as Trainee members — an in-training team that works as support for the official members across a variety of activities.",
+      about_p3: "When an official member graduates, a Trainee is promoted to fill the vacant position, so NPT48 can keep moving forward with fresh energy.",
       about_p4: "The group focuses on sincere, approachable performances, sharing positive energy, freshness, and natural smiles with audiences everywhere.",
       about_slogan: "NPT48 – From the mountains to the sea, songs from nature.",
 
@@ -109,7 +109,7 @@
       watch_mv: "WATCH MV"
     },
 
-    ja: {
+    jp: {
       nav_home: "ホーム",
       nav_about: "概要",
       nav_profile: "メンバー",
@@ -132,9 +132,9 @@
       members_cta: "メンバー一覧を見る",
 
       about_header: "概要",
-      about_p1: "NPT48は、山と海からインスピレーションを受けたアイドルグループです。",
-      about_p2: "NPT48は、山の涼やかな静けさと海の爽やかさを、ブランドカラー#66cbff — 広い空と水の色 — を通じて音楽とパフォーマンスに表現します。",
-      about_p3: "「自然」という言葉は、シンプルさ、誠実さ、そして周りの環境と共に成長することを表しています。NPT48はメンバーが学び、自分を表現し、ファンと共に成長していく創造的な場所です。",
+      about_p1: "NPT48(New Planet 48の略)は、タイの非営利バーチャルアイドルグループです。ブランドカラーはベビーブルーで、山と海の静けさからインスピレーションを得ています。",
+      about_p2: "BNK48と同じように、NPT48では新メンバーを迎えるための定期的なオーディションを開催しています。合格した候補生は「トレーニー(研究生)」として活動を始め、正規メンバーをさまざまな活動でサポートする育成中のチームとなります。",
+      about_p3: "正規メンバーの誰かが卒業すると、トレーニーの中から一人が昇格し、空いたポジションを埋めます。これにより、NPT48は常に新しい力とともに前進し続けます。",
       about_p4: "グループは誠実で親しみやすいパフォーマンスを大切にし、前向きなエネルギーと爽やかさ、自然な笑顔を世界中の観客と分かち合うことを目指しています。",
       about_slogan: "NPT48 – 山から海へ、自然が奏でる歌。",
 
