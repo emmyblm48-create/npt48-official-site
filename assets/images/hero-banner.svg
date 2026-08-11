@@ -1,0 +1,15 @@
+<svg viewBox="0 0 1200 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#eaf7ff"/>
+      <stop offset="55%" stop-color="#9adcff"/>
+      <stop offset="100%" stop-color="#4ea3df"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="500" fill="url(#sky)"/>
+  <circle cx="1000" cy="120" r="70" fill="#ffffff" opacity="0.55"/>
+  <path fill="#7fc9ec" opacity="0.55" d="M0 320 L150 220 L320 300 L500 180 L700 310 L900 210 L1050 300 L1200 240 L1200 500 L0 500 Z"/>
+  <path fill="#4ea3df" opacity="0.75" d="M0 380 L180 300 L380 370 L580 260 L780 390 L980 280 L1200 360 L1200 500 L0 500 Z"/>
+  <path fill="#1a3b5c" opacity="0.85" d="M0 440 L200 390 L420 440 L640 370 L860 440 L1080 390 L1200 430 L1200 500 L0 500 Z"/>
+  <text x="600" y="230" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-size="72" font-weight="300" letter-spacing="14" fill="#ffffff">NPT48</text>
+</svg>

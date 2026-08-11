@@ -8,6 +8,8 @@ function doGet(e) {
     output = { error: 'Sheet not found: ' + sheetName };
   } else if (sheetName === 'Discography') {
     output = readDiscography(sheet);
+  } else if (sheetName === 'Schedule') {
+    output = readSchedule(sheet);
   } else {
     output = readProfile(sheet);
   }
@@ -35,7 +37,24 @@ function readProfile(sheet) {
         province: row[9],
         hobby: row[10],
         instagram: row[11],
-        image: row[12]
+        image: row[12],
+        imageAlt: row[13]
+      };
+    });
+}
+
+function readSchedule(sheet) {
+  var rows = sheet.getDataRange().getValues().slice(1);
+  return rows
+    .filter(function (row) { return String(row[3]).trim() !== ''; })
+    .map(function (row) {
+      return {
+        date: row[0],
+        time: row[1],
+        type: row[2],
+        title: row[3],
+        place: row[4],
+        link: row[5]
       };
     });
 }

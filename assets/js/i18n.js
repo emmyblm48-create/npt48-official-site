@@ -9,6 +9,7 @@
   var translations = {
     th: {
       nav_home: "หน้าแรก",
+      nav_schedule: "ตารางงาน",
       nav_about: "เกี่ยวกับวง",
       nav_profile: "โปรไฟล์สมาชิก",
       nav_discography: "ผลงานเพลง",
@@ -55,11 +56,22 @@
       filter_all: "ทั้งหมด",
       filter_single: "ซิงเกิล",
       filter_album: "อัลบั้ม",
-      watch_mv: "ชม MV"
+      watch_mv: "ชม MV",
+
+      schedule_header: "ข่าวสารและตารางงาน",
+      schedule_empty: "ยังไม่มีตารางงานในตอนนี้",
+      label_place: "สถานที่",
+      label_details: "รายละเอียด",
+
+      schedule_teaser_title: "ตารางงานที่กำลังจะถึง",
+      schedule_teaser_cta: "ดูตารางงานทั้งหมด",
+      disco_teaser_title: "ผลงานล่าสุด",
+      disco_teaser_cta: "ดูผลงานทั้งหมด"
     },
 
     en: {
       nav_home: "HOME",
+      nav_schedule: "SCHEDULE",
       nav_about: "ABOUT NPT48?",
       nav_profile: "PROFILE",
       nav_discography: "DISCOGRAPHY",
@@ -106,11 +118,22 @@
       filter_all: "ALL",
       filter_single: "SINGLE",
       filter_album: "ALBUM",
-      watch_mv: "WATCH MV"
+      watch_mv: "WATCH MV",
+
+      schedule_header: "NEWS & SCHEDULE",
+      schedule_empty: "No scheduled events yet.",
+      label_place: "Place",
+      label_details: "Details",
+
+      schedule_teaser_title: "UPCOMING SCHEDULE",
+      schedule_teaser_cta: "SEE FULL SCHEDULE",
+      disco_teaser_title: "LATEST RELEASES",
+      disco_teaser_cta: "SEE ALL RELEASES"
     },
 
     jp: {
       nav_home: "ホーム",
+      nav_schedule: "スケジュール",
       nav_about: "概要",
       nav_profile: "メンバー",
       nav_discography: "ディスコグラフィー",
@@ -157,7 +180,17 @@
       filter_all: "すべて",
       filter_single: "シングル",
       filter_album: "アルバム",
-      watch_mv: "MVを見る"
+      watch_mv: "MVを見る",
+
+      schedule_header: "ニュース&スケジュール",
+      schedule_empty: "予定されているイベントはまだありません。",
+      label_place: "場所",
+      label_details: "詳細",
+
+      schedule_teaser_title: "今後の予定",
+      schedule_teaser_cta: "スケジュールをすべて見る",
+      disco_teaser_title: "最新リリース",
+      disco_teaser_cta: "すべての作品を見る"
     }
   };
 

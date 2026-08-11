@@ -6,143 +6,107 @@
   <title>NPT48 Official - PROFILE</title>
   <link rel="icon" type="image/png" href="assets/images/logo.png">
 
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Kanit:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Caveat:wght@500;600;700&family=Kanit:wght@300;400;500;600;700&family=Nunito:wght@400;500;600;700;800&family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="assets/css/site.css">
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--font-body);
-      background: #fbfeff;
-      color: var(--npt-ink);
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
+    body { overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+    #grid-view { display: none; }
+    .member-bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px 22px; }
+    @media (max-width: 1024px) { .member-bento { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 680px) { .member-bento { grid-template-columns: repeat(2, 1fr); gap: 30px 14px; } }
+
+    .member-slot { text-align: center; }
+    .member-slot .polaroid { cursor: pointer; }
+    .member-slot:nth-child(3n+1) .polaroid { transform: rotate(-3deg); }
+    .member-slot:nth-child(3n+2) .polaroid { transform: rotate(2deg); }
+    .member-slot:nth-child(3n) .polaroid { transform: rotate(-1deg); }
+    .member-slot .polaroid-frame { background: var(--lavender); }
+    .member-slot .polaroid-cap { font-size: 18px; }
+    .member-slot .slot-sub { font-size: 11px; font-weight: 700; color: var(--ink-faint); letter-spacing: 0.5px; margin-top: 8px; text-transform: uppercase; }
+    .member-slot .slot-btn {
+      margin-top: 10px; background: var(--lavender); border: none; color: var(--navy-deep); font-family: var(--font-display);
+      font-size: 12.5px; font-weight: 600; padding: 8px 20px; cursor: pointer; border-radius: var(--r-pill);
+      transition: background var(--dur);
     }
+    .member-slot .slot-btn:hover { background: var(--sky); }
 
-    #loading-overlay { text-align: center; padding: 90px 0; color: var(--npt-ink-soft); font-weight: 600; letter-spacing: 1px; }
-    .spinner-ring {
-      width: 46px; height: 46px; margin: 0 auto 18px; border-radius: 50%;
-      border: 5px solid var(--npt-mist); border-top-color: var(--npt-sky); animation: spin 0.9s linear infinite;
+    #detail-view { display: none; animation: detailIn 0.4s ease; }
+    @keyframes detailIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+    .back-doodle {
+      display: inline-flex; align-items: center; gap: 8px; color: var(--navy-deep); cursor: pointer; font-weight: 700;
+      margin-bottom: 26px; font-family: var(--font-display); font-size: 14px; background: none; border: none;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .back-doodle:hover { text-decoration: underline; }
 
-    .filter-tabs { display: flex; justify-content: center; gap: 12px; margin-bottom: 44px; flex-wrap: wrap; }
-    .tab-btn {
-      background: var(--npt-mist); border: none; font-family: var(--font-body); font-size: 14px; font-weight: 700;
-      color: var(--npt-ink); cursor: pointer; letter-spacing: 0.5px; padding: 11px 30px; transition: all 0.2s ease;
-      border-radius: var(--radius-pill);
+    .fan-layout { display: flex; gap: 40px; align-items: flex-start; text-align: left; }
+    @media (max-width: 760px) { .fan-layout { flex-direction: column; align-items: center; } }
+    .fan-photo { flex: 0 0 auto; width: min(320px, 100%); }
+    .fan-card .polaroid-frame { aspect-ratio: 3/4; background: var(--lavender); }
+    .fan-card { transform: rotate(-2deg); }
+    .fan-card .polaroid-cap { font-size: 20px; }
+
+    .fan-sheet { flex: 1; min-width: 260px; }
+    #m-name-th { font-family: var(--font-accent); font-size: 40px; color: var(--navy-deep); font-weight: 600; }
+    #m-name-en { color: var(--ink-soft); font-size: 14px; font-weight: 700; letter-spacing: 0.5px; margin-top: 2px; }
+
+    .stat-row { display: grid; grid-template-columns: 130px 1fr; padding: 11px 0; border-bottom: 1px dashed var(--line); }
+    .stat-label { font-family: var(--font-display); color: var(--ink-faint); font-size: 12.5px; font-weight: 600; }
+    .stat-value { color: var(--ink); font-size: 15px; font-weight: 600; }
+
+    .fan-social { display: flex; gap: 10px; margin-top: 22px; }
+    .fan-social a {
+      width: 40px; height: 40px; border-radius: 50%; background: var(--lavender); color: var(--navy-deep);
+      display: inline-flex; align-items: center; justify-content: center; text-decoration: none; transition: all var(--dur);
     }
-    .tab-btn.active, .tab-btn:hover { background: var(--npt-sky); }
-
-    #main-view { display: none; }
-    .members-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px 24px; }
-    @media (max-width: 1024px) { .members-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 680px) { .members-grid { grid-template-columns: repeat(2, 1fr); gap: 20px 14px; } }
-
-    .member-card { display: flex; flex-direction: column; align-items: center; text-align: center; transition: transform 0.3s ease; }
-    .member-card:hover { transform: translateY(-6px); }
-
-    .photo-box {
-      width: 100%; aspect-ratio: 3 / 4; overflow: hidden; background: var(--npt-mist); margin-bottom: 14px;
-      cursor: pointer; border-radius: var(--radius-lg); box-shadow: var(--shadow-soft); border: 3px solid var(--npt-sky);
-      display: flex; align-items: center; justify-content: center; color: var(--npt-sky-deep); font-size: 3rem;
-    }
-    .member-card:nth-child(4n+2) .photo-box { border-color: var(--npt-leaf-deep); }
-    .member-card:nth-child(4n+3) .photo-box { border-color: var(--npt-sand-deep); }
-    .member-card:nth-child(4n) .photo-box { border-color: var(--npt-mist-deep); }
-    .member-photo { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
-    .member-card:hover .member-photo { transform: scale(1.05); }
-
-    .card-info { width: 100%; margin-bottom: 14px; cursor: pointer; }
-    .member-name-main { font-family: var(--font-display); font-size: 16px; font-weight: 500; color: var(--npt-ink); line-height: 1.3; }
-    .member-name-sub { font-size: 11px; font-weight: 600; color: var(--npt-ink-faint); letter-spacing: 0.5px; margin-top: 3px; text-transform: uppercase; }
-
-    .card-actions { width: 100%; }
-    .card-btn {
-      width: 100%; background: var(--npt-mist); border: none; color: var(--npt-ink); font-family: var(--font-body);
-      font-size: 13px; font-weight: 700; padding: 9px 0; cursor: pointer; transition: all 0.2s ease;
-      border-radius: var(--radius-pill); letter-spacing: 0.5px;
-    }
-    .card-btn:hover { background: var(--npt-sky); }
-
-    #detail-view { display: none; animation: fadeIn 0.4s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
-    .back-btn {
-      display: inline-flex; align-items: center; gap: 8px; color: var(--npt-ink); cursor: pointer; font-weight: 700;
-      margin-bottom: 28px; transition: gap 0.2s, color 0.2s; font-size: 14px; letter-spacing: 0.5px;
-    }
-    .back-btn::before { content: '\f060'; font-family: 'Font Awesome 6 Free'; font-weight: 900; font-size: 12px; }
-    .back-btn:hover { gap: 12px; color: var(--npt-sky-deep); }
-
-    .detail-layout { display: flex; flex-direction: row; gap: 44px; text-align: left; }
-    .detail-image-box { flex: 1; min-width: 280px; max-width: 420px; }
-    .detail-image { width: 100%; border-radius: var(--radius-xl); box-shadow: var(--shadow-soft); border: 4px solid var(--npt-sky); }
-    .detail-content { flex: 1.5; min-width: 280px; }
-
-    .info-header { border-bottom: 2px solid var(--npt-mist); padding-bottom: 16px; margin-bottom: 20px; }
-    #m-name-th { font-family: var(--font-display); font-size: 32px; margin: 0; color: var(--npt-ink); font-weight: 600; }
-    #m-name-en { color: var(--npt-ink-soft); font-size: 15px; margin: 6px 0 0 0; font-weight: 600; letter-spacing: 0.5px; }
-
-    .info-row { display: grid; grid-template-columns: 140px 1fr; padding: 12px 0; border-bottom: 1px dashed var(--npt-line); }
-    .info-label { color: var(--npt-ink-faint); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-    .info-value { color: var(--npt-ink); font-size: 15.5px; font-weight: 600; }
-
-    .social-section { display: flex; gap: 12px; margin-top: 26px; }
-    .social-link {
-      display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%;
-      background: var(--npt-mist); color: var(--npt-ink); font-size: 18px; text-decoration: none; transition: all 0.3s ease;
-    }
-    .social-link:hover { background: var(--npt-sky); transform: translateY(-3px); }
-
-    @media (max-width: 768px) {
-      .detail-layout { flex-direction: column; align-items: center; }
-      .detail-image-box, .detail-content { min-width: 100%; max-width: 100%; }
-      .info-header { text-align: center; }
-      .social-section { justify-content: center; }
-    }
-    @media (max-width: 480px) {
-      .info-row { grid-template-columns: 1fr; gap: 4px; }
-      .info-label { font-size: 12px; }
-    }
+    .fan-social a:hover { background: var(--sky); transform: translateY(-3px); }
   </style>
 </head>
 <body>
 
   <div id="site-header"></div>
-  <script src="assets/js/i18n.js"></script>
   <script src="assets/js/nav.js"></script>
   <script src="assets/js/data.js"></script>
+  <script src="assets/js/reveal.js"></script>
 
   <main class="page-shell">
-    <div class="page-hero">
-      <h1 class="page-hero-title" data-i18n="profile_header">PROFILE</h1>
-      <div class="page-hero-underline"></div>
+    <div class="page-title-block" data-pop>
+      <span class="sticker sticker-sky"><i class="fas fa-users"></i> the members</span>
+      <h1>โปรไฟล์สมาชิก</h1>
     </div>
 
     <div id="loading-overlay">
-      <div class="spinner-ring"></div>
-      <div data-i18n="loading_text">LOADING NPT48...</div>
+      <div class="spinner-blob"></div>
+      <div>กำลังโหลดข้อมูล NPT48...</div>
     </div>
 
-    <div id="main-view">
-      <div class="filter-tabs" id="filterTabs"></div>
-      <div id="member-grid" class="members-grid"></div>
+    <div id="grid-view">
+      <div class="chip-row" id="filterChips"></div>
+      <div id="member-grid" class="member-bento pop-in-stagger" data-pop></div>
     </div>
 
     <div id="detail-view">
-      <div class="back-btn" onclick="goBack()"><span data-i18n="back_btn">BACK</span></div>
-      <div class="detail-layout">
-        <div class="detail-image-box"><img id="m-img" class="detail-image" alt="Member Photo"></div>
-        <div class="detail-content">
-          <div class="info-header">
-            <h1 id="m-name-th"></h1>
-            <p id="m-name-en"></p>
+      <button type="button" class="back-doodle" onclick="goBack()"><i class="fas fa-arrow-left"></i> กลับไปดูเพื่อนๆ</button>
+      <div class="fan-layout">
+        <div class="fan-photo">
+          <div class="polaroid fan-card">
+            <div class="tape tape-tl"></div>
+            <div class="polaroid-frame">
+              <img id="m-img" style="width:100%;height:100%;object-fit:cover" alt="Member Photo" loading="lazy">
+            </div>
+            <div class="polaroid-cap font-accent" id="m-cap"></div>
           </div>
-          <div id="m-info-table"></div>
-          <div class="social-section" id="m-social"></div>
+        </div>
+        <div class="fan-sheet">
+          <h1 id="m-name-th"></h1>
+          <p id="m-name-en"></p>
+          <div id="m-info-table" style="margin-top:20px"></div>
+          <div class="fan-social" id="m-social"></div>
         </div>
       </div>
     </div>
@@ -156,8 +120,6 @@
     var currentTeamFilter = 'ALL';
     var currentMemberName = null;
 
-    function T(key) { return (window.NPT48_I18N && window.NPT48_I18N.t(key)) || key; }
-
     function init() {
       if (!window.NPT48_DATA.isConfigured()) {
         document.getElementById('loading-overlay').innerHTML =
@@ -167,30 +129,30 @@
       window.NPT48_DATA.fetchSheet('Profile')
         .then(function (data) {
           membersData = data;
-          buildFilterTabs();
+          buildFilterChips();
           renderGrid('ALL');
           document.getElementById('loading-overlay').style.display = 'none';
-          document.getElementById('main-view').style.display = 'block';
+          document.getElementById('grid-view').style.display = 'block';
         })
         .catch(function () {
-          document.getElementById('loading-overlay').innerHTML = T('load_error');
+          document.getElementById('loading-overlay').innerHTML = 'ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่ภายหลัง';
         });
     }
 
-    function buildFilterTabs() {
+    function buildFilterChips() {
       var teams = [];
       membersData.forEach(function (m) {
         if (m.team && teams.indexOf(m.team) === -1) teams.push(m.team);
       });
-      var wrap = document.getElementById('filterTabs');
-      var html = '<button class="tab-btn active" data-team="ALL" data-i18n="tab_all">' + T('tab_all') + '</button>';
+      var wrap = document.getElementById('filterChips');
+      var html = '<button class="chip active" data-team="ALL">ทั้งหมด</button>';
       teams.forEach(function (team) {
-        html += '<button class="tab-btn" data-team="' + team + '">' + team + '</button>';
+        html += '<button class="chip" data-team="' + team + '">' + team + '</button>';
       });
       wrap.innerHTML = html;
-      wrap.querySelectorAll('.tab-btn').forEach(function (btn) {
+      wrap.querySelectorAll('.chip').forEach(function (btn) {
         btn.addEventListener('click', function () {
-          wrap.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
+          wrap.querySelectorAll('.chip').forEach(function (b) { b.classList.remove('active'); });
           btn.classList.add('active');
           currentTeamFilter = btn.getAttribute('data-team');
           renderGrid(currentTeamFilter);
@@ -198,40 +160,33 @@
       });
     }
 
-    document.addEventListener('npt48:langchange', function () {
-      if (!membersData.length) return;
-      if (document.getElementById('detail-view').style.display === 'block' && currentMemberName) {
-        viewDetail(currentMemberName);
-      } else {
-        renderGrid(currentTeamFilter);
-      }
-    });
-
     function renderGrid(team) {
       var grid = document.getElementById('member-grid');
       var filtered = team === 'ALL' ? membersData : membersData.filter(function (m) { return m.team === team; });
 
       if (!filtered.length) {
-        grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--npt-ink-soft)">' + T('load_error') + '</p>';
+        grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--ink-soft)">ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่ภายหลัง</p>';
         return;
       }
 
       grid.innerHTML = filtered.map(function (m) {
-        var nameMain = m.fullNameTH || m.name;
         var nameSub = (m.fullNameEN || m.name).toString().toUpperCase();
         var img = window.NPT48_DATA.getDirectImgLink(m.image);
+        var altImg = m.imageAlt ? window.NPT48_DATA.getDirectImgLink(m.imageAlt) : img;
         return '' +
-          '<div class="member-card">' +
-            '<div class="photo-box" onclick="viewDetail(\'' + m.name + '\')">' +
-              '<img src="' + img + '" class="member-photo" alt="' + m.name + '" onerror="this.style.display=\'none\'">' +
+          '<div class="member-slot">' +
+            '<div class="polaroid" tabindex="0" role="button" aria-label="โปรไฟล์ ' + m.name + '" onclick="viewDetail(\'' + m.name + '\')">' +
+              '<div class="polaroid-frame">' +
+                '<div class="photo-stack">' +
+                  '<img src="' + img + '" class="photo-base" alt="' + m.name + '" loading="lazy" onerror="this.style.display=\'none\'">' +
+                  '<img src="' + altImg + '" class="photo-alt" alt="' + m.name + '" loading="lazy" onerror="this.style.display=\'none\'">' +
+                '</div>' +
+                '<span class="sparkle-veil"></span>' +
+              '</div>' +
+              '<div class="polaroid-cap font-accent">' + m.name + '</div>' +
             '</div>' +
-            '<div class="card-info" onclick="viewDetail(\'' + m.name + '\')">' +
-              '<div class="member-name-main">' + nameMain + '</div>' +
-              '<div class="member-name-sub">' + nameSub + '</div>' +
-            '</div>' +
-            '<div class="card-actions">' +
-              '<button class="card-btn" onclick="viewDetail(\'' + m.name + '\')">' + T('btn_profile') + '</button>' +
-            '</div>' +
+            '<div class="slot-sub">' + nameSub + '</div>' +
+            '<button class="slot-btn" onclick="viewDetail(\'' + m.name + '\')">ดูโปรไฟล์ <i class="fas fa-star"></i></button>' +
           '</div>';
       }).join('');
     }
@@ -241,38 +196,47 @@
       if (!m) return;
       currentMemberName = nickname;
       document.getElementById('m-img').src = window.NPT48_DATA.getDirectImgLink(m.image);
+      document.getElementById('m-cap').innerText = m.name;
       document.getElementById('m-name-th').innerText = m.fullNameTH || m.name;
       document.getElementById('m-name-en').innerText = m.fullNameEN || '';
 
       var infoList = [
-        { label: T('label_generation'), value: m.generation },
-        { label: T('label_team'), value: m.team },
-        { label: T('label_birthday'), value: m.birthday },
-        { label: T('label_oshimark'), value: m.oshiMark },
-        { label: T('label_province'), value: m.province },
-        { label: T('label_bloodtype'), value: m.bloodType },
-        { label: T('label_like'), value: m.like },
-        { label: T('label_hobby'), value: m.hobby }
+        { label: 'รุ่น', value: m.generation },
+        { label: 'ทีม', value: m.team },
+        { label: 'วันเกิด', value: m.birthday },
+        { label: 'โอชิมาร์ค', value: m.oshiMark },
+        { label: 'จังหวัด', value: m.province },
+        { label: 'กรุ๊ปเลือด', value: m.bloodType },
+        { label: 'สิ่งที่ชอบ', value: m.like },
+        { label: 'งานอดิเรก', value: m.hobby }
       ];
 
       document.getElementById('m-info-table').innerHTML = infoList.map(function (item) {
-        return '<div class="info-row"><div class="info-label">' + item.label + '</div><div class="info-value">' + (item.value || '-') + '</div></div>';
+        return '<div class="stat-row"><div class="stat-label">' + item.label + '</div><div class="stat-value">' + (item.value || '-') + '</div></div>';
       }).join('');
 
       var sHTML = '';
-      if (m.instagram && m.instagram !== '-') sHTML += '<a href="' + m.instagram + '" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>';
+      if (m.instagram && m.instagram !== '-') sHTML += '<a href="' + m.instagram + '" target="_blank"><i class="fab fa-instagram"></i></a>';
       document.getElementById('m-social').innerHTML = sHTML;
 
-      document.getElementById('main-view').style.display = 'none';
+      document.getElementById('grid-view').style.display = 'none';
       document.getElementById('detail-view').style.display = 'block';
       window.scrollTo(0, 0);
     }
 
     function goBack() {
       document.getElementById('detail-view').style.display = 'none';
-      document.getElementById('main-view').style.display = 'block';
+      document.getElementById('grid-view').style.display = 'block';
       window.scrollTo(0, 0);
     }
+
+    document.getElementById('member-grid').addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      var target = e.target.closest('[role="button"]');
+      if (!target) return;
+      e.preventDefault();
+      target.click();
+    });
 
     init();
   </script>

@@ -6,71 +6,87 @@
   <title>NPT48 Official - ABOUT</title>
   <link rel="icon" type="image/png" href="assets/images/logo.png">
 
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Kanit:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Caveat:wght@500;600;700&family=Kanit:wght@300;400;500;600;700&family=Nunito:wght@400;500;600;700;800&family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="assets/css/site.css">
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--font-body);
-      background: #fbfeff;
-      color: var(--npt-ink);
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
+    body { overflow-x: hidden; -webkit-font-smoothing: antialiased; }
 
-    .about-box {
-      max-width: 760px; margin: 0 auto; padding: clamp(30px, 6vw, 56px) clamp(20px, 5vw, 56px);
-      background: var(--npt-mist); border-radius: var(--radius-xl); text-align: center;
+    .journal-spread { max-width: 940px; margin: 0 auto; display: grid; grid-template-columns: 240px 1fr; gap: 40px; align-items: start; }
+    @media (max-width: 720px) { .journal-spread { grid-template-columns: 1fr; justify-items: center; text-align: center; } }
+
+    .journal-photo { width: 100%; max-width: 240px; }
+    .journal-photo .polaroid { transform: rotate(-4deg); }
+    .journal-photo .polaroid-frame { background: var(--lavender); aspect-ratio: 1/1; }
+    .journal-photo .polaroid-cap { font-size: 22px; }
+
+    .journal-facts { margin-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+    .journal-facts .sticker { align-self: flex-start; transform: rotate(-1deg); }
+    @media (max-width: 720px) { .journal-facts { align-items: center; } .journal-facts .sticker { align-self: center; } }
+
+    .journal-body h1 {
+      font-family: var(--font-accent); font-size: clamp(2.4rem, 6vw, 3.4rem); color: var(--navy-deep); font-weight: 700;
+      line-height: 1.1; margin-bottom: 4px;
     }
-    .about-logo { display: block; height: clamp(70px, 14vw, 110px); width: auto; margin: 0 auto 20px; border-radius: 20px; }
-    .about-title { font-family: var(--font-display); color: var(--npt-ink); letter-spacing: 2px; margin-bottom: 6px; font-weight: 600; font-size: clamp(28px, 6vw, 40px); }
-    .sub-title { color: var(--npt-ink-soft); font-size: clamp(0.9rem, 2.5vw, 1.05rem); margin-bottom: 34px; letter-spacing: 3px; font-weight: 600; }
-    .text-content { line-height: 1.85; color: var(--npt-ink-soft); font-size: clamp(0.95rem, 2.8vw, 1.08rem); text-align: center; }
-    .text-content p { margin-bottom: 20px; }
-    .highlight {
-      color: var(--npt-ink); font-weight: 700; background: linear-gradient(transparent 65%, var(--npt-sky) 65%);
-      display: inline; padding-bottom: 1px;
+    .journal-sub { font-family: var(--font-display); font-size: 13px; letter-spacing: 3px; color: var(--ink-faint); font-weight: 600; margin-bottom: 22px; }
+
+    .journal-lines p {
+      color: var(--ink); line-height: 2; font-size: 1rem; padding-bottom: 14px;
+      border-bottom: 1px dashed var(--line); margin-bottom: 14px;
     }
-    .slogan {
-      margin-top: 36px; font-family: var(--font-display); color: var(--npt-ink); font-size: clamp(1.05rem, 3vw, 1.25rem);
-      font-weight: 500; padding-top: 24px; border-top: 2px solid var(--npt-white);
+    .journal-lines p:last-child { border-bottom: none; }
+    .journal-lines .hi { background: linear-gradient(transparent 62%, var(--sky) 62%); font-weight: 700; }
+
+    .quote-card {
+      margin-top: 30px; text-align: center; padding: 26px; transform: rotate(-1deg);
     }
-    @media (max-width: 680px) {
-      .text-content { text-align: left; }
-      .text-content p { text-align: justify; text-justify: inter-word; }
-      .slogan { text-align: center; }
-    }
+    .quote-card .quote-text { font-family: var(--font-accent); font-size: clamp(1.3rem, 3.4vw, 1.7rem); color: var(--navy-deep); }
   </style>
 </head>
 <body>
 
   <div id="site-header"></div>
-  <script src="assets/js/i18n.js"></script>
   <script src="assets/js/nav.js"></script>
+  <script src="assets/js/reveal.js"></script>
 
   <main class="page-shell">
-    <div class="page-hero">
-      <h1 class="page-hero-title" data-i18n="about_header">ABOUT</h1>
-      <div class="page-hero-underline"></div>
+    <div class="page-title-block" data-pop>
+      <span class="sticker sticker-lavender"><i class="fas fa-book-open"></i> our story</span>
+      <h1>เกี่ยวกับเรา</h1>
     </div>
 
-    <div class="about-box">
-      <img class="about-logo" src="assets/images/logo.png" alt="NPT48 Logo">
-      <h2 class="about-title">NPT48</h2>
-      <div class="sub-title">( NEW PLANET 48 )</div>
+    <div class="journal-spread" data-pop>
+      <div class="journal-photo">
+        <div class="polaroid">
+          <div class="tape tape-tl tape-mint"></div>
+          <div class="polaroid-frame"><img src="assets/images/logo.png" alt="NPT48 Logo" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="polaroid-cap font-accent">NPT48</div>
+        </div>
+        <div class="journal-facts">
+          <span class="sticker sticker-mint"><i class="fas fa-mountain"></i> ขุนเขา</span>
+          <span class="sticker sticker-sky"><i class="fas fa-water"></i> ท้องทะเล</span>
+          <span class="sticker sticker-sand"><i class="fas fa-hand-holding-heart"></i> ไม่แสวงหาผลกำไร</span>
+        </div>
+      </div>
 
-      <div class="text-content">
-        <p><span class="highlight" data-i18n="about_p1">NPT48 (short for New Planet 48) is a Thai non-commercial virtual idol group, with a baby blue brand color inspired by the calm of the mountains and the sea.</span></p>
-        <p data-i18n="about_p2">Just like BNK48, NPT48 holds regular auditions to recruit new members. Successful candidates begin as Trainee members — an in-training team that works as support for the official members across a variety of activities.</p>
-        <p data-i18n="about_p3">When an official member graduates, a Trainee is promoted to fill the vacant position, so NPT48 can keep moving forward with fresh energy.</p>
-        <p data-i18n="about_p4">The group focuses on sincere, approachable performances, sharing positive energy, freshness, and natural smiles with audiences everywhere.</p>
-        <div class="slogan" data-i18n="about_slogan">NPT48 – From the mountains to the sea, songs from nature.</div>
+      <div class="journal-body">
+        <h1>NPT48</h1>
+        <div class="journal-sub">( NEW PLANET 48 )</div>
+        <div class="journal-lines">
+          <p><span class="hi">NPT48 (ย่อมาจาก New Planet 48) คือกลุ่มไอดอลชายเสมือนจริง (Virtual Idol) สัญชาติไทย แบบไม่แสวงหาผลกำไร</span> มีสีประจำวงเป็นสีฟ้า ที่ได้แรงบันดาลใจจากความสงบของขุนเขาและท้องทะเล</p>
+          <p>เช่นเดียวกับ BNK48 ทาง NPT48 จะจัดออดิชันรับสมัครสมาชิกใหม่อยู่เป็นประจำ ผู้ที่ผ่านการคัดเลือกจะเริ่มต้นในฐานะ Trainee หรือสมาชิกฝึกหัด ซึ่งเป็นทีมที่คอยเป็นตัวสำรองและสนับสนุนสมาชิกตัวจริงในกิจกรรมต่างๆ</p>
+          <p>เมื่อสมาชิกตัวจริงคนใดคนหนึ่งจบการศึกษา (graduate) ออกจากวง สมาชิก Trainee จะได้รับการเลื่อนขั้นขึ้นมาเติมเต็มตำแหน่งที่ว่างลง เพื่อให้ NPT48 เดินหน้าต่อไปได้ด้วยพลังใหม่ๆ</p>
+          <p>กลุ่มมุ่งเน้นการแสดงที่จริงใจและเข้าถึงง่าย พร้อมส่งต่อพลังบวก ความสดชื่น และรอยยิ้มแบบธรรมชาติสู่ผู้ชมทุกที่</p>
+        </div>
       </div>
     </div>
 
+    <div class="stitch-card quote-card" data-pop>
+      <div class="quote-text">"NPT48 – จากขุนเขาสู่ท้องทะเล เสียงเพลงจากธรรมชาติ"</div>
+    </div>
   </main>
 
   <div id="site-footer"></div>
