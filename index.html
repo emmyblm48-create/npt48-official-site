@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#07070d">
+  <meta name="theme-color" content="#ffffff">
   <title>NPT48 Official Home — New Era</title>
   <link rel="icon" type="image/png" href="assets/images/logo.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&family=Kanit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Kanit:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="assets/css/site.css">
 
@@ -16,147 +18,6 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-
-    /* ---- Splash / boot sequence ---- */
-    #splash {
-      position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center;
-      background: radial-gradient(120% 120% at 50% 20%, #14142a 0%, #07070d 70%);
-      transition: opacity 0.8s ease, visibility 0.8s;
-    }
-    #splash.gone { opacity: 0; visibility: hidden; }
-    .splash-card { text-align: center; position: relative; }
-    .splash-ring {
-      width: 84px; height: 84px; border-radius: 50%; margin: 0 auto 22px; padding: 3px;
-      background: conic-gradient(from 0deg, var(--holo-blue), var(--holo-purple), var(--holo-pink), var(--holo-cyan), var(--holo-blue));
-      animation: spinSlow 2.2s linear infinite;
-    }
-    .splash-ring img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; background: var(--bg-2); }
-    .splash-card .word {
-      font-family: var(--font-display); font-size: clamp(2.2rem, 8vw, 3.2rem); font-weight: 800; letter-spacing: 2px;
-      color: var(--ink); text-transform: uppercase;
-    }
-    .splash-card .sub {
-      font-family: var(--font-mono); font-size: 11px; letter-spacing: 3px; color: var(--holo-cyan); margin-top: 10px;
-      text-transform: uppercase;
-    }
-    .splash-bar { width: 220px; height: 3px; background: rgba(255,255,255,0.1); border-radius: 4px; margin: 22px auto 0; overflow: hidden; }
-    .splash-bar-fill { height: 100%; background: var(--holo-grad); animation: splashLoad 2.2s ease forwards; }
-    @keyframes splashLoad { from { width: 0%; } to { width: 100%; } }
-    .drift { position: absolute; pointer-events: none; animation: driftUp linear infinite; font-size: 16px; color: var(--holo-cyan); opacity: 0.7; filter: drop-shadow(0 0 6px currentColor); }
-    @keyframes driftUp { 0% { transform: translateY(0) rotate(0deg); opacity: 0; } 15% { opacity: 0.9; } 100% { transform: translateY(-120vh) rotate(200deg); opacity: 0; } }
-
-    /* ---- Hero bento ---- */
-    .hero-wrap { max-width: 1240px; width: 94%; margin: 10px auto 0; }
-    .hero-eyebrow {
-      font-family: var(--font-mono); font-size: 11px; letter-spacing: 3px; color: var(--holo-cyan); text-transform: uppercase;
-      display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
-    }
-    .hero-eyebrow::before { content: ''; width: 26px; height: 1px; background: var(--holo-cyan); }
-    .hero-bento { display: grid; grid-template-columns: 1.15fr 1fr; gap: 30px; align-items: center; }
-    @media (max-width: 880px) { .hero-bento { grid-template-columns: 1fr; } }
-
-    .hero-wordmark {
-      font-size: clamp(3rem, 9vw, 6rem); line-height: 0.94; font-weight: 800; text-transform: uppercase;
-      color: var(--ink); margin-bottom: 6px;
-    }
-    .hero-tagline { font-family: var(--font-mono); font-size: clamp(0.9rem, 1.6vw, 1.05rem); color: var(--holo-pink); letter-spacing: 0.5px; margin-bottom: 18px; }
-    .hero-body { color: var(--ink-soft); line-height: 1.9; max-width: 46ch; margin-bottom: 30px; font-size: 0.98rem; }
-    .hero-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-
-    .hero-visual { position: relative; }
-    .hero-polaroid .polaroid-frame { aspect-ratio: 3/4; min-height: 340px; }
-    .hero-polaroid .polaroid-frame video, .hero-polaroid .polaroid-frame .frame-fallback {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-      background: linear-gradient(160deg, var(--surface-2), var(--bg-2));
-    }
-    .hero-polaroid .polaroid-cap { font-size: 15px; }
-    .hero-float-chip {
-      position: absolute; background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--r-md);
-      padding: 12px 16px; box-shadow: var(--shadow-hover); display: flex; gap: 10px; align-items: flex-start;
-      max-width: 230px; text-decoration: none; color: inherit; backdrop-filter: blur(10px);
-      animation: floatChip 5s ease-in-out infinite;
-    }
-    .hero-float-chip:hover { border-color: var(--holo-cyan); }
-    .chip-1 { top: -6%; left: -12%; animation-delay: 0s; }
-    .chip-2 { bottom: 8%; right: -14%; animation-delay: 1.2s; }
-    @media (max-width: 880px) { .chip-1, .chip-2 { position: static; margin-top: 14px; max-width: 100%; animation: none; } }
-    @keyframes floatChip { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-    .chip-note { font-size: 12.5px; color: var(--ink); line-height: 1.5; font-weight: 500; }
-
-    /* ---- Marquee section ---- */
-    .ticker-wrap { max-width: 100%; margin: 54px 0; }
-
-    /* ---- Members string (photocard collection) ---- */
-    .string-wrap { max-width: 1240px; width: 94%; margin: 0 auto 74px; }
-    .string-scroll { overflow-x: auto; overflow-y: hidden; padding: 10px 6px 20px; }
-    .string-scroll::-webkit-scrollbar { height: 6px; }
-    .string-scroll::-webkit-scrollbar-thumb { background: var(--holo-purple-deep); border-radius: 3px; }
-    .string-track { display: flex; gap: 22px; }
-    .member-clip { flex: 0 0 auto; width: clamp(130px, 20vw, 168px); text-decoration: none; text-align: center; display: block; }
-    .member-clip .polaroid { padding-bottom: 26px; }
-    .member-clip .polaroid-cap { font-size: 14px; }
-    .member-clip .clip-gen { position: absolute; top: 10px; right: 10px; z-index: 3; }
-    .members-empty { color: var(--ink-faint); font-size: 13px; padding: 30px 0; font-family: var(--font-mono); text-align: center; width: 100%; }
-
-    /* ---- Highlight bento (era tiles) ---- */
-    .highlight-grid { max-width: 1240px; width: 94%; margin: 0 auto 74px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-    @media (max-width: 900px) { .highlight-grid { grid-template-columns: repeat(2, 1fr); } }
-    .highlight-tile {
-      aspect-ratio: 1/1; border-radius: var(--r-lg); display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 20px; color: var(--white); font-family: var(--font-display); font-weight: 700; font-size: 14px;
-      box-shadow: var(--shadow-soft); position: relative; overflow: hidden; transition: transform var(--dur) var(--ease);
-      border: 1px solid var(--line);
-    }
-    .highlight-tile:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover), 0 0 30px rgba(155,107,255,0.35); }
-    .highlight-tile::before { content: ''; position: absolute; inset: 0; opacity: 0.9; z-index: -1; }
-    .highlight-tile:nth-child(1)::before { background: linear-gradient(150deg, var(--holo-blue-deep), var(--surface)); }
-    .highlight-tile:nth-child(2)::before { background: linear-gradient(150deg, var(--holo-purple-deep), var(--surface)); }
-    .highlight-tile:nth-child(3)::before { background: linear-gradient(150deg, var(--holo-pink-deep), var(--surface)); }
-    .highlight-tile:nth-child(4)::before { background: linear-gradient(150deg, #d9a336, var(--surface)); }
-    .highlight-tile .tile-icon { font-size: 24px; position: absolute; top: 16px; left: 16px; opacity: 0.95; color: var(--white); }
-
-    /* ---- Teaser sections ---- */
-    .teaser-wrap { max-width: 1240px; width: 94%; margin: 0 auto 74px; }
-    .stamp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    @media (max-width: 760px) { .stamp-grid { grid-template-columns: 1fr; } }
-    .stamp-card {
-      background: var(--surface); border-radius: var(--r-lg); box-shadow: var(--shadow-soft); padding: 18px;
-      display: flex; gap: 14px; align-items: center; border: 1px solid var(--line);
-      transition: transform var(--dur) var(--ease), box-shadow var(--dur), border-color var(--dur);
-    }
-    .stamp-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--holo-cyan); }
-    .stamp-circle {
-      flex-shrink: 0; width: 58px; height: 58px; border-radius: 50%; background: var(--bg-2); color: var(--holo-cyan);
-      display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: var(--font-mono);
-      border: 1px solid var(--line-strong);
-    }
-    .stamp-circle .day { font-size: 17px; font-weight: 700; line-height: 1; }
-    .stamp-circle .month { font-size: 8px; letter-spacing: 0.5px; }
-    .stamp-title { font-family: var(--font-display); font-size: 13.5px; font-weight: 500; color: var(--ink); line-height: 1.4; }
-
-    .cd-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-    @media (max-width: 760px) { .cd-grid { grid-template-columns: repeat(2, 1fr); } }
-    .cd-item { text-align: center; text-decoration: none; }
-    .cd-disc {
-      position: relative; width: 100%; aspect-ratio: 1/1; border-radius: 50%; overflow: hidden;
-      background: conic-gradient(from 90deg, var(--holo-blue), var(--holo-purple), var(--holo-pink), var(--holo-cyan), var(--holo-blue));
-      box-shadow: var(--shadow-soft); margin-bottom: 12px; transition: transform 0.7s var(--ease);
-      border: 5px solid var(--surface); outline: 1px solid var(--line-strong);
-    }
-    .cd-disc::after {
-      content: ''; position: absolute; inset: 0; margin: auto; width: 22%; height: 22%; border-radius: 50%;
-      background: var(--bg); border: 2px solid var(--surface); z-index: 2;
-    }
-    .cd-disc img { width: 100%; height: 100%; object-fit: cover; display: block; position: relative; z-index: 1; }
-    .cd-item:hover .cd-disc { transform: rotate(50deg); }
-    .cd-title { font-family: var(--font-display); font-size: 13px; font-weight: 500; color: var(--ink); }
-
-    /* ---- About postcard teaser ---- */
-    .about-postcard {
-      max-width: 1240px; width: 94%; margin: 0 auto 74px; text-align: center; position: relative;
-    }
-    .about-postcard h2 { font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2.3rem); color: var(--ink); font-weight: 700; }
-    .about-postcard p { max-width: 640px; margin: 14px auto 0; color: var(--ink-soft); line-height: 1.8; }
   </style>
 </head>
 <body>
@@ -164,227 +25,354 @@
   <div id="site-header"></div>
   <script src="assets/js/nav.js"></script>
   <script src="assets/js/data.js"></script>
-  <script src="assets/js/reveal.js"></script>
-  <script src="assets/js/fx.js"></script>
 
-  <!-- Splash -->
-  <div id="splash">
-    <div class="splash-card">
-      <div class="splash-ring"><img src="assets/images/logo.png" alt="NPT48"></div>
-      <div class="word glitch" data-text="NPT48">NPT48</div>
-      <div class="sub">Loading New Era<span id="todaysDate"></span></div>
-      <div class="splash-bar"><div class="splash-bar-fill"></div></div>
+  <!-- HERO -->
+  <section class="hero">
+    <img src="assets/images/hero-banner.svg" alt="NPT48 — จากขุนเขาสู่ท้องทะเล">
+  </section>
+
+  <!-- BENTO STRIP: Birthday + Spotlight -->
+  <div class="bento-row">
+    <div class="bento-card">
+      <div class="bento-card-head">
+        <span class="eyebrow">Birthday This Month</span>
+        <span class="data-date" id="birthdayMonthLabel"></span>
+      </div>
+      <div class="bday-list" id="birthdayList">
+        <div class="bday-empty">...</div>
+      </div>
+      <a href="profile.html" class="arrow-link">ดูสมาชิกทั้งหมด</a>
+    </div>
+    <div class="bento-card">
+      <span class="eyebrow">Latest Release</span>
+      <div id="spotlightCard" style="margin-top:20px">
+        <div class="bday-empty">...</div>
+      </div>
     </div>
   </div>
 
-  <!-- SECTION: Hero bento -->
-  <section class="hero-wrap">
-    <div class="hero-bento">
-      <div>
-        <div class="hero-eyebrow"><i class="fas fa-compact-disc"></i> Virtual Idol · Photocard Era</div>
-        <h1 class="hero-wordmark glitch" data-text="NPT48">NPT48</h1>
-        <div class="hero-tagline">from the mountains, to the sea.</div>
-        <p class="hero-body">กลุ่มไอดอลเสมือนจริงสัญชาติไทย ที่ได้แรงบันดาลใจจากความสงบของขุนเขาและท้องทะเล ส่งต่อความสดใสและรอยยิ้มที่จริงใจสู่ทุกคน — พร้อมภาพลักษณ์ใหม่ยุค Photocard Era</p>
-        <div class="hero-actions">
-          <a href="about.html" class="btn-blob">เกี่ยวกับวง NPT48 <i class="fas fa-heart"></i></a>
-          <a href="profile.html" class="btn-ghost">ดูสมาชิกทั้งหมด <i class="fas fa-users"></i></a>
+  <!-- TOPICS STRIP -->
+  <section class="topics-section">
+    <div class="sec-head no-underline">
+      <h2 class="sec-title">Topics</h2>
+    </div>
+    <div class="rail-wrap">
+      <div class="rail" id="topicsRail">
+        <a href="about.html" class="topic-tile">
+          <div class="topic-thumb"><img src="assets/images/hero-banner.svg" alt="เกี่ยวกับ NPT48"></div>
+          <div class="topic-cap">Mountain &amp; Sea <i class="fas fa-arrow-right"></i></div>
+        </a>
+        <a href="discography.html" class="topic-tile">
+          <div class="topic-thumb"><img src="assets/images/hero-banner.svg" alt="1st Single Coming Soon"></div>
+          <div class="topic-cap">1st Single Coming Soon <i class="fas fa-arrow-right"></i></div>
+        </a>
+        <a href="profile.html" class="topic-tile">
+          <div class="topic-thumb"><img src="assets/images/hero-banner.svg" alt="Meet the Members"></div>
+          <div class="topic-cap">Meet the Members <i class="fas fa-arrow-right"></i></div>
+        </a>
+        <a href="schedule.html" class="topic-tile">
+          <div class="topic-thumb"><img src="assets/images/hero-banner.svg" alt="Follow NPT48 Official"></div>
+          <div class="topic-cap">Follow NPT48 Official <i class="fas fa-arrow-right"></i></div>
+        </a>
+      </div>
+      <button type="button" class="rail-nav-btn rail-nav-prev" id="topicsPrev" aria-label="Previous topics"><i class="fas fa-chevron-left"></i></button>
+      <button type="button" class="rail-nav-btn rail-nav-next" id="topicsNext" aria-label="Next topics"><i class="fas fa-chevron-right"></i></button>
+    </div>
+  </section>
+
+  <!-- MEMBERS -->
+  <section class="members-section">
+    <div class="sec-head no-underline">
+      <h2 class="sec-title">Members</h2>
+      <a href="profile.html" class="arrow-link">ดูสมาชิกทั้งหมด</a>
+    </div>
+    <div class="rail-wrap">
+      <div class="rail" id="membersRail">
+        <div class="bday-empty">กำลังโหลดข้อมูล NPT48...</div>
+      </div>
+      <button type="button" class="rail-nav-btn rail-nav-prev" id="membersPrev" aria-label="Previous members"><i class="fas fa-chevron-left"></i></button>
+      <button type="button" class="rail-nav-btn rail-nav-next" id="membersNext" aria-label="Next members"><i class="fas fa-chevron-right"></i></button>
+    </div>
+  </section>
+
+  <!-- NEWS & SCHEDULE -->
+  <section class="content-box-section">
+    <div>
+      <div class="sec-head no-underline">
+        <h2 class="sec-title">News</h2>
+      </div>
+      <div class="data-list">
+        <div class="data-row">
+          <div class="data-date-group"><span class="kicker kicker-gold">Release</span><span class="data-date">2026.09.12</span></div>
+          <div class="data-title">ประกาศกำหนดการซิงเกิลแรก "Kaze wo Matsu" พร้อมเปิดจองอีเวนต์เปิดตัวที่กรุงเทพฯ</div>
+        </div>
+        <div class="data-row">
+          <div class="data-date-group"><span class="kicker kicker-outline">Event</span><span class="data-date">2026.09.10</span></div>
+          <div class="data-title">เปิดตัวเว็บไซต์ทางการ NPT48 อย่างเป็นทางการวันนี้ พร้อมข้อมูลสมาชิกรุ่นแรกครบทุกคน</div>
+        </div>
+        <div class="data-row">
+          <div class="data-date-group"><span class="kicker kicker-outline">Event</span><span class="data-date">2026.09.01</span></div>
+          <div class="data-title">NPT48 เปิดรับสมัครออดิชันสมาชิกฝึกหัดรุ่นใหม่ เร็วๆ นี้</div>
         </div>
       </div>
+    </div>
 
-      <div class="hero-visual" data-pop>
-        <div class="polaroid tilt hero-polaroid">
-          <div class="polaroid-frame">
-            <video autoplay muted loop playsinline poster="assets/images/hero-banner.svg" onerror="this.style.display='none'">
-              <source src="assets/videos/hero.mp4" type="video/mp4">
-            </video>
-            <div class="frame-fallback"></div>
-          </div>
-          <div class="polaroid-cap">FROM THE MOUNTAINS TO THE SEA</div>
+    <div>
+      <div class="sec-head no-underline">
+        <h2 class="sec-title">Schedule</h2>
+      </div>
+      <div class="data-list" id="scheduleColumn">
+        <div class="data-empty">กำลังโหลดข้อมูล NPT48...</div>
+      </div>
+      <a href="schedule.html" class="arrow-link">ดูตารางงานทั้งหมด</a>
+    </div>
+  </section>
+
+  <!-- VIDEO -->
+  <section class="video-section">
+    <div class="sec-head no-underline">
+      <h2 class="sec-title">MOVIE</h2>
+      <a href="discography.html" class="arrow-link">ดูผลงานทั้งหมด</a>
+    </div>
+
+    <div class="video-swiper-container">
+      <div class="swiper video-swiper">
+        <div class="swiper-wrapper" id="videoWrapper">
+          <div class="swiper-slide"><div class="data-empty">กำลังโหลดข้อมูล NPT48...</div></div>
         </div>
-        <a href="#" class="hero-float-chip chip-1">
-          <span class="sticker sticker-pink">New</span>
-          <span class="chip-note">NPT48 Official Site เปิดตัวแล้ววันนี้!</span>
-        </a>
-        <a href="profile.html" class="hero-float-chip chip-2">
-          <span class="sticker sticker-mint">Intel</span>
-          <span class="chip-note">ทำความรู้จักสมาชิกรุ่นแรกของ NPT48</span>
-        </a>
       </div>
+      <div class="swiper-button-prev video-nav-prev"></div>
+      <div class="swiper-button-next video-nav-next"></div>
     </div>
   </section>
 
-  <!-- Marquee ticker -->
-  <div class="ticker-wrap">
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee-track">
-        <span><i class="fas fa-star"></i> NPT48 NEW ERA</span>
-        <span><i class="fas fa-star"></i> 1ST SINGLE "KAZE WO MATSU" COMING SOON</span>
-        <span><i class="fas fa-star"></i> PHOTOCARD COLLECTION</span>
-        <span><i class="fas fa-star"></i> FROM THE MOUNTAINS TO THE SEA</span>
-        <span><i class="fas fa-star"></i> NPT48 NEW ERA</span>
-        <span><i class="fas fa-star"></i> 1ST SINGLE "KAZE WO MATSU" COMING SOON</span>
-        <span><i class="fas fa-star"></i> PHOTOCARD COLLECTION</span>
-        <span><i class="fas fa-star"></i> FROM THE MOUNTAINS TO THE SEA</span>
+  <!-- GROUP NETWORK -->
+  <div class="group-band">
+    <div class="group-inner">
+      <div class="eyebrow" style="justify-content:center; margin-bottom: 24px;">AKB48 Group</div>
+      <div class="logo-grid">
+        <a href="https://www.akb48.co.jp/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_akb48.png?ver=53" alt="AKB48"></a>
+        <a href="https://www.ske48.co.jp/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_ske48.png?ver=53" alt="SKE48"></a>
+        <a href="https://nmb48.com/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_nmb48.png?ver=53" alt="NMB48"></a>
+        <a href="http://www.hkt48.jp/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_hkt48.png?ver=53" alt="HKT48"></a>
+        <a href="https://ngt48.jp/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_ngt48.png?ver=53" alt="NGT48"></a>
+        <a href="https://www.stu48.com/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_stu48.png?ver=53" alt="STU48"></a>
+        <a href="https://www.jkt48.com/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_jkt48.png?ver=53" alt="JKT48"></a>
+        <a href="https://www.bnk48.com/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_bnk48.png?ver=53" alt="BNK48"></a>
+        <a href="https://weibo.com/akb48teamsh" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_tsh48.png?ver=53" alt="TSH48"></a>
+        <a href="https://www.tpe48.tw/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_tpe48.png" alt="TPE48"></a>
+        <a href="https://www.cgm48official.com/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_cgm48.png?ver=53" alt="CGM48"></a>
+        <a href="https://klp48.my/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_klp48.png?ver=53" alt="KLP48"></a>
       </div>
     </div>
   </div>
 
-  <!-- SECTION: Members string -->
-  <section class="string-wrap">
-    <div class="section-head" data-pop><h2><i class="fas fa-users"></i> Photocard Collection</h2><a href="profile.html" class="link-doodle">ดูสมาชิกทั้งหมด</a></div>
-    <div class="string-scroll">
-      <div class="string-track pop-in-stagger" id="homeMembersTrack" data-pop>
-        <div class="members-empty">กำลังโหลดข้อมูล NPT48...</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION: Highlights -->
-  <section class="teaser-wrap" data-pop>
-    <div class="highlight-grid">
-      <div class="highlight-tile"><span class="tile-icon"><i class="fas fa-mountain"></i></span>Mountain &amp; Sea</div>
-      <div class="highlight-tile"><span class="tile-icon"><i class="fas fa-star"></i></span>1st Single Coming Soon</div>
-      <div class="highlight-tile"><span class="tile-icon"><i class="fas fa-heart"></i></span>Follow NPT48 Official</div>
-      <div class="highlight-tile"><span class="tile-icon"><i class="fas fa-users"></i></span>Meet the Members</div>
-    </div>
-  </section>
-
-  <!-- SECTION: Schedule teaser -->
-  <section class="teaser-wrap" id="scheduleTeaserSection" data-pop>
-    <div class="section-head"><h2><i class="fas fa-calendar-days"></i> ตารางงานที่กำลังจะถึง</h2><a href="schedule.html" class="link-doodle">ดูตารางงานทั้งหมด</a></div>
-    <div class="stamp-grid pop-in-stagger" id="scheduleTeaserGrid" data-pop></div>
-  </section>
-
-  <!-- SECTION: Discography teaser -->
-  <section class="teaser-wrap" id="discoTeaserSection" data-pop>
-    <div class="section-head"><h2><i class="fas fa-compact-disc"></i> ผลงานล่าสุด</h2><a href="discography.html" class="link-doodle">ดูผลงานทั้งหมด</a></div>
-    <div class="cd-grid pop-in-stagger" id="discoTeaserGrid" data-pop></div>
-  </section>
-
-  <!-- SECTION: About postcard -->
-  <div class="stitch-card about-postcard" data-pop>
-    <h2 class="glitch" data-text="จากขุนเขาสู่ท้องทะเล">จากขุนเขาสู่ท้องทะเล เสียงเพลงจากธรรมชาติ</h2>
-    <p>NPT48 คือกลุ่มไอดอลเสมือนจริงที่ได้แรงบันดาลใจจากขุนเขาและท้องทะเล</p>
-    <div style="margin-top:20px"><a href="about.html" class="link-doodle">เกี่ยวกับวง NPT48</a></div>
-  </div>
-
+  <!-- FOOTER -->
   <div id="site-footer"></div>
 
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
-    setTimeout(function () {
-      var splash = document.getElementById('splash');
-      if (splash) splash.classList.add('gone');
-    }, 2400);
+    // Horizontal rail drag-to-scroll
+    document.querySelectorAll('.rail').forEach(function (rail) {
+      var isDown = false, startX, scrollLeft;
+      rail.addEventListener('mousedown', function (e) { isDown = true; rail.style.cursor = 'grabbing'; startX = e.pageX - rail.offsetLeft; scrollLeft = rail.scrollLeft; });
+      window.addEventListener('mouseup', function () { isDown = false; rail.style.cursor = 'grab'; });
+      window.addEventListener('mousemove', function (e) {
+        if (!isDown) return;
+        e.preventDefault();
+        var x = e.pageX - rail.offsetLeft;
+        rail.scrollLeft = scrollLeft - (x - startX);
+      });
+    });
 
-    function spawnDrift() {
-      var splash = document.getElementById('splash');
-      if (!splash || splash.classList.contains('gone')) return;
-      var el = document.createElement('span');
-      var icons = ['fa-star', 'fa-bolt', 'fa-gem', 'fa-compact-disc'];
-      el.className = 'drift';
-      el.innerHTML = '<i class="fas ' + icons[Math.floor(Math.random() * icons.length)] + '"></i>';
-      el.style.left = Math.random() * 100 + 'vw';
-      el.style.bottom = '-5vh';
-      el.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
-      splash.appendChild(el);
-      setTimeout(function () { el.remove(); }, 5000);
+    // Rail prev/next scroll buttons
+    function wireRailNav(railId, prevId, nextId, itemSelector) {
+      var rail = document.getElementById(railId);
+      var prevBtn = document.getElementById(prevId);
+      var nextBtn = document.getElementById(nextId);
+      if (!rail || !prevBtn || !nextBtn) return;
+      function step() {
+        var item = rail.querySelector(itemSelector);
+        var gap = parseFloat(getComputedStyle(rail).columnGap || getComputedStyle(rail).gap || 16);
+        var itemWidth = item ? item.getBoundingClientRect().width : rail.clientWidth * 0.4;
+        return (itemWidth + gap) * 2;
+      }
+      prevBtn.addEventListener('click', function () { rail.scrollBy({ left: -step(), behavior: 'smooth' }); });
+      nextBtn.addEventListener('click', function () { rail.scrollBy({ left: step(), behavior: 'smooth' }); });
     }
-    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!reduceMotion) setInterval(spawnDrift, 180);
+    wireRailNav('topicsRail', 'topicsPrev', 'topicsNext', '.topic-tile');
+    wireRailNav('membersRail', 'membersPrev', 'membersNext', '.member-mini');
 
-    document.getElementById('todaysDate').textContent = '';
+    var MONTH_TH = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
 
-    function renderHomeMembers(members) {
-      var track = document.getElementById('homeMembersTrack');
-      if (!members || !members.length) {
-        track.innerHTML = '<div class="members-empty">ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่ภายหลัง</div>';
+    function renderBirthdayMonth(members) {
+      var today = new Date();
+      var monthLabelEl = document.getElementById('birthdayMonthLabel');
+      if (monthLabelEl) monthLabelEl.textContent = MONTH_TH[today.getMonth()] + ' ' + (today.getFullYear() + 543);
+
+      var listEl = document.getElementById('birthdayList');
+      if (!listEl) return;
+
+      var celebrants = members.map(function (m) {
+        var bday = m.birthday ? new Date(m.birthday) : null;
+        return (bday && !isNaN(bday.getTime())) ? { member: m, bday: bday } : null;
+      }).filter(function (e) { return e && e.bday.getMonth() === today.getMonth(); })
+        .sort(function (a, b) { return a.bday.getDate() - b.bday.getDate(); });
+
+      if (!celebrants.length) {
+        listEl.innerHTML = '<div class="bday-empty">ไม่มีวันเกิดสมาชิกในเดือนนี้</div>';
         return;
       }
-      track.innerHTML = members.slice(0, 10).map(function (m, idx) {
-        var badge = m.generation ? '<span class="sticker sticker-butter clip-gen">' + m.generation + '</span>' : '';
-        var baseImg = window.NPT48_DATA.getDirectImgLink(m.image);
-        var altImg = m.imageAlt ? window.NPT48_DATA.getDirectImgLink(m.imageAlt) : baseImg;
-        var idxLabel = 'NO.' + String(idx + 1).padStart(2, '0');
+
+      listEl.innerHTML = celebrants.map(function (c) {
+        var img = window.NPT48_DATA.getDirectImgLink(c.member.image);
         return '' +
-          '<a href="profile.html" class="member-clip">' +
-            '<div class="polaroid tilt" data-idx="' + idxLabel + '">' + badge +
-              '<div class="polaroid-frame">' +
-                '<div class="photo-stack">' +
-                  '<img class="photo-base" src="' + baseImg + '" alt="' + m.name + '" loading="lazy" onerror="this.style.display=\'none\'">' +
-                  '<img class="photo-alt" src="' + altImg + '" alt="' + m.name + '" loading="lazy" onerror="this.style.display=\'none\'">' +
-                '</div>' +
-                '<span class="sparkle-veil"></span>' +
-              '</div>' +
-              '<div class="polaroid-cap">' + m.name + '</div>' +
-            '</div>' +
+          '<a href="profile.html" class="bday-item">' +
+            '<div class="bday-avatar"><img src="' + img + '" alt="' + c.member.name + '" onerror="this.src=\'assets/images/logo.png\'"></div>' +
+            '<div class="bday-info"><span class="bday-name">' + c.member.name + '</span><span class="bday-date">' + c.bday.getDate() + ' ' + MONTH_TH[c.bday.getMonth()] + '</span></div>' +
           '</a>';
       }).join('');
-      if (window.NPT48_FX) window.NPT48_FX.initTilt();
     }
 
-    function loadHomeMembers() {
+    function renderMembersRail(members) {
+      var rail = document.getElementById('membersRail');
+      if (!members.length) {
+        rail.innerHTML = '<div class="bday-empty">ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่ภายหลัง</div>';
+        return;
+      }
+      rail.innerHTML = members.map(function (m) {
+        var img = window.NPT48_DATA.getDirectImgLink(m.image);
+        var badge = m.generation ? '<span class="member-mini-badge">' + m.generation + '</span>' : '';
+        return '' +
+          '<a href="profile.html" class="member-mini">' +
+            '<div class="member-mini-photo">' + badge + '<img src="' + img + '" alt="' + m.name + '" loading="lazy" onerror="this.src=\'assets/images/logo.png\'"></div>' +
+            '<div class="member-mini-name">' + m.name + '</div>' +
+          '</a>';
+      }).join('');
+    }
+
+    function loadProfileData() {
       if (!window.NPT48_DATA.isConfigured()) {
-        document.getElementById('homeMembersTrack').innerHTML =
-          '<div class="members-empty">Google Sheets not connected yet — set SCRIPT_URL in assets/js/data.js</div>';
+        document.getElementById('birthdayList').innerHTML = '<div class="bday-empty">Google Sheets not connected yet</div>';
+        document.getElementById('membersRail').innerHTML = '<div class="bday-empty">Google Sheets not connected yet</div>';
         return;
       }
       window.NPT48_DATA.fetchSheet('Profile')
-        .then(renderHomeMembers)
+        .then(function (data) {
+          renderBirthdayMonth(data);
+          renderMembersRail(data);
+        })
         .catch(function () {
-          document.getElementById('homeMembersTrack').innerHTML = '<div class="members-empty">ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่ภายหลัง</div>';
+          document.getElementById('birthdayList').innerHTML = '<div class="bday-empty">ไม่สามารถโหลดข้อมูลได้</div>';
+          document.getElementById('membersRail').innerHTML = '<div class="bday-empty">ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่ภายหลัง</div>';
         });
     }
-    loadHomeMembers();
+    loadProfileData();
 
-    function parseTeaserDate(raw) {
-      var d = new Date(raw);
-      if (isNaN(d.getTime())) return { day: String(raw || '-'), month: '', sortKey: 0 };
-      var months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
-      return { day: d.getDate(), month: months[d.getMonth()], sortKey: d.getTime() };
+    function renderSpotlight(items) {
+      var card = document.getElementById('spotlightCard');
+      if (!items.length) { card.innerHTML = '<div class="bday-empty">ยังไม่มีผลงานเพลง</div>'; return; }
+      var latest = items[items.length - 1];
+      var img = window.NPT48_DATA.getDirectImgLink(latest.image);
+      var link = latest.link || '#';
+      var isAlbum = (latest.type || '').toString().toUpperCase() === 'ALBUM';
+      card.innerHTML = '' +
+        '<a href="' + link + '" target="_blank" class="spot-card">' +
+          '<div class="spot-thumb"><img src="' + img + '" alt="' + latest.songName + '"></div>' +
+          '<div>' +
+            '<div class="kicker kicker-gold">' + (isAlbum ? 'อัลบั้ม' : 'ซิงเกิล') + '</div>' +
+            '<div class="spot-title">' + latest.songName + '</div>' +
+            '<span class="arrow-link">Watch MV</span>' +
+          '</div>' +
+        '</a>';
     }
 
-    function loadHomeSchedule() {
-      var section = document.getElementById('scheduleTeaserSection');
-      if (!section || !window.NPT48_DATA.isConfigured()) { if (section) section.style.display = 'none'; return; }
+    function renderVideoCarousel(items) {
+      var wrapper = document.getElementById('videoWrapper');
+      if (!items.length) { wrapper.innerHTML = '<div class="swiper-slide"><div class="data-empty">ยังไม่มีผลงานเพลง</div></div>'; return; }
+      var slides = items.slice().reverse().map(function (d) {
+        var img = window.NPT48_DATA.getDirectImgLink(d.image);
+        var link = d.link || '#';
+        return '' +
+          '<div class="swiper-slide">' +
+            '<a href="' + link + '" target="_blank" class="video-item">' +
+              '<div class="video-thumb-box"><img src="' + img + '" alt="' + d.songName + '"></div>' +
+              '<div class="video-cap">' +
+                '<div class="video-cap-title">' + d.songName + '</div>' +
+                '<div class="video-cap-date">' + (d.release || '') + '</div>' +
+              '</div>' +
+            '</a>' +
+          '</div>';
+      }).join('');
+      wrapper.innerHTML = slides;
+
+      new Swiper('.video-swiper', {
+        slidesPerView: 3.2,
+        spaceBetween: 22,
+        grabCursor: true,
+        loop: false,
+        navigation: { nextEl: '.video-nav-next', prevEl: '.video-nav-prev' },
+        breakpoints: {
+          320: { slidesPerView: 1.15, spaceBetween: 14 },
+          640: { slidesPerView: 2.1, spaceBetween: 16 },
+          1024: { slidesPerView: 3.2, spaceBetween: 22 }
+        }
+      });
+    }
+
+    function loadDiscographyData() {
+      var spot = document.getElementById('spotlightCard');
+      var wrapper = document.getElementById('videoWrapper');
+      if (!window.NPT48_DATA.isConfigured()) {
+        spot.innerHTML = '<div class="bday-empty">Google Sheets not connected yet</div>';
+        wrapper.innerHTML = '<div class="swiper-slide"><div class="data-empty">Google Sheets not connected yet</div></div>';
+        return;
+      }
+      window.NPT48_DATA.fetchSheet('Discography')
+        .then(function (data) {
+          renderSpotlight(data);
+          renderVideoCarousel(data);
+        })
+        .catch(function () {
+          spot.innerHTML = '<div class="bday-empty">ไม่สามารถโหลดข้อมูลได้</div>';
+          wrapper.innerHTML = '<div class="swiper-slide"><div class="data-empty">ไม่สามารถโหลดข้อมูลได้</div></div>';
+        });
+    }
+    loadDiscographyData();
+
+    var SCHEDULE_TYPE_MAP = {
+      EVENT: 'kicker-outline', MEDIA: 'kicker-gold', LIVE: 'kicker-live', RELEASE: 'kicker-dark'
+    };
+
+    function parseHomeDate(raw) {
+      var d = new Date(raw);
+      if (isNaN(d.getTime())) return { label: String(raw || '-'), sortKey: 0 };
+      return { label: ('0' + d.getDate()).slice(-2) + '.' + ('0' + (d.getMonth() + 1)).slice(-2) + '.' + d.getFullYear(), sortKey: d.getTime() };
+    }
+
+    function loadScheduleColumn() {
+      var col = document.getElementById('scheduleColumn');
+      if (!window.NPT48_DATA.isConfigured()) { col.innerHTML = '<div class="data-empty">Google Sheets not connected yet</div>'; return; }
       window.NPT48_DATA.fetchSheet('Schedule')
         .then(function (data) {
           if (!Array.isArray(data) || !data.length) throw new Error('empty');
           var upcoming = data.slice().sort(function (a, b) {
-            return parseTeaserDate(a.date).sortKey - parseTeaserDate(b.date).sortKey;
-          }).slice(0, 3);
-          document.getElementById('scheduleTeaserGrid').innerHTML = upcoming.map(function (s) {
-            var d = parseTeaserDate(s.date);
+            return parseHomeDate(a.date).sortKey - parseHomeDate(b.date).sortKey;
+          }).slice(0, 6);
+          col.innerHTML = upcoming.map(function (s) {
+            var typeKey = (s.type || '').toString().toUpperCase();
+            var kickerClass = SCHEDULE_TYPE_MAP[typeKey] || 'kicker-outline';
+            var d = parseHomeDate(s.date);
             return '' +
-              '<div class="stamp-card">' +
-                '<div class="stamp-circle"><span class="day">' + d.day + '</span><span class="month">' + d.month + '</span></div>' +
-                '<div><h3 class="stamp-title">' + s.title + '</h3></div>' +
-              '</div>';
-          }).join('');
-        })
-        .catch(function () { section.style.display = 'none'; });
-    }
-    loadHomeSchedule();
-
-    function loadHomeDiscography() {
-      var section = document.getElementById('discoTeaserSection');
-      if (!section || !window.NPT48_DATA.isConfigured()) { if (section) section.style.display = 'none'; return; }
-      window.NPT48_DATA.fetchSheet('Discography')
-        .then(function (data) {
-          if (!Array.isArray(data) || !data.length) throw new Error('empty');
-          var latest = data.slice(-3).reverse();
-          document.getElementById('discoTeaserGrid').innerHTML = latest.map(function (d) {
-            var img = window.NPT48_DATA.getDirectImgLink(d.image);
-            var link = d.link || '#';
-            return '' +
-              '<a href="' + link + '" target="_blank" class="cd-item">' +
-                '<div class="cd-disc"><img src="' + img + '" alt="' + d.songName + '" loading="lazy" onerror="this.style.display=\'none\'"></div>' +
-                '<div class="cd-title">' + d.songName + '</div>' +
+              '<a href="schedule.html" class="data-row">' +
+                '<div class="data-date-group"><span class="kicker ' + kickerClass + '">' + (s.type || '') + '</span><span class="data-date">' + d.label + '</span></div>' +
+                '<div class="data-title">' + s.title + '</div>' +
               '</a>';
           }).join('');
         })
-        .catch(function () { section.style.display = 'none'; });
+        .catch(function () { col.innerHTML = '<div class="data-empty">ยังไม่มีตารางงานในตอนนี้</div>'; });
     }
-    loadHomeDiscography();
+    loadScheduleColumn();
   </script>
 
 </body>

@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#07070d">
+  <meta name="theme-color" content="#ffffff">
   <title>NPT48 Official - PROFILE</title>
   <link rel="icon" type="image/png" href="assets/images/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&family=Kanit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Kanit:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="assets/css/site.css">
 
@@ -17,55 +17,6 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-
-    #grid-view { display: none; }
-    .member-bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px 22px; }
-    @media (max-width: 1024px) { .member-bento { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 680px) { .member-bento { grid-template-columns: repeat(2, 1fr); gap: 30px 14px; } }
-
-    .member-slot { text-align: center; }
-    .member-slot .polaroid { cursor: pointer; }
-    .member-slot .polaroid-cap { font-size: 15px; }
-    .member-slot .slot-sub { font-size: 10.5px; font-weight: 700; color: var(--ink-faint); letter-spacing: 1px; margin-top: 10px; text-transform: uppercase; font-family: var(--font-mono); }
-    .member-slot .slot-btn {
-      margin-top: 12px; background: rgba(255,255,255,0.04); border: 1px solid var(--line-strong); color: var(--ink);
-      font-family: var(--font-mono); text-transform: uppercase;
-      font-size: 11px; font-weight: 700; letter-spacing: 0.5px; padding: 9px 20px; cursor: pointer; border-radius: var(--r-pill);
-      transition: all var(--dur);
-    }
-    .member-slot .slot-btn:hover { background: var(--holo-cyan); color: var(--bg); border-color: var(--holo-cyan); box-shadow: 0 0 16px rgba(87,230,208,0.4); }
-
-    #detail-view { display: none; animation: detailIn 0.4s ease; }
-    @keyframes detailIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
-    .back-doodle {
-      display: inline-flex; align-items: center; gap: 8px; color: var(--holo-cyan); cursor: pointer; font-weight: 700;
-      margin-bottom: 26px; font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px;
-      background: none; border: none;
-    }
-    .back-doodle:hover { text-decoration: underline; }
-
-    .fan-layout { display: flex; gap: 44px; align-items: flex-start; text-align: left; }
-    @media (max-width: 760px) { .fan-layout { flex-direction: column; align-items: center; } }
-    .fan-photo { flex: 0 0 auto; width: min(320px, 100%); }
-    .fan-card .polaroid-frame { aspect-ratio: 3/4; }
-    .fan-card .polaroid-cap { font-size: 16px; }
-
-    .fan-sheet { flex: 1; min-width: 260px; }
-    #m-name-th { font-family: var(--font-display); font-size: 34px; color: var(--ink); font-weight: 700; text-transform: uppercase; }
-    #m-name-en { color: var(--ink-faint); font-size: 13px; font-weight: 700; letter-spacing: 1px; margin-top: 4px; font-family: var(--font-mono); }
-
-    .stat-row { display: grid; grid-template-columns: 130px 1fr; padding: 12px 0; border-bottom: 1px dashed var(--line); }
-    .stat-label { font-family: var(--font-mono); color: var(--ink-faint); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-    .stat-value { color: var(--ink); font-size: 15px; font-weight: 500; }
-
-    .fan-social { display: flex; gap: 10px; margin-top: 24px; }
-    .fan-social a {
-      width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.04); color: var(--ink);
-      border: 1px solid var(--line-strong);
-      display: inline-flex; align-items: center; justify-content: center; text-decoration: none; transition: all var(--dur);
-    }
-    .fan-social a:hover { background: var(--holo-grad); color: var(--bg); transform: translateY(-3px); box-shadow: var(--shadow-glow); }
   </style>
 </head>
 <body>
@@ -73,41 +24,34 @@
   <div id="site-header"></div>
   <script src="assets/js/nav.js"></script>
   <script src="assets/js/data.js"></script>
-  <script src="assets/js/reveal.js"></script>
-  <script src="assets/js/fx.js"></script>
 
   <main class="page-shell">
-    <div class="page-title-block" data-pop>
-      <span class="sticker sticker-sky"><i class="fas fa-users"></i> the members</span>
-      <h1 class="glitch" data-text="โปรไฟล์สมาชิก">โปรไฟล์สมาชิก</h1>
+    <div class="page-hero">
+      <span class="eyebrow">The Lineup</span>
+      <h1 class="page-hero-title">Profile</h1>
     </div>
 
     <div id="loading-overlay">
-      <div class="spinner-blob"></div>
+      <div class="spinner-ring"></div>
       <div>กำลังโหลดข้อมูล NPT48...</div>
     </div>
 
-    <div id="grid-view">
-      <div class="chip-row" id="filterChips"></div>
-      <div id="member-grid" class="member-bento pop-in-stagger" data-pop></div>
+    <div id="main-view">
+      <div class="filter-tabs" id="filterChips"></div>
+      <div id="member-grid" class="members-grid"></div>
     </div>
 
     <div id="detail-view">
-      <button type="button" class="back-doodle" onclick="goBack()"><i class="fas fa-arrow-left"></i> กลับไปดูเพื่อนๆ</button>
-      <div class="fan-layout">
-        <div class="fan-photo">
-          <div class="polaroid fan-card tilt" data-idx="PROFILE">
-            <div class="polaroid-frame">
-              <img id="m-img" style="width:100%;height:100%;object-fit:cover" alt="Member Photo" loading="lazy">
-            </div>
-            <div class="polaroid-cap" id="m-cap"></div>
+      <div class="back-btn" onclick="goBack()"><span>กลับ</span></div>
+      <div class="detail-layout">
+        <div class="detail-image-box"><img id="m-img" class="detail-image" alt="Member Photo"></div>
+        <div class="detail-content">
+          <div class="info-header">
+            <h1 id="m-name-th"></h1>
+            <p id="m-name-en"></p>
           </div>
-        </div>
-        <div class="fan-sheet">
-          <h1 id="m-name-th"></h1>
-          <p id="m-name-en"></p>
-          <div id="m-info-table" style="margin-top:20px"></div>
-          <div class="fan-social" id="m-social"></div>
+          <div id="m-info-table"></div>
+          <div class="social-section" id="m-social"></div>
         </div>
       </div>
     </div>
@@ -123,8 +67,7 @@
 
     function init() {
       if (!window.NPT48_DATA.isConfigured()) {
-        document.getElementById('loading-overlay').innerHTML =
-          'Google Sheets not connected yet — set SCRIPT_URL in <code>assets/js/data.js</code>';
+        document.getElementById('loading-overlay').innerHTML = 'Google Sheets not connected yet — set SCRIPT_URL in <code>assets/js/data.js</code>';
         return;
       }
       window.NPT48_DATA.fetchSheet('Profile')
@@ -133,7 +76,7 @@
           buildFilterChips();
           renderGrid('ALL');
           document.getElementById('loading-overlay').style.display = 'none';
-          document.getElementById('grid-view').style.display = 'block';
+          document.getElementById('main-view').style.display = 'block';
         })
         .catch(function () {
           document.getElementById('loading-overlay').innerHTML = 'ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่ภายหลัง';
@@ -146,14 +89,14 @@
         if (m.team && teams.indexOf(m.team) === -1) teams.push(m.team);
       });
       var wrap = document.getElementById('filterChips');
-      var html = '<button class="chip active" data-team="ALL">ทั้งหมด</button>';
+      var html = '<button class="tab-btn active" data-team="ALL">ทั้งหมด</button>';
       teams.forEach(function (team) {
-        html += '<button class="chip" data-team="' + team + '">' + team + '</button>';
+        html += '<button class="tab-btn" data-team="' + team + '">' + team + '</button>';
       });
       wrap.innerHTML = html;
-      wrap.querySelectorAll('.chip').forEach(function (btn) {
+      wrap.querySelectorAll('.tab-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
-          wrap.querySelectorAll('.chip').forEach(function (b) { b.classList.remove('active'); });
+          wrap.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
           btn.classList.add('active');
           currentTeamFilter = btn.getAttribute('data-team');
           renderGrid(currentTeamFilter);
@@ -170,28 +113,27 @@
         return;
       }
 
-      grid.innerHTML = filtered.map(function (m, idx) {
+      grid.innerHTML = filtered.map(function (m) {
         var nameSub = (m.fullNameEN || m.name).toString().toUpperCase();
         var img = window.NPT48_DATA.getDirectImgLink(m.image);
-        var altImg = m.imageAlt ? window.NPT48_DATA.getDirectImgLink(m.imageAlt) : img;
-        var idxLabel = 'NO.' + String(idx + 1).padStart(2, '0');
+        var socialsHTML = '';
+        if (m.instagram && m.instagram !== '-') {
+          socialsHTML += '<a href="' + m.instagram + '" class="card-social-link" target="_blank" rel="noopener" onclick="event.stopPropagation()"><i class="fab fa-instagram"></i></a>';
+        }
         return '' +
-          '<div class="member-slot">' +
-            '<div class="polaroid tilt" data-idx="' + idxLabel + '" tabindex="0" role="button" aria-label="โปรไฟล์ ' + m.name + '" onclick="viewDetail(\'' + m.name + '\')">' +
-              '<div class="polaroid-frame">' +
-                '<div class="photo-stack">' +
-                  '<img src="' + img + '" class="photo-base" alt="' + m.name + '" loading="lazy" onerror="this.style.display=\'none\'">' +
-                  '<img src="' + altImg + '" class="photo-alt" alt="' + m.name + '" loading="lazy" onerror="this.style.display=\'none\'">' +
-                '</div>' +
-                '<span class="sparkle-veil"></span>' +
-              '</div>' +
-              '<div class="polaroid-cap">' + m.name + '</div>' +
+          '<div class="member-card" data-name="' + m.name + '">' +
+            '<div class="photo-box" onclick="viewDetail(\'' + m.name + '\')">' +
+              '<img src="' + img + '" class="member-photo" alt="' + m.name + '" loading="lazy" onerror="this.src=\'assets/images/logo.png\'">' +
             '</div>' +
-            '<div class="slot-sub">' + nameSub + '</div>' +
-            '<button class="slot-btn" onclick="viewDetail(\'' + m.name + '\')">ดูโปรไฟล์ <i class="fas fa-star"></i></button>' +
+            '<div class="card-info">' +
+              '<div class="card-name-row">' +
+                '<div class="member-name-main" onclick="viewDetail(\'' + m.name + '\')">' + m.name + '</div>' +
+                '<div class="card-socials">' + socialsHTML + '</div>' +
+              '</div>' +
+              '<div class="member-name-sub" onclick="viewDetail(\'' + m.name + '\')">' + nameSub + '</div>' +
+            '</div>' +
           '</div>';
       }).join('');
-      if (window.NPT48_FX) window.NPT48_FX.initTilt();
     }
 
     function viewDetail(nickname) {
@@ -199,7 +141,6 @@
       if (!m) return;
       currentMemberName = nickname;
       document.getElementById('m-img').src = window.NPT48_DATA.getDirectImgLink(m.image);
-      document.getElementById('m-cap').innerText = m.name;
       document.getElementById('m-name-th').innerText = m.fullNameTH || m.name;
       document.getElementById('m-name-en').innerText = m.fullNameEN || '';
 
@@ -215,32 +156,29 @@
       ];
 
       document.getElementById('m-info-table').innerHTML = infoList.map(function (item) {
-        return '<div class="stat-row"><div class="stat-label">' + item.label + '</div><div class="stat-value">' + (item.value || '-') + '</div></div>';
+        return '<div class="info-row"><div class="info-label">' + item.label + '</div><div class="info-value">' + (item.value || '-') + '</div></div>';
       }).join('');
 
       var sHTML = '';
-      if (m.instagram && m.instagram !== '-') sHTML += '<a href="' + m.instagram + '" target="_blank"><i class="fab fa-instagram"></i></a>';
+      if (m.instagram && m.instagram !== '-') sHTML += '<a href="' + m.instagram + '" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>';
       document.getElementById('m-social').innerHTML = sHTML;
 
-      document.getElementById('grid-view').style.display = 'none';
+      document.getElementById('main-view').style.display = 'none';
       document.getElementById('detail-view').style.display = 'block';
       window.scrollTo(0, 0);
-      if (window.NPT48_FX) window.NPT48_FX.initTilt();
     }
 
     function goBack() {
       document.getElementById('detail-view').style.display = 'none';
-      document.getElementById('grid-view').style.display = 'block';
-      window.scrollTo(0, 0);
-    }
+      document.getElementById('main-view').style.display = 'block';
 
-    document.getElementById('member-grid').addEventListener('keydown', function (e) {
-      if (e.key !== 'Enter' && e.key !== ' ') return;
-      var target = e.target.closest('[role="button"]');
-      if (!target) return;
-      e.preventDefault();
-      target.click();
-    });
+      var card = currentMemberName && document.querySelector('.member-card[data-name="' + CSS.escape(currentMemberName) + '"]');
+      if (card) {
+        card.scrollIntoView({ block: 'center' });
+      } else {
+        window.scrollTo(0, 0);
+      }
+    }
 
     init();
   </script>
