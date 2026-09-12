@@ -26,18 +26,19 @@ function readProfile(sheet) {
     .map(function (row) {
       return {
         name: row[0],
-        fullNameEN: row[1],
+        nameEN: row[1],
         fullNameTH: row[2],
-        generation: row[3],
-        team: row[4],
-        birthday: row[5],
-        like: row[6],
-        bloodType: row[7],
-        oshiMark: row[8],
-        province: row[9],
-        hobby: row[10],
-        instagram: row[11],
-        image: row[12],
+        fullNameEN: row[3],
+        generation: row[4],
+        team: row[5],
+        birthday: row[6],
+        like: row[7],
+        bloodType: row[8],
+        oshiMark: row[9],
+        province: row[10],
+        hobby: row[11],
+        instagram: row[12],
+        image: row[13],
         imageAlt: row[13]
       };
     });
