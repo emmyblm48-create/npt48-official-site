@@ -3,10 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07070d">
   <title>NPT48 Official - NEWS & SCHEDULE</title>
   <link rel="icon" type="image/png" href="assets/images/logo.png">
 
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Caveat:wght@500;600;700&family=Kanit:wght@300;400;500;600;700&family=Nunito:wght@400;500;600;700;800&family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&family=Kanit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="assets/css/site.css">
 
@@ -15,47 +18,47 @@
     html { scroll-behavior: smooth; }
     body { overflow-x: hidden; -webkit-font-smoothing: antialiased; }
 
-    .chip.active, .chip:hover { background: var(--navy-deep); border-color: var(--navy-deep); }
-
     #schedule-view { display: none; }
 
     .diary-list { max-width: 720px; margin: 0 auto; }
     .diary-item { display: grid; grid-template-columns: 74px 1fr; gap: 18px; position: relative; }
     .diary-rail { display: flex; flex-direction: column; align-items: center; }
     .diary-stamp {
-      width: 68px; height: 68px; border-radius: 50%; background: var(--navy); color: var(--white);
-      display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: var(--font-display);
-      border: 3px dashed rgba(255,255,255,0.55); box-shadow: var(--shadow-soft); flex-shrink: 0; position: relative; z-index: 1;
-      transform: rotate(-4deg);
+      width: 68px; height: 68px; border-radius: 50%; background: var(--bg-2); color: var(--holo-cyan);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: var(--font-mono);
+      border: 1px solid var(--line-strong); box-shadow: var(--shadow-soft); flex-shrink: 0; position: relative; z-index: 1;
     }
-    .diary-stamp .day { font-size: 20px; font-weight: 700; line-height: 1; }
+    .diary-stamp::before {
+      content: ''; position: absolute; inset: -3px; border-radius: 50%; z-index: -1;
+      background: conic-gradient(from 0deg, var(--holo-blue), var(--holo-purple), var(--holo-pink), var(--holo-cyan), var(--holo-blue));
+      opacity: 0.5;
+    }
+    .diary-stamp .day { font-size: 19px; font-weight: 700; line-height: 1; }
     .diary-stamp .month { font-size: 9px; letter-spacing: 1px; opacity: 0.85; }
     .diary-rail-line {
-      width: 2px; flex: 1; margin-top: 6px;
-      background: repeating-linear-gradient(180deg, var(--line) 0 8px, transparent 8px 14px);
+      width: 2px; flex: 1; margin-top: 8px;
+      background: repeating-linear-gradient(180deg, var(--line-strong) 0 8px, transparent 8px 14px);
     }
     .diary-item:last-child .diary-rail-line { display: none; }
 
     .diary-page {
-      background: var(--white); border-radius: var(--r-lg); box-shadow: var(--shadow-soft);
-      padding: 18px 22px; margin-bottom: 30px; transition: transform var(--dur) var(--ease), box-shadow var(--dur);
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow-soft);
+      padding: 18px 22px; margin-bottom: 30px; transition: transform var(--dur) var(--ease), box-shadow var(--dur), border-color var(--dur);
     }
-    .diary-item:nth-child(odd) .diary-page { transform: rotate(0.6deg); }
-    .diary-item:nth-child(even) .diary-page { transform: rotate(-0.6deg); }
-    .diary-page:hover { transform: translateY(-4px) rotate(0deg); box-shadow: var(--shadow-hover); }
+    .diary-page:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: var(--holo-cyan); }
     .diary-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
-    .diary-time { font-size: 12.5px; font-weight: 700; color: var(--ink-soft); }
-    .diary-title { font-family: var(--font-display); font-size: 16.5px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+    .diary-time { font-size: 11.5px; font-weight: 700; color: var(--ink-faint); font-family: var(--font-mono); }
+    .diary-title { font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
     .diary-place { font-size: 12.5px; color: var(--ink-faint); display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
-    .diary-link { font-size: 12.5px; font-weight: 700; color: var(--navy-deep); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
-    .diary-link:hover { color: var(--sky-deep); }
+    .diary-link { font-size: 11.5px; font-weight: 700; color: var(--holo-cyan); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.5px; }
+    .diary-link:hover { color: var(--holo-pink); }
 
-    .schedule-empty { text-align: center; color: var(--ink-soft); padding: 40px 0; }
+    .schedule-empty { text-align: center; color: var(--ink-soft); padding: 40px 0; font-family: var(--font-mono); }
 
     @media (max-width: 560px) {
       .diary-item { grid-template-columns: 58px 1fr; gap: 12px; }
       .diary-stamp { width: 54px; height: 54px; }
-      .diary-stamp .day { font-size: 16px; }
+      .diary-stamp .day { font-size: 15px; }
       .diary-page { padding: 14px 16px; }
     }
   </style>
@@ -66,11 +69,12 @@
   <script src="assets/js/nav.js"></script>
   <script src="assets/js/data.js"></script>
   <script src="assets/js/reveal.js"></script>
+  <script src="assets/js/fx.js"></script>
 
   <main class="page-shell">
     <div class="page-title-block" data-pop>
       <span class="sticker sticker-sand"><i class="fas fa-calendar-days"></i> don't miss it</span>
-      <h1>ข่าวสารและตารางงาน</h1>
+      <h1 class="glitch" data-text="ข่าวสารและตารางงาน">ข่าวสารและตารางงาน</h1>
     </div>
 
     <div id="loading-overlay">

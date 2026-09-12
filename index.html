@@ -3,9 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NPT48 Official Home</title>
+  <meta name="theme-color" content="#07070d">
+  <title>NPT48 Official Home — New Era</title>
   <link rel="icon" type="image/png" href="assets/images/logo.png">
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Caveat:wght@500;600;700&family=Kanit:wght@300;400;500;600;700&family=Nunito:wght@400;500;600;700;800&family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&family=Kanit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="assets/css/site.css">
 
@@ -14,124 +17,145 @@
     html { scroll-behavior: smooth; }
     body { overflow-x: hidden; -webkit-font-smoothing: antialiased; }
 
-    /* ---- Splash ---- */
+    /* ---- Splash / boot sequence ---- */
     #splash {
       position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center;
-      background: linear-gradient(150deg, var(--lavender), var(--sky) 55%, var(--sand));
-      transition: opacity 1s ease, visibility 1s;
+      background: radial-gradient(120% 120% at 50% 20%, #14142a 0%, #07070d 70%);
+      transition: opacity 0.8s ease, visibility 0.8s;
     }
     #splash.gone { opacity: 0; visibility: hidden; }
-    .splash-card {
-      background: var(--white); border-radius: var(--r-xl); padding: 38px 54px; text-align: center;
-      box-shadow: var(--shadow-hover); transform: rotate(-2deg); animation: splashWobble 2.4s ease-in-out infinite;
+    .splash-card { text-align: center; position: relative; }
+    .splash-ring {
+      width: 84px; height: 84px; border-radius: 50%; margin: 0 auto 22px; padding: 3px;
+      background: conic-gradient(from 0deg, var(--holo-blue), var(--holo-purple), var(--holo-pink), var(--holo-cyan), var(--holo-blue));
+      animation: spinSlow 2.2s linear infinite;
     }
-    @keyframes splashWobble { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
-    .splash-card img { width: 64px; height: 64px; border-radius: 18px; margin-bottom: 12px; }
-    .splash-card .word { font-family: var(--font-display); font-size: 34px; font-weight: 800; color: var(--ink); }
-    .splash-card .sub { font-family: var(--font-accent); font-size: 18px; color: var(--navy-deep); }
-    .drift { position: absolute; pointer-events: none; animation: driftUp linear infinite; font-size: 20px; color: var(--navy-deep); opacity: 0.55; }
+    .splash-ring img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; background: var(--bg-2); }
+    .splash-card .word {
+      font-family: var(--font-display); font-size: clamp(2.2rem, 8vw, 3.2rem); font-weight: 800; letter-spacing: 2px;
+      color: var(--ink); text-transform: uppercase;
+    }
+    .splash-card .sub {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 3px; color: var(--holo-cyan); margin-top: 10px;
+      text-transform: uppercase;
+    }
+    .splash-bar { width: 220px; height: 3px; background: rgba(255,255,255,0.1); border-radius: 4px; margin: 22px auto 0; overflow: hidden; }
+    .splash-bar-fill { height: 100%; background: var(--holo-grad); animation: splashLoad 2.2s ease forwards; }
+    @keyframes splashLoad { from { width: 0%; } to { width: 100%; } }
+    .drift { position: absolute; pointer-events: none; animation: driftUp linear infinite; font-size: 16px; color: var(--holo-cyan); opacity: 0.7; filter: drop-shadow(0 0 6px currentColor); }
     @keyframes driftUp { 0% { transform: translateY(0) rotate(0deg); opacity: 0; } 15% { opacity: 0.9; } 100% { transform: translateY(-120vh) rotate(200deg); opacity: 0; } }
 
     /* ---- Hero bento ---- */
-    .hero-wrap { max-width: 1240px; width: 94%; margin: 10px auto 64px; }
-    .hero-bento { display: grid; grid-template-columns: 1.3fr 1fr; gap: 26px; align-items: stretch; }
+    .hero-wrap { max-width: 1240px; width: 94%; margin: 10px auto 0; }
+    .hero-eyebrow {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 3px; color: var(--holo-cyan); text-transform: uppercase;
+      display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
+    }
+    .hero-eyebrow::before { content: ''; width: 26px; height: 1px; background: var(--holo-cyan); }
+    .hero-bento { display: grid; grid-template-columns: 1.15fr 1fr; gap: 30px; align-items: center; }
     @media (max-width: 880px) { .hero-bento { grid-template-columns: 1fr; } }
 
-    .hero-polaroid { position: relative; }
-    .hero-polaroid .polaroid-frame { aspect-ratio: 4/3; min-height: 320px; }
+    .hero-wordmark {
+      font-size: clamp(3rem, 9vw, 6rem); line-height: 0.94; font-weight: 800; text-transform: uppercase;
+      color: var(--ink); margin-bottom: 6px;
+    }
+    .hero-tagline { font-family: var(--font-mono); font-size: clamp(0.9rem, 1.6vw, 1.05rem); color: var(--holo-pink); letter-spacing: 0.5px; margin-bottom: 18px; }
+    .hero-body { color: var(--ink-soft); line-height: 1.9; max-width: 46ch; margin-bottom: 30px; font-size: 0.98rem; }
+    .hero-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+
+    .hero-visual { position: relative; }
+    .hero-polaroid .polaroid-frame { aspect-ratio: 3/4; min-height: 340px; }
     .hero-polaroid .polaroid-frame video, .hero-polaroid .polaroid-frame .frame-fallback {
       position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-      background: linear-gradient(160deg, var(--lavender), var(--sky));
+      background: linear-gradient(160deg, var(--surface-2), var(--bg-2));
     }
-    .hero-polaroid .polaroid-cap { font-size: 24px; }
+    .hero-polaroid .polaroid-cap { font-size: 15px; }
+    .hero-float-chip {
+      position: absolute; background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--r-md);
+      padding: 12px 16px; box-shadow: var(--shadow-hover); display: flex; gap: 10px; align-items: flex-start;
+      max-width: 230px; text-decoration: none; color: inherit; backdrop-filter: blur(10px);
+      animation: floatChip 5s ease-in-out infinite;
+    }
+    .hero-float-chip:hover { border-color: var(--holo-cyan); }
+    .chip-1 { top: -6%; left: -12%; animation-delay: 0s; }
+    .chip-2 { bottom: 8%; right: -14%; animation-delay: 1.2s; }
+    @media (max-width: 880px) { .chip-1, .chip-2 { position: static; margin-top: 14px; max-width: 100%; animation: none; } }
+    @keyframes floatChip { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    .chip-note { font-size: 12.5px; color: var(--ink); line-height: 1.5; font-weight: 500; }
 
-    .news-stack { display: flex; flex-direction: column; gap: 18px; justify-content: center; }
-    .note {
-      background: var(--white); border-radius: var(--r-md); padding: 16px 18px; box-shadow: var(--shadow-soft);
-      display: flex; gap: 12px; align-items: flex-start; text-decoration: none; color: inherit;
-      border-left: 5px solid var(--sky-deep); transition: transform var(--dur) var(--ease);
-    }
-    .note:nth-child(2) { border-left-color: var(--mint-deep); }
-    .note:nth-child(3) { border-left-color: var(--sand-deep); }
-    .note:hover { transform: translateX(6px); }
-    .note-text { font-size: 14px; color: var(--ink); line-height: 1.5; }
-    .hero-cta { margin-top: 6px; align-self: flex-start; }
+    /* ---- Marquee section ---- */
+    .ticker-wrap { max-width: 100%; margin: 54px 0; }
 
-    /* ---- Members string ---- */
-    .string-wrap { max-width: 1240px; width: 94%; margin: 0 auto 70px; }
-    .string-line { position: relative; height: 20px; margin-bottom: 26px; }
-    .string-line::before {
-      content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 2px;
-      background: repeating-linear-gradient(90deg, var(--line) 0 10px, transparent 10px 18px);
-    }
-    .string-scroll { overflow-x: auto; overflow-y: hidden; padding: 6px 6px 16px; }
+    /* ---- Members string (photocard collection) ---- */
+    .string-wrap { max-width: 1240px; width: 94%; margin: 0 auto 74px; }
+    .string-scroll { overflow-x: auto; overflow-y: hidden; padding: 10px 6px 20px; }
     .string-scroll::-webkit-scrollbar { height: 6px; }
-    .string-scroll::-webkit-scrollbar-thumb { background: var(--lavender-deep); border-radius: 3px; }
-    .string-track { display: flex; gap: 26px; }
-    .member-clip { flex: 0 0 auto; width: clamp(120px, 20vw, 160px); text-decoration: none; text-align: center; display: block; }
+    .string-scroll::-webkit-scrollbar-thumb { background: var(--holo-purple-deep); border-radius: 3px; }
+    .string-track { display: flex; gap: 22px; }
+    .member-clip { flex: 0 0 auto; width: clamp(130px, 20vw, 168px); text-decoration: none; text-align: center; display: block; }
     .member-clip .polaroid { padding-bottom: 26px; }
-    .member-clip .polaroid-frame { background: var(--mint); }
-    .member-clip:nth-child(odd) .polaroid { transform: rotate(-5deg); }
-    .member-clip:nth-child(even) .polaroid { transform: rotate(4deg); }
-    .member-clip .polaroid-cap { font-size: 15px; }
-    .member-clip .clip-gen { position: absolute; top: -8px; right: -8px; z-index: 2; }
-    .members-empty { color: var(--ink-soft); font-size: 14px; padding: 20px 0; }
+    .member-clip .polaroid-cap { font-size: 14px; }
+    .member-clip .clip-gen { position: absolute; top: 10px; right: 10px; z-index: 3; }
+    .members-empty { color: var(--ink-faint); font-size: 13px; padding: 30px 0; font-family: var(--font-mono); text-align: center; width: 100%; }
 
-    /* ---- Highlight bento ---- */
-    .highlight-grid { max-width: 1240px; width: 94%; margin: 0 auto 70px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    /* ---- Highlight bento (era tiles) ---- */
+    .highlight-grid { max-width: 1240px; width: 94%; margin: 0 auto 74px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
     @media (max-width: 900px) { .highlight-grid { grid-template-columns: repeat(2, 1fr); } }
     .highlight-tile {
       aspect-ratio: 1/1; border-radius: var(--r-lg); display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 18px; color: var(--white); font-family: var(--font-display); font-weight: 700; font-size: 15px;
+      padding: 20px; color: var(--white); font-family: var(--font-display); font-weight: 700; font-size: 14px;
       box-shadow: var(--shadow-soft); position: relative; overflow: hidden; transition: transform var(--dur) var(--ease);
+      border: 1px solid var(--line);
     }
-    .highlight-tile:hover { transform: translateY(-6px) rotate(-1deg); box-shadow: var(--shadow-hover); }
-    .highlight-tile:nth-child(1) { background: linear-gradient(150deg, var(--sky-deep), var(--sand-deep)); }
-    .highlight-tile:nth-child(2) { background: linear-gradient(150deg, var(--lavender-deep), var(--sky-deep)); }
-    .highlight-tile:nth-child(3) { background: linear-gradient(150deg, var(--mint-deep), var(--lavender-deep)); }
-    .highlight-tile:nth-child(4) { background: linear-gradient(150deg, var(--sand-deep), var(--mint-deep)); }
-    .highlight-tile .tile-icon { font-size: 26px; position: absolute; top: 16px; left: 16px; opacity: 0.9; }
+    .highlight-tile:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover), 0 0 30px rgba(155,107,255,0.35); }
+    .highlight-tile::before { content: ''; position: absolute; inset: 0; opacity: 0.9; z-index: -1; }
+    .highlight-tile:nth-child(1)::before { background: linear-gradient(150deg, var(--holo-blue-deep), var(--surface)); }
+    .highlight-tile:nth-child(2)::before { background: linear-gradient(150deg, var(--holo-purple-deep), var(--surface)); }
+    .highlight-tile:nth-child(3)::before { background: linear-gradient(150deg, var(--holo-pink-deep), var(--surface)); }
+    .highlight-tile:nth-child(4)::before { background: linear-gradient(150deg, #d9a336, var(--surface)); }
+    .highlight-tile .tile-icon { font-size: 24px; position: absolute; top: 16px; left: 16px; opacity: 0.95; color: var(--white); }
 
     /* ---- Teaser sections ---- */
-    .teaser-wrap { max-width: 1240px; width: 94%; margin: 0 auto 70px; }
+    .teaser-wrap { max-width: 1240px; width: 94%; margin: 0 auto 74px; }
     .stamp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
     @media (max-width: 760px) { .stamp-grid { grid-template-columns: 1fr; } }
     .stamp-card {
-      background: var(--white); border-radius: var(--r-lg); box-shadow: var(--shadow-soft); padding: 18px;
-      display: flex; gap: 14px; align-items: center; transition: transform var(--dur) var(--ease), box-shadow var(--dur);
+      background: var(--surface); border-radius: var(--r-lg); box-shadow: var(--shadow-soft); padding: 18px;
+      display: flex; gap: 14px; align-items: center; border: 1px solid var(--line);
+      transition: transform var(--dur) var(--ease), box-shadow var(--dur), border-color var(--dur);
     }
-    .stamp-card:hover { transform: translateY(-5px) rotate(-1deg); box-shadow: var(--shadow-hover); }
+    .stamp-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--holo-cyan); }
     .stamp-circle {
-      flex-shrink: 0; width: 58px; height: 58px; border-radius: 50%; background: var(--navy); color: var(--white);
-      display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: var(--font-display);
-      border: 3px dashed rgba(255,255,255,0.5);
+      flex-shrink: 0; width: 58px; height: 58px; border-radius: 50%; background: var(--bg-2); color: var(--holo-cyan);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: var(--font-mono);
+      border: 1px solid var(--line-strong);
     }
     .stamp-circle .day { font-size: 17px; font-weight: 700; line-height: 1; }
     .stamp-circle .month { font-size: 8px; letter-spacing: 0.5px; }
-    .stamp-title { font-family: var(--font-display); font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.4; }
+    .stamp-title { font-family: var(--font-display); font-size: 13.5px; font-weight: 500; color: var(--ink); line-height: 1.4; }
 
     .cd-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
     @media (max-width: 760px) { .cd-grid { grid-template-columns: repeat(2, 1fr); } }
     .cd-item { text-align: center; text-decoration: none; }
     .cd-disc {
-      position: relative; width: 100%; aspect-ratio: 1/1; border-radius: 50%; overflow: hidden; background: var(--lavender);
-      box-shadow: var(--shadow-soft); margin-bottom: 12px; transition: transform 0.6s var(--ease);
-      border: 6px solid var(--white); outline: 2px solid var(--line);
+      position: relative; width: 100%; aspect-ratio: 1/1; border-radius: 50%; overflow: hidden;
+      background: conic-gradient(from 90deg, var(--holo-blue), var(--holo-purple), var(--holo-pink), var(--holo-cyan), var(--holo-blue));
+      box-shadow: var(--shadow-soft); margin-bottom: 12px; transition: transform 0.7s var(--ease);
+      border: 5px solid var(--surface); outline: 1px solid var(--line-strong);
     }
     .cd-disc::after {
       content: ''; position: absolute; inset: 0; margin: auto; width: 22%; height: 22%; border-radius: 50%;
-      background: var(--cream); border: 2px solid var(--white);
+      background: var(--bg); border: 2px solid var(--surface); z-index: 2;
     }
-    .cd-disc img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .cd-item:hover .cd-disc { transform: rotate(45deg); }
-    .cd-title { font-family: var(--font-display); font-size: 13.5px; font-weight: 500; color: var(--ink); }
+    .cd-disc img { width: 100%; height: 100%; object-fit: cover; display: block; position: relative; z-index: 1; }
+    .cd-item:hover .cd-disc { transform: rotate(50deg); }
+    .cd-title { font-family: var(--font-display); font-size: 13px; font-weight: 500; color: var(--ink); }
 
     /* ---- About postcard teaser ---- */
     .about-postcard {
-      max-width: 1240px; width: 94%; margin: 0 auto 70px; background: var(--white); border: 2px dashed var(--line);
-      border-radius: var(--r-xl); padding: clamp(28px, 5vw, 48px); text-align: center; position: relative;
+      max-width: 1240px; width: 94%; margin: 0 auto 74px; text-align: center; position: relative;
     }
-    .about-postcard h2 { font-family: var(--font-accent); font-size: clamp(1.6rem, 4vw, 2.3rem); color: var(--navy-deep); font-weight: 600; }
+    .about-postcard h2 { font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2.3rem); color: var(--ink); font-weight: 700; }
     .about-postcard p { max-width: 640px; margin: 14px auto 0; color: var(--ink-soft); line-height: 1.8; }
   </style>
 </head>
@@ -141,53 +165,73 @@
   <script src="assets/js/nav.js"></script>
   <script src="assets/js/data.js"></script>
   <script src="assets/js/reveal.js"></script>
+  <script src="assets/js/fx.js"></script>
 
   <!-- Splash -->
   <div id="splash">
     <div class="splash-card">
-      <img src="assets/images/logo.png" alt="NPT48">
-      <div class="word">NPT48</div>
-      <div class="sub font-accent">official site <i class="fas fa-star"></i></div>
+      <div class="splash-ring"><img src="assets/images/logo.png" alt="NPT48"></div>
+      <div class="word glitch" data-text="NPT48">NPT48</div>
+      <div class="sub">Loading New Era<span id="todaysDate"></span></div>
+      <div class="splash-bar"><div class="splash-bar-fill"></div></div>
     </div>
   </div>
 
   <!-- SECTION: Hero bento -->
   <section class="hero-wrap">
     <div class="hero-bento">
-      <div class="polaroid hero-polaroid">
-        <div class="tape tape-tl"></div><div class="tape tape-tr tape-sky"></div>
-        <div class="polaroid-frame">
-          <video autoplay muted loop playsinline poster="assets/images/hero-banner.svg" onerror="this.style.display='none'">
-            <source src="assets/videos/hero.mp4" type="video/mp4">
-          </video>
-          <div class="frame-fallback"></div>
+      <div>
+        <div class="hero-eyebrow"><i class="fas fa-compact-disc"></i> Virtual Idol · Photocard Era</div>
+        <h1 class="hero-wordmark glitch" data-text="NPT48">NPT48</h1>
+        <div class="hero-tagline">from the mountains, to the sea.</div>
+        <p class="hero-body">กลุ่มไอดอลเสมือนจริงสัญชาติไทย ที่ได้แรงบันดาลใจจากความสงบของขุนเขาและท้องทะเล ส่งต่อความสดใสและรอยยิ้มที่จริงใจสู่ทุกคน — พร้อมภาพลักษณ์ใหม่ยุค Photocard Era</p>
+        <div class="hero-actions">
+          <a href="about.html" class="btn-blob">เกี่ยวกับวง NPT48 <i class="fas fa-heart"></i></a>
+          <a href="profile.html" class="btn-ghost">ดูสมาชิกทั้งหมด <i class="fas fa-users"></i></a>
         </div>
-        <div class="polaroid-cap font-accent">from the mountains to the sea <i class="fas fa-water"></i></div>
       </div>
 
-      <div class="news-stack" data-pop>
-        <span class="sticker sticker-sky"><i class="fas fa-star"></i> วันนี้ของ NPT48 <span id="todaysDate"></span></span>
-        <a href="#" class="note">
-          <span class="sticker sticker-mint">อีเวนต์</span>
-          <span class="note-text">NPT48 Official Site เปิดตัวแล้ววันนี้!</span>
+      <div class="hero-visual" data-pop>
+        <div class="polaroid tilt hero-polaroid">
+          <div class="polaroid-frame">
+            <video autoplay muted loop playsinline poster="assets/images/hero-banner.svg" onerror="this.style.display='none'">
+              <source src="assets/videos/hero.mp4" type="video/mp4">
+            </video>
+            <div class="frame-fallback"></div>
+          </div>
+          <div class="polaroid-cap">FROM THE MOUNTAINS TO THE SEA</div>
+        </div>
+        <a href="#" class="hero-float-chip chip-1">
+          <span class="sticker sticker-pink">New</span>
+          <span class="chip-note">NPT48 Official Site เปิดตัวแล้ววันนี้!</span>
         </a>
-        <a href="#" class="note">
-          <span class="sticker sticker-sand">สื่อ</span>
-          <span class="note-text">1st Single "Kaze Wo Matsu" กำลังจะมาเร็วๆ นี้</span>
+        <a href="profile.html" class="hero-float-chip chip-2">
+          <span class="sticker sticker-mint">Intel</span>
+          <span class="chip-note">ทำความรู้จักสมาชิกรุ่นแรกของ NPT48</span>
         </a>
-        <a href="profile.html" class="note">
-          <span class="sticker sticker-lavender">ไลฟ์</span>
-          <span class="note-text">ทำความรู้จักสมาชิกรุ่นแรกของ NPT48</span>
-        </a>
-        <a href="about.html" class="btn-blob hero-cta">เกี่ยวกับวง NPT48 <i class="fas fa-heart"></i></a>
       </div>
     </div>
   </section>
 
+  <!-- Marquee ticker -->
+  <div class="ticker-wrap">
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span><i class="fas fa-star"></i> NPT48 NEW ERA</span>
+        <span><i class="fas fa-star"></i> 1ST SINGLE "KAZE WO MATSU" COMING SOON</span>
+        <span><i class="fas fa-star"></i> PHOTOCARD COLLECTION</span>
+        <span><i class="fas fa-star"></i> FROM THE MOUNTAINS TO THE SEA</span>
+        <span><i class="fas fa-star"></i> NPT48 NEW ERA</span>
+        <span><i class="fas fa-star"></i> 1ST SINGLE "KAZE WO MATSU" COMING SOON</span>
+        <span><i class="fas fa-star"></i> PHOTOCARD COLLECTION</span>
+        <span><i class="fas fa-star"></i> FROM THE MOUNTAINS TO THE SEA</span>
+      </div>
+    </div>
+  </div>
+
   <!-- SECTION: Members string -->
   <section class="string-wrap">
-    <div class="section-head"><h2><i class="fas fa-users"></i> สมาชิก</h2><a href="profile.html" class="link-doodle">ดูสมาชิกทั้งหมด</a></div>
-    <div class="string-line"></div>
+    <div class="section-head" data-pop><h2><i class="fas fa-users"></i> Photocard Collection</h2><a href="profile.html" class="link-doodle">ดูสมาชิกทั้งหมด</a></div>
     <div class="string-scroll">
       <div class="string-track pop-in-stagger" id="homeMembersTrack" data-pop>
         <div class="members-empty">กำลังโหลดข้อมูล NPT48...</div>
@@ -218,8 +262,8 @@
   </section>
 
   <!-- SECTION: About postcard -->
-  <div class="about-postcard" data-pop>
-    <h2>จากขุนเขาสู่ท้องทะเล เสียงเพลงจากธรรมชาติ</h2>
+  <div class="stitch-card about-postcard" data-pop>
+    <h2 class="glitch" data-text="จากขุนเขาสู่ท้องทะเล">จากขุนเขาสู่ท้องทะเล เสียงเพลงจากธรรมชาติ</h2>
     <p>NPT48 คือกลุ่มไอดอลเสมือนจริงที่ได้แรงบันดาลใจจากขุนเขาและท้องทะเล</p>
     <div style="margin-top:20px"><a href="about.html" class="link-doodle">เกี่ยวกับวง NPT48</a></div>
   </div>
@@ -236,7 +280,7 @@
       var splash = document.getElementById('splash');
       if (!splash || splash.classList.contains('gone')) return;
       var el = document.createElement('span');
-      var icons = ['fa-star', 'fa-water', 'fa-mountain', 'fa-cloud'];
+      var icons = ['fa-star', 'fa-bolt', 'fa-gem', 'fa-compact-disc'];
       el.className = 'drift';
       el.innerHTML = '<i class="fas ' + icons[Math.floor(Math.random() * icons.length)] + '"></i>';
       el.style.left = Math.random() * 100 + 'vw';
@@ -248,7 +292,7 @@
     var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!reduceMotion) setInterval(spawnDrift, 180);
 
-    document.getElementById('todaysDate').textContent = new Date().toISOString().slice(0, 10).replace(/-/g, '.');
+    document.getElementById('todaysDate').textContent = '';
 
     function renderHomeMembers(members) {
       var track = document.getElementById('homeMembersTrack');
@@ -256,13 +300,14 @@
         track.innerHTML = '<div class="members-empty">ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่ภายหลัง</div>';
         return;
       }
-      track.innerHTML = members.slice(0, 10).map(function (m) {
+      track.innerHTML = members.slice(0, 10).map(function (m, idx) {
         var badge = m.generation ? '<span class="sticker sticker-butter clip-gen">' + m.generation + '</span>' : '';
         var baseImg = window.NPT48_DATA.getDirectImgLink(m.image);
         var altImg = m.imageAlt ? window.NPT48_DATA.getDirectImgLink(m.imageAlt) : baseImg;
+        var idxLabel = 'NO.' + String(idx + 1).padStart(2, '0');
         return '' +
           '<a href="profile.html" class="member-clip">' +
-            '<div class="polaroid">' + badge +
+            '<div class="polaroid tilt" data-idx="' + idxLabel + '">' + badge +
               '<div class="polaroid-frame">' +
                 '<div class="photo-stack">' +
                   '<img class="photo-base" src="' + baseImg + '" alt="' + m.name + '" loading="lazy" onerror="this.style.display=\'none\'">' +
@@ -270,10 +315,11 @@
                 '</div>' +
                 '<span class="sparkle-veil"></span>' +
               '</div>' +
-              '<div class="polaroid-cap font-accent">' + m.name + '</div>' +
+              '<div class="polaroid-cap">' + m.name + '</div>' +
             '</div>' +
           '</a>';
       }).join('');
+      if (window.NPT48_FX) window.NPT48_FX.initTilt();
     }
 
     function loadHomeMembers() {

@@ -11,9 +11,9 @@
   ];
 
   var NEWS_ITEMS = [
-    'NPT48 Official Site เปิดตัวแล้ว!',
-    'ติดตามข่าวสารเร็วๆ นี้',
-    '1st Single "Kaze Wo Matsu" กำลังมา'
+    '★ NPT48 OFFICIAL SITE — NEW ERA IS LIVE',
+    '◆ PHOTOCARD COLLECTION กำลังจะมา',
+    '● 1ST SINGLE "KAZE WO MATSU" COMING SOON'
   ];
 
   function currentPage() {
@@ -35,14 +35,14 @@
 
     mount.innerHTML =
       '<div class="scrap-bg" aria-hidden="true">' +
-        '<span style="top:8%;left:6%"><i class="fas fa-water"></i></span><span style="top:60%;left:2%"><i class="fas fa-star"></i></span>' +
-        '<span style="top:20%;right:5%"><i class="fas fa-mountain"></i></span><span style="top:75%;right:8%"><i class="fas fa-cloud"></i></span>' +
+        '<span style="top:8%;left:6%"><i class="fas fa-star"></i></span><span style="top:60%;left:2%"><i class="fas fa-bolt"></i></span>' +
+        '<span style="top:20%;right:5%"><i class="fas fa-gem"></i></span><span style="top:75%;right:8%"><i class="fas fa-compact-disc"></i></span>' +
       '</div>' +
       '<div class="navbar-wrap">' +
         '<nav class="navbar" aria-label="Main navigation">' +
           '<span class="news-sticker" id="newsSticker"></span>' +
           '<a href="index.html" class="navbar-logo">' +
-            '<img src="assets/images/logo.png" alt="NPT48">' +
+            '<span class="logo-ring"><img src="assets/images/logo.png" alt="NPT48"></span>' +
             '<span>NPT48</span>' +
           '</a>' +
           '<div class="navbar-links">' + navLinksHTML(false) + '</div>' +
@@ -67,8 +67,8 @@
     mount.innerHTML =
       '<footer class="footer-postcard">' +
         '<div class="scrap-bg" aria-hidden="true">' +
-          '<span style="top:10%;left:8%"><i class="fas fa-mountain"></i></span><span style="top:70%;left:4%"><i class="fas fa-star"></i></span>' +
-          '<span style="top:15%;right:6%"><i class="fas fa-water"></i></span><span style="top:65%;right:10%"><i class="fas fa-cloud"></i></span>' +
+          '<span style="top:10%;left:8%"><i class="fas fa-star"></i></span><span style="top:70%;left:4%"><i class="fas fa-gem"></i></span>' +
+          '<span style="top:15%;right:6%"><i class="fas fa-bolt"></i></span><span style="top:65%;right:10%"><i class="fas fa-compact-disc"></i></span>' +
         '</div>' +
         '<div class="footer-grid">' +
           '<div class="footer-top">' +

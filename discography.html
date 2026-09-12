@@ -3,10 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07070d">
   <title>NPT48 Official - DISCOGRAPHY</title>
   <link rel="icon" type="image/png" href="assets/images/logo.png">
 
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Caveat:wght@500;600;700&family=Kanit:wght@300;400;500;600;700&family=Nunito:wght@400;500;600;700;800&family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&family=Kanit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="assets/css/site.css">
 
@@ -25,29 +28,30 @@
 
     .record-disc {
       position: relative; width: 100%; aspect-ratio: 1/1; border-radius: 50%; overflow: hidden;
-      background: var(--lavender); box-shadow: var(--shadow-soft); border: 7px solid var(--white);
-      outline: 2px solid var(--line); margin-bottom: 14px; transition: transform 0.7s var(--ease), box-shadow var(--dur);
+      background: conic-gradient(from 90deg, var(--holo-blue), var(--holo-purple), var(--holo-pink), var(--holo-cyan), var(--holo-blue));
+      box-shadow: var(--shadow-soft); border: 6px solid var(--surface);
+      outline: 1px solid var(--line-strong); margin-bottom: 14px; transition: transform 0.7s var(--ease), box-shadow var(--dur);
     }
     .record-disc::after {
       content: ''; position: absolute; inset: 0; margin: auto; width: 20%; height: 20%; border-radius: 50%;
-      background: var(--cream); border: 2px solid var(--white); z-index: 2;
+      background: var(--bg); border: 2px solid var(--surface); z-index: 2;
     }
-    .record-disc img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .record-item:hover .record-disc { transform: rotate(70deg); box-shadow: var(--shadow-hover); }
+    .record-disc img { width: 100%; height: 100%; object-fit: cover; display: block; position: relative; z-index: 1; }
+    .record-item:hover .record-disc { transform: rotate(65deg); box-shadow: var(--shadow-hover), 0 0 30px rgba(155,107,255,0.35); }
 
     .play-sticker {
-      position: absolute; bottom: 6%; right: 6%; z-index: 3; background: var(--butter-deep); color: var(--navy-deep);
+      position: absolute; bottom: 6%; right: 6%; z-index: 3; background: var(--holo-cyan); color: var(--bg);
       width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      font-size: 13px; box-shadow: var(--shadow-tape); opacity: 0; transition: opacity var(--dur);
+      font-size: 13px; box-shadow: 0 0 14px rgba(87,230,208,0.6); opacity: 0; transition: opacity var(--dur);
     }
     .record-item:hover .play-sticker { opacity: 1; }
 
     .record-meta { display: flex; justify-content: center; gap: 8px; align-items: center; margin-bottom: 6px; flex-wrap: wrap; }
-    .tag-type { font-size: 10px; padding: 3px 11px; border-radius: var(--r-pill); text-transform: uppercase; font-weight: 700; font-family: var(--font-display); }
-    .tag-type.single { background: var(--lavender); color: var(--navy-deep); }
-    .tag-type.album { background: var(--mint); color: var(--navy-deep); }
-    .record-date { font-size: 11px; color: var(--ink-faint); font-weight: 600; }
-    .record-title { font-family: var(--font-display); font-size: 14.5px; font-weight: 500; color: var(--ink); line-height: 1.4; }
+    .tag-type { font-size: 9.5px; padding: 4px 12px; border-radius: var(--r-pill); text-transform: uppercase; font-weight: 700; font-family: var(--font-mono); letter-spacing: 0.5px; }
+    .tag-type.single { color: var(--holo-purple); background: rgba(155,107,255,0.12); border: 1px solid rgba(155,107,255,0.35); }
+    .tag-type.album { color: var(--holo-cyan); background: rgba(87,230,208,0.12); border: 1px solid rgba(87,230,208,0.35); }
+    .record-date { font-size: 11px; color: var(--ink-faint); font-weight: 600; font-family: var(--font-mono); }
+    .record-title { font-family: var(--font-display); font-size: 14px; font-weight: 500; color: var(--ink); line-height: 1.4; }
   </style>
 </head>
 <body>
@@ -56,11 +60,12 @@
   <script src="assets/js/nav.js"></script>
   <script src="assets/js/data.js"></script>
   <script src="assets/js/reveal.js"></script>
+  <script src="assets/js/fx.js"></script>
 
   <main class="page-shell">
     <div class="page-title-block" data-pop>
       <span class="sticker sticker-mint"><i class="fas fa-compact-disc"></i> the music</span>
-      <h1>ผลงานเพลง</h1>
+      <h1 class="glitch" data-text="ผลงานเพลง">ผลงานเพลง</h1>
     </div>
 
     <div id="loading-overlay">

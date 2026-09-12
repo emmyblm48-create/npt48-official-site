@@ -3,10 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07070d">
   <title>NPT48 Official - PROFILE</title>
   <link rel="icon" type="image/png" href="assets/images/logo.png">
 
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Caveat:wght@500;600;700&family=Kanit:wght@300;400;500;600;700&family=Nunito:wght@400;500;600;700;800&family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&family=Kanit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="assets/css/site.css">
 
@@ -22,49 +25,47 @@
 
     .member-slot { text-align: center; }
     .member-slot .polaroid { cursor: pointer; }
-    .member-slot:nth-child(3n+1) .polaroid { transform: rotate(-3deg); }
-    .member-slot:nth-child(3n+2) .polaroid { transform: rotate(2deg); }
-    .member-slot:nth-child(3n) .polaroid { transform: rotate(-1deg); }
-    .member-slot .polaroid-frame { background: var(--lavender); }
-    .member-slot .polaroid-cap { font-size: 18px; }
-    .member-slot .slot-sub { font-size: 11px; font-weight: 700; color: var(--ink-faint); letter-spacing: 0.5px; margin-top: 8px; text-transform: uppercase; }
+    .member-slot .polaroid-cap { font-size: 15px; }
+    .member-slot .slot-sub { font-size: 10.5px; font-weight: 700; color: var(--ink-faint); letter-spacing: 1px; margin-top: 10px; text-transform: uppercase; font-family: var(--font-mono); }
     .member-slot .slot-btn {
-      margin-top: 10px; background: var(--lavender); border: none; color: var(--navy-deep); font-family: var(--font-display);
-      font-size: 12.5px; font-weight: 600; padding: 8px 20px; cursor: pointer; border-radius: var(--r-pill);
-      transition: background var(--dur);
+      margin-top: 12px; background: rgba(255,255,255,0.04); border: 1px solid var(--line-strong); color: var(--ink);
+      font-family: var(--font-mono); text-transform: uppercase;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.5px; padding: 9px 20px; cursor: pointer; border-radius: var(--r-pill);
+      transition: all var(--dur);
     }
-    .member-slot .slot-btn:hover { background: var(--sky); }
+    .member-slot .slot-btn:hover { background: var(--holo-cyan); color: var(--bg); border-color: var(--holo-cyan); box-shadow: 0 0 16px rgba(87,230,208,0.4); }
 
     #detail-view { display: none; animation: detailIn 0.4s ease; }
     @keyframes detailIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
     .back-doodle {
-      display: inline-flex; align-items: center; gap: 8px; color: var(--navy-deep); cursor: pointer; font-weight: 700;
-      margin-bottom: 26px; font-family: var(--font-display); font-size: 14px; background: none; border: none;
+      display: inline-flex; align-items: center; gap: 8px; color: var(--holo-cyan); cursor: pointer; font-weight: 700;
+      margin-bottom: 26px; font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px;
+      background: none; border: none;
     }
     .back-doodle:hover { text-decoration: underline; }
 
-    .fan-layout { display: flex; gap: 40px; align-items: flex-start; text-align: left; }
+    .fan-layout { display: flex; gap: 44px; align-items: flex-start; text-align: left; }
     @media (max-width: 760px) { .fan-layout { flex-direction: column; align-items: center; } }
     .fan-photo { flex: 0 0 auto; width: min(320px, 100%); }
-    .fan-card .polaroid-frame { aspect-ratio: 3/4; background: var(--lavender); }
-    .fan-card { transform: rotate(-2deg); }
-    .fan-card .polaroid-cap { font-size: 20px; }
+    .fan-card .polaroid-frame { aspect-ratio: 3/4; }
+    .fan-card .polaroid-cap { font-size: 16px; }
 
     .fan-sheet { flex: 1; min-width: 260px; }
-    #m-name-th { font-family: var(--font-accent); font-size: 40px; color: var(--navy-deep); font-weight: 600; }
-    #m-name-en { color: var(--ink-soft); font-size: 14px; font-weight: 700; letter-spacing: 0.5px; margin-top: 2px; }
+    #m-name-th { font-family: var(--font-display); font-size: 34px; color: var(--ink); font-weight: 700; text-transform: uppercase; }
+    #m-name-en { color: var(--ink-faint); font-size: 13px; font-weight: 700; letter-spacing: 1px; margin-top: 4px; font-family: var(--font-mono); }
 
-    .stat-row { display: grid; grid-template-columns: 130px 1fr; padding: 11px 0; border-bottom: 1px dashed var(--line); }
-    .stat-label { font-family: var(--font-display); color: var(--ink-faint); font-size: 12.5px; font-weight: 600; }
-    .stat-value { color: var(--ink); font-size: 15px; font-weight: 600; }
+    .stat-row { display: grid; grid-template-columns: 130px 1fr; padding: 12px 0; border-bottom: 1px dashed var(--line); }
+    .stat-label { font-family: var(--font-mono); color: var(--ink-faint); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-value { color: var(--ink); font-size: 15px; font-weight: 500; }
 
-    .fan-social { display: flex; gap: 10px; margin-top: 22px; }
+    .fan-social { display: flex; gap: 10px; margin-top: 24px; }
     .fan-social a {
-      width: 40px; height: 40px; border-radius: 50%; background: var(--lavender); color: var(--navy-deep);
+      width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.04); color: var(--ink);
+      border: 1px solid var(--line-strong);
       display: inline-flex; align-items: center; justify-content: center; text-decoration: none; transition: all var(--dur);
     }
-    .fan-social a:hover { background: var(--sky); transform: translateY(-3px); }
+    .fan-social a:hover { background: var(--holo-grad); color: var(--bg); transform: translateY(-3px); box-shadow: var(--shadow-glow); }
   </style>
 </head>
 <body>
@@ -73,11 +74,12 @@
   <script src="assets/js/nav.js"></script>
   <script src="assets/js/data.js"></script>
   <script src="assets/js/reveal.js"></script>
+  <script src="assets/js/fx.js"></script>
 
   <main class="page-shell">
     <div class="page-title-block" data-pop>
       <span class="sticker sticker-sky"><i class="fas fa-users"></i> the members</span>
-      <h1>โปรไฟล์สมาชิก</h1>
+      <h1 class="glitch" data-text="โปรไฟล์สมาชิก">โปรไฟล์สมาชิก</h1>
     </div>
 
     <div id="loading-overlay">
@@ -94,12 +96,11 @@
       <button type="button" class="back-doodle" onclick="goBack()"><i class="fas fa-arrow-left"></i> กลับไปดูเพื่อนๆ</button>
       <div class="fan-layout">
         <div class="fan-photo">
-          <div class="polaroid fan-card">
-            <div class="tape tape-tl"></div>
+          <div class="polaroid fan-card tilt" data-idx="PROFILE">
             <div class="polaroid-frame">
               <img id="m-img" style="width:100%;height:100%;object-fit:cover" alt="Member Photo" loading="lazy">
             </div>
-            <div class="polaroid-cap font-accent" id="m-cap"></div>
+            <div class="polaroid-cap" id="m-cap"></div>
           </div>
         </div>
         <div class="fan-sheet">
@@ -169,13 +170,14 @@
         return;
       }
 
-      grid.innerHTML = filtered.map(function (m) {
+      grid.innerHTML = filtered.map(function (m, idx) {
         var nameSub = (m.fullNameEN || m.name).toString().toUpperCase();
         var img = window.NPT48_DATA.getDirectImgLink(m.image);
         var altImg = m.imageAlt ? window.NPT48_DATA.getDirectImgLink(m.imageAlt) : img;
+        var idxLabel = 'NO.' + String(idx + 1).padStart(2, '0');
         return '' +
           '<div class="member-slot">' +
-            '<div class="polaroid" tabindex="0" role="button" aria-label="โปรไฟล์ ' + m.name + '" onclick="viewDetail(\'' + m.name + '\')">' +
+            '<div class="polaroid tilt" data-idx="' + idxLabel + '" tabindex="0" role="button" aria-label="โปรไฟล์ ' + m.name + '" onclick="viewDetail(\'' + m.name + '\')">' +
               '<div class="polaroid-frame">' +
                 '<div class="photo-stack">' +
                   '<img src="' + img + '" class="photo-base" alt="' + m.name + '" loading="lazy" onerror="this.style.display=\'none\'">' +
@@ -183,12 +185,13 @@
                 '</div>' +
                 '<span class="sparkle-veil"></span>' +
               '</div>' +
-              '<div class="polaroid-cap font-accent">' + m.name + '</div>' +
+              '<div class="polaroid-cap">' + m.name + '</div>' +
             '</div>' +
             '<div class="slot-sub">' + nameSub + '</div>' +
             '<button class="slot-btn" onclick="viewDetail(\'' + m.name + '\')">ดูโปรไฟล์ <i class="fas fa-star"></i></button>' +
           '</div>';
       }).join('');
+      if (window.NPT48_FX) window.NPT48_FX.initTilt();
     }
 
     function viewDetail(nickname) {
@@ -222,6 +225,7 @@
       document.getElementById('grid-view').style.display = 'none';
       document.getElementById('detail-view').style.display = 'block';
       window.scrollTo(0, 0);
+      if (window.NPT48_FX) window.NPT48_FX.initTilt();
     }
 
     function goBack() {
