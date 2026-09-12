@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NPT48 — Dreamy Hero Concept</title>
+<!--
+  NEW DESIGN CONCEPT — "Mountains to the Sea" (dreamy/minimalist direction)
+  This is a standalone preview of ONE section (the hero) for review.
+  To use inside the real site: copy everything between the
+  <!-- HERO:START --> and <!-- HERO:END --> markers into index.html,
+  and add the two Google Fonts below to its <head> (Petrona + Kanit).
+  This intentionally does NOT reuse assets/css/site.css — it is a fresh
+  direction to compare against the current "Sticker Scrapbook" look.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Kanit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#fbf5ec;
+    --surface:#fffdf8;
+    --ink:#3a4456;
+    --ink-soft:#6e7686;
+    --lavender:#d7cfea;
+    --lavender-deep:#b3a6d6;
+    --sea:#c3e2ea;
+    --sea-deep:#8fbece;
+    --bloom:#f1d9d6;
+    --bloom-deep:#d99a9a;
+    --ring:#b3a6d6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --cream:#232233;
+      --surface:#2b2a40;
+      --ink:#f1ece3;
+      --ink-soft:#c7c1d9;
+      --lavender:#8f7fc0;
+      --lavender-deep:#ab9cdb;
+      --sea:#4c7e93;
+      --sea-deep:#79aec2;
+      --bloom:#c98a93;
+      --bloom-deep:#e0acb3;
+      --ring:#ab9cdb;
+    }
+  }
+  :root[data-theme="dark"]{
+    --cream:#232233;
+    --surface:#2b2a40;
+    --ink:#f1ece3;
+    --ink-soft:#c7c1d9;
+    --lavender:#8f7fc0;
+    --lavender-deep:#ab9cdb;
+    --sea:#4c7e93;
+    --sea-deep:#79aec2;
+    --bloom:#c98a93;
+    --bloom-deep:#e0acb3;
+    --ring:#ab9cdb;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{
+    background:var(--cream);
+    font-family:'Kanit','Petrona',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{ animation:none !important; transition:none !important; }
+  }
+
+  .hero{
+    position:relative;
+    overflow:hidden;
+    background:var(--cream);
+    min-height:clamp(640px, 94vh, 940px);
+    display:flex;
+    flex-direction:column;
+    padding:clamp(18px,3.5vw,40px) clamp(22px,6vw,84px) clamp(40px,6vw,64px);
+  }
+
+  /* ---------- decorative "mountains to sea" backdrop ---------- */
+  .hero-scene{ position:absolute; inset:0; z-index:0; pointer-events:none; }
+  .blob{
+    position:absolute;
+    filter:blur(0.5px);
+    opacity:0.85;
+  }
+  .blob-peak{
+    top:-12%; right:-6%;
+    width:min(48vw,620px); height:min(48vw,620px);
+    background:radial-gradient(circle at 35% 30%, var(--lavender), var(--lavender-deep) 78%);
+    border-radius:62% 38% 55% 45% / 55% 48% 52% 45%;
+    animation:driftA 9s ease-in-out infinite;
+  }
+  .blob-sea{
+    top:8%; right:4%;
+    width:min(34vw,420px); height:min(34vw,420px);
+    background:radial-gradient(circle at 60% 40%, var(--sea), var(--sea-deep) 80%);
+    border-radius:48% 52% 40% 60% / 55% 45% 55% 45%;
+    opacity:0.8;
+    animation:driftB 11s ease-in-out infinite;
+  }
+  .blob-sun{
+    top:16%; right:22%;
+    width:min(10vw,120px); height:min(10vw,120px);
+    background:radial-gradient(circle, var(--bloom), var(--bloom-deep) 85%);
+    border-radius:50%;
+    opacity:0.9;
+    animation:driftC 7s ease-in-out infinite;
+  }
+  @keyframes driftA{ 0%,100%{ transform:translate(0,0) rotate(0deg); } 50%{ transform:translate(-2%,3%) rotate(4deg); } }
+  @keyframes driftB{ 0%,100%{ transform:translate(0,0) rotate(0deg); } 50%{ transform:translate(3%,-2%) rotate(-3deg); } }
+  @keyframes driftC{ 0%,100%{ transform:translate(0,0); } 50%{ transform:translate(-4%,4%); } }
+
+  .horizon{
+    position:absolute; left:0; bottom:0; width:100%; height:34%;
+    z-index:0; pointer-events:none;
+  }
+  .horizon svg{ width:100%; height:100%; display:block; }
+  .horizon path{ fill:var(--sea); opacity:0.35; }
+  .horizon .wave2{ fill:var(--lavender); opacity:0.25; }
+
+  /* ---------- floating pill nav ---------- */
+  .pill-row{
+    position:relative; z-index:2;
+    display:flex; align-items:center; justify-content:flex-end; gap:14px;
+    opacity:0; animation:fadeUp 0.8s ease forwards; animation-delay:0.05s;
+  }
+  .mark{
+    width:42px; height:42px; border-radius:50%; flex-shrink:0;
+    background:linear-gradient(145deg, var(--lavender), var(--sea));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Petrona',serif; font-style:italic; font-weight:500; font-size:1.05rem;
+    color:var(--surface);
+    margin-right:auto;
+  }
+  .pill-nav{
+    display:flex; align-items:center; gap:clamp(14px,2vw,26px);
+    background:color-mix(in srgb, var(--surface) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-radius:999px;
+    padding:10px clamp(16px,2.4vw,28px);
+    box-shadow:0 10px 30px rgba(120,110,150,0.14);
+    transition:transform 0.4s ease;
+  }
+  .pill-nav:hover{ transform:translateY(-2px); }
+  .pill-nav a{
+    font-size:0.85rem; color:var(--ink-soft); text-decoration:none;
+    letter-spacing:0.02em; white-space:nowrap;
+    transition:color 0.3s ease;
+  }
+  .pill-nav a:hover, .pill-nav a:focus-visible{ color:var(--ink); }
+  .pill-nav a:focus-visible{ outline:2px solid var(--ring); outline-offset:4px; border-radius:4px; }
+
+  /* ---------- hero content ---------- */
+  .hero-content{
+    position:relative; z-index:2;
+    margin-top:auto;
+    max-width:640px;
+  }
+  .eyebrow{
+    font-size:0.78rem; letter-spacing:0.22em; text-transform:uppercase;
+    color:var(--lavender-deep); font-weight:500; margin:0 0 18px;
+    opacity:0; animation:fadeUp 0.8s ease forwards; animation-delay:0.15s;
+  }
+  .wordmark{
+    font-family:'Petrona',serif; font-weight:300;
+    font-size:clamp(4rem,12vw,8.5rem);
+    line-height:0.92; letter-spacing:-0.01em;
+    color:var(--ink); margin:0;
+    text-wrap:balance;
+    opacity:0; animation:fadeUp 0.9s ease forwards; animation-delay:0.25s;
+  }
+  .wordmark em{
+    display:block;
+    font-style:italic; font-weight:400;
+    font-size:clamp(1.1rem,2.6vw,1.55rem);
+    color:var(--ink-soft);
+    margin-top:10px;
+    letter-spacing:0;
+  }
+  .thai-line{
+    font-size:clamp(1rem,1.9vw,1.2rem); color:var(--ink);
+    margin:20px 0 0; font-weight:400;
+    opacity:0; animation:fadeUp 0.8s ease forwards; animation-delay:0.4s;
+  }
+  .hero-body{
+    font-size:0.98rem; font-weight:300; color:var(--ink-soft);
+    line-height:1.8; max-width:46ch; margin:14px 0 0;
+    opacity:0; animation:fadeUp 0.8s ease forwards; animation-delay:0.5s;
+  }
+  .hero-actions{
+    display:flex; align-items:center; gap:22px; margin-top:32px;
+    opacity:0; animation:fadeUp 0.8s ease forwards; animation-delay:0.6s;
+  }
+  .btn-primary{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--bloom-deep); color:var(--surface);
+    font-family:'Kanit',sans-serif; font-size:0.92rem; font-weight:400;
+    text-decoration:none; border-radius:999px; padding:14px 28px;
+    box-shadow:0 14px 28px rgba(217,154,154,0.35);
+    transition:transform 0.35s ease, box-shadow 0.35s ease;
+  }
+  .btn-primary:hover{ transform:translateY(-4px); box-shadow:0 18px 34px rgba(217,154,154,0.45); }
+  .btn-primary:focus-visible{ outline:2px solid var(--ring); outline-offset:3px; }
+  .btn-link{
+    font-size:0.92rem; color:var(--ink); text-decoration:none;
+    border-bottom:1px solid var(--lavender-deep); padding-bottom:3px;
+    transition:opacity 0.3s ease;
+  }
+  .btn-link:hover{ opacity:0.6; }
+  .btn-link:focus-visible{ outline:2px solid var(--ring); outline-offset:3px; }
+
+  @keyframes fadeUp{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  /* ---------- scroll hint ---------- */
+  .scroll-hint{
+    position:relative; z-index:2;
+    align-self:flex-end;
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+    margin-top:28px;
+    font-size:0.72rem; letter-spacing:0.15em; color:var(--ink-soft);
+    opacity:0; animation:fadeUp 0.8s ease forwards, bob 2.6s ease-in-out 1.2s infinite;
+  }
+  .scroll-hint::after{
+    content:""; width:1px; height:26px; background:var(--ink-soft); opacity:0.5;
+  }
+  @keyframes bob{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(6px); } }
+
+  @media (max-width:640px){
+    .pill-row{ justify-content:space-between; }
+    .pill-nav{ display:none; }
+    .scroll-hint{ align-self:center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO:START -->
+<section class="hero">
+  <div class="hero-scene" aria-hidden="true">
+    <span class="blob blob-peak"></span>
+    <span class="blob blob-sea"></span>
+    <span class="blob blob-sun"></span>
+  </div>
+  <div class="horizon" aria-hidden="true">
+    <svg viewBox="0 0 400 100" preserveAspectRatio="none">
+      <path class="wave2" d="M0,55 Q100,25 200,50 T400,45 V100 H0 Z"></path>
+      <path d="M0,70 Q100,45 200,68 T400,62 V100 H0 Z"></path>
+    </svg>
+  </div>
+
+  <div class="pill-row">
+    <span class="mark">N</span>
+    <nav class="pill-nav" aria-label="หลัก">
+      <a href="index.html">หน้าแรก</a>
+      <a href="about.html">เกี่ยวกับเรา</a>
+      <a href="profile.html">สมาชิก</a>
+      <a href="schedule.html">ตารางงาน</a>
+      <a href="discography.html">ผลงาน</a>
+    </nav>
+  </div>
+
+  <div class="hero-content">
+    <p class="eyebrow">ไอดอลเสมือนจริง · ไม่แสวงหาผลกำไร</p>
+    <h1 class="wordmark">NPT48<em>from the mountains, to the sea.</em></h1>
+    <p class="thai-line">จากขุนเขาสู่ท้องทะเล เสียงเพลงจากธรรมชาติ</p>
+    <p class="hero-body">กลุ่มไอดอลเสมือนจริงสัญชาติไทย ที่ได้แรงบันดาลใจจากความสงบของขุนเขาและท้องทะเล ส่งต่อความสดใสและรอยยิ้มที่จริงใจสู่ทุกคน</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="about.html">รู้จักเรา</a>
+      <a class="btn-link" href="profile.html">ดูสมาชิกวง</a>
+    </div>
+  </div>
+
+  <span class="scroll-hint">SCROLL</span>
+</section>
+<!-- HERO:END -->
+
+</body>
+</html>
