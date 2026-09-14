@@ -24,10 +24,20 @@
     if (!isConfigured()) {
       return Promise.reject(new Error('SCRIPT_URL not configured'));
     }
+
+    var cacheKey = 'npt48_sheet_' + sheetName;
+    try {
+      var cached = sessionStorage.getItem(cacheKey);
+      if (cached) return Promise.resolve(JSON.parse(cached));
+    } catch (e) { /* sessionStorage unavailable or corrupted cache — fall through to fetch */ }
+
     var url = SCRIPT_URL + '?sheet=' + encodeURIComponent(sheetName);
     return fetch(url).then(function (res) {
       if (!res.ok) throw new Error('Network error: ' + res.status);
       return res.json();
+    }).then(function (data) {
+      try { sessionStorage.setItem(cacheKey, JSON.stringify(data)); } catch (e) { /* storage full or unavailable */ }
+      return data;
     });
   }
 
