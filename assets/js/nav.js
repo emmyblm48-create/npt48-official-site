@@ -47,7 +47,7 @@
       '<header class="site-header">' +
         '<div class="site-header-inner">' +
           '<a href="index.html" class="site-logo">' +
-            '<span class="logo-badge"><img class="logo-img" src="assets/images/logo.png" alt="NPT48"></span>' +
+            '<img class="logo-img" src="assets/images/logo.png" alt="NPT48">' +
             '<span class="logo-sub">Official Site</span>' +
           '</a>' +
           '<nav class="site-nav" aria-label="Main navigation">' + navLinksHTML('') + '</nav>' +
@@ -87,22 +87,18 @@
 
           '<div class="footer-banner-grid">' +
             '<a href="profile.html" class="footer-banner-card">' +
-              '<i class="fas fa-users"></i>' +
               '<span class="fb-card-title">Profile</span>' +
               '<span class="fb-card-sub">Meet the Members</span>' +
             '</a>' +
             '<a href="discography.html" class="footer-banner-card">' +
-              '<i class="fas fa-compact-disc"></i>' +
               '<span class="fb-card-title">Discography</span>' +
               '<span class="fb-card-sub">Music &amp; Releases</span>' +
             '</a>' +
             '<a href="about.html" class="footer-banner-card">' +
-              '<i class="fas fa-circle-info"></i>' +
               '<span class="fb-card-title">About</span>' +
               '<span class="fb-card-sub">Our Story</span>' +
             '</a>' +
             '<a href="https://www.akb48.co.jp/" target="_blank" rel="noopener" class="footer-banner-card">' +
-              '<i class="fas fa-globe"></i>' +
               '<span class="fb-card-title">AKB48 Group</span>' +
               '<span class="fb-card-sub">Official Site</span>' +
             '</a>' +
