@@ -3,17 +3,17 @@
    ========================================================= */
 (function () {
   var NAV_LINKS = [
-    { href: 'index.html', page: 'index', label: 'หน้าแรก' },
-    { href: 'schedule.html', page: 'schedule', label: 'ตารางงาน' },
-    { href: 'profile.html', page: 'profile', label: 'โปรไฟล์สมาชิก' },
-    { href: 'discography.html', page: 'discography', label: 'ผลงานเพลง' },
-    { href: 'about.html', page: 'about', label: 'เกี่ยวกับวง' }
+    { href: 'index.html', page: 'index', label: 'Home' },
+    { href: 'schedule.html', page: 'schedule', label: 'Schedule' },
+    { href: 'profile.html', page: 'profile', label: 'Members' },
+    { href: 'discography.html', page: 'discography', label: 'Discography' },
+    { href: 'about.html', page: 'about', label: 'About' }
   ];
 
   var TICKER_ITEMS = [
-    { href: '#', text: 'NPT48 OFFICIAL SITE เปิดตัวแล้ววันนี้!' },
+    { href: '#', text: 'NPT48 OFFICIAL SITE IS NOW LIVE' },
     { href: '#', text: '1ST SINGLE "KAZE WO MATSU" COMING SOON' },
-    { href: '#', text: 'จากขุนเขาสู่ท้องทะเล เสียงเพลงจากธรรมชาติ' }
+    { href: '#', text: 'FROM THE MOUNTAINS TO THE SEA' }
   ];
 
   function currentPage() {
@@ -48,12 +48,12 @@
       '<header class="site-header">' +
         '<div class="site-header-inner">' +
           '<a href="index.html" class="site-logo">' +
-            '<img class="logo-img" src="assets/images/logo.png" alt="NPT48">' +
+            '<span class="logo-badge"><img class="logo-img" src="assets/images/logo.png" alt="NPT48"></span>' +
             '<span class="logo-sub">Official Site</span>' +
           '</a>' +
           '<nav class="site-nav" aria-label="Main navigation">' + navLinksHTML('') + '</nav>' +
           '<div class="header-actions">' +
-            '<a href="about.html" class="header-cta">เกี่ยวกับวง NPT48</a>' +
+            '<a href="about.html" class="header-cta">About NPT48</a>' +
             '<button type="button" class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">' +
               '<span></span><span></span><span></span>' +
             '</button>' +
@@ -64,7 +64,7 @@
       '<aside class="mobile-nav-panel" id="mobileNavPanel">' +
         '<button type="button" class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu"><i class="fas fa-xmark" aria-hidden="true"></i></button>' +
         '<nav class="mobile-nav-links" aria-label="Mobile navigation">' + navLinksHTML('') + '</nav>' +
-        '<a href="about.html" class="mobile-nav-cta">เกี่ยวกับวง NPT48</a>' +
+        '<a href="about.html" class="mobile-nav-cta">About NPT48</a>' +
       '</aside>';
 
     markActiveLinks();
@@ -81,24 +81,24 @@
           '<div class="footer-top">' +
             '<div>' +
               '<h2 class="footer-brand-title">NPT48</h2>' +
-              '<p class="footer-brand-desc">จากขุนเขาสู่ท้องทะเล เสียงเพลงจากธรรมชาติ — กลุ่มไอดอลเสมือนจริงสัญชาติไทยแบบไม่แสวงหาผลกำไร</p>' +
+              '<p class="footer-brand-desc">From the mountains to the sea — a nonprofit Thai virtual idol group.</p>' +
             '</div>' +
             '<div class="footer-nav-cols">' +
               '<div>' +
                 '<div class="footer-col-title">Explore</div>' +
                 '<ul class="footer-links-list">' +
-                  '<li><a href="schedule.html">ตารางงาน</a></li>' +
-                  '<li><a href="profile.html">โปรไฟล์สมาชิก</a></li>' +
-                  '<li><a href="discography.html">ผลงานเพลง</a></li>' +
-                  '<li><a href="about.html">เกี่ยวกับวง</a></li>' +
+                  '<li><a href="schedule.html">Schedule</a></li>' +
+                  '<li><a href="profile.html">Members</a></li>' +
+                  '<li><a href="discography.html">Discography</a></li>' +
+                  '<li><a href="about.html">About</a></li>' +
                 '</ul>' +
               '</div>' +
               '<div>' +
                 '<div class="footer-col-title">Connect</div>' +
                 '<ul class="footer-links-list">' +
-                  '<li><a href="#">นโยบายความเป็นส่วนตัว</a></li>' +
-                  '<li><a href="#">ข้อกำหนดการใช้งาน</a></li>' +
-                  '<li><a href="#">ติดต่อเรา</a></li>' +
+                  '<li><a href="#">Privacy Policy</a></li>' +
+                  '<li><a href="#">Terms of Use</a></li>' +
+                  '<li><a href="#">Contact Us</a></li>' +
                 '</ul>' +
               '</div>' +
             '</div>' +
@@ -113,7 +113,7 @@
               '<a href="#" class="social-btn-icon" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>' +
               '<a href="#" class="social-btn-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>' +
             '</div>' +
-            '<div class="copyright-text">&copy; 2026 NPT48. สงวนลิขสิทธิ์ทุกประการ</div>' +
+            '<div class="copyright-text">&copy; 2026 NPT48. All rights reserved.</div>' +
             '<button type="button" class="page-top-btn" id="pageTopBtn">' +
               '<span>Page Top</span><i class="fas fa-arrow-up" aria-hidden="true"></i>' +
             '</button>' +

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
-  <title>NPT48 Official - NEWS & SCHEDULE</title>
+  <title>NPT48 Official Site — News &amp; Schedule</title>
   <link rel="icon" type="image/png" href="assets/images/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Kanit:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="assets/css/site.css">
 
@@ -24,6 +24,7 @@
   <div id="site-header"></div>
   <script src="assets/js/nav.js"></script>
   <script src="assets/js/data.js"></script>
+  <script src="assets/js/reveal.js"></script>
 
   <main class="page-shell">
     <div class="page-hero">
@@ -33,16 +34,16 @@
 
     <div id="loading-overlay">
       <div class="spinner-ring"></div>
-      <div>กำลังโหลดข้อมูล NPT48...</div>
+      <div>Loading NPT48 data...</div>
     </div>
 
     <div id="schedule-view">
       <div class="filter-tabs" id="filterChips">
-        <button class="tab-btn active" data-type="ALL">ทั้งหมด</button>
-        <button class="tab-btn" data-type="EVENT">อีเวนต์</button>
-        <button class="tab-btn" data-type="MEDIA">สื่อ</button>
-        <button class="tab-btn" data-type="LIVE">ไลฟ์</button>
-        <button class="tab-btn" data-type="RELEASE">วางจำหน่าย</button>
+        <button class="tab-btn active" data-type="ALL">All</button>
+        <button class="tab-btn" data-type="EVENT">Event</button>
+        <button class="tab-btn" data-type="MEDIA">Media</button>
+        <button class="tab-btn" data-type="LIVE">Live</button>
+        <button class="tab-btn" data-type="RELEASE">Release</button>
       </div>
       <div id="schedule-list" class="schedule-list"></div>
     </div>
@@ -55,10 +56,10 @@
     var currentTypeFilter = 'ALL';
 
     var TYPE_MAP = {
-      EVENT: { kicker: 'kicker-outline', label: 'อีเวนต์' },
-      MEDIA: { kicker: 'kicker-gold', label: 'สื่อ' },
-      LIVE: { kicker: 'kicker-live', label: 'ไลฟ์' },
-      RELEASE: { kicker: 'kicker-dark', label: 'วางจำหน่าย' }
+      EVENT: { kicker: 'kicker-outline', label: 'Event' },
+      MEDIA: { kicker: 'kicker-gold', label: 'Media' },
+      LIVE: { kicker: 'kicker-live', label: 'Live' },
+      RELEASE: { kicker: 'kicker-dark', label: 'Release' }
     };
 
     var DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -80,7 +81,7 @@
           document.getElementById('schedule-view').style.display = 'block';
         })
         .catch(function () {
-          document.getElementById('loading-overlay').innerHTML = 'ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่ภายหลัง';
+          document.getElementById('loading-overlay').innerHTML = 'Unable to load data. Please try again later.';
         });
     }
 
@@ -114,18 +115,18 @@
       });
 
       if (!filtered.length) {
-        list.innerHTML = '<p class="schedule-empty">ยังไม่มีตารางงานในตอนนี้</p>';
+        list.innerHTML = '<p class="schedule-empty">No schedule at this time.</p>';
         return;
       }
 
-      list.innerHTML = filtered.map(function (s) {
+      list.innerHTML = filtered.map(function (s, i) {
         var typeKey = (s.type || '').toString().toUpperCase();
         var meta = TYPE_MAP[typeKey] || { kicker: 'kicker-outline', label: s.type || '' };
         var d = parseDate(s.date);
         var tag = s.link ? 'a' : 'div';
         var linkAttrs = s.link ? ' href="' + s.link + '" target="_blank" rel="noopener"' : '';
         return '' +
-          '<' + tag + ' class="day-card"' + linkAttrs + '>' +
+          '<' + tag + ' class="day-card" data-pop style="--i:' + (i % 8) + '"' + linkAttrs + '>' +
             '<div class="date-box"><span class="date-day">' + d.dayName + '</span><span class="date-num">' + d.dayNum + ' ' + d.month + ' ' + d.year + '</span></div>' +
             '<div class="event-info">' +
               '<div class="event-time"><i class="far fa-clock"></i> ' + (s.time || '') + (s.place ? ' · ' + s.place : '') + '</div>' +
@@ -134,6 +135,7 @@
             '<span class="kicker ' + meta.kicker + ' status-tag">' + meta.label + '</span>' +
           '</' + tag + '>';
       }).join('');
+      if (window.NPT48_POPIN) window.NPT48_POPIN.init();
     }
 
     init();

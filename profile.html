@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
-  <title>NPT48 Official - PROFILE</title>
+  <title>NPT48 Official Site — Members</title>
   <link rel="icon" type="image/png" href="assets/images/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Kanit:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="assets/css/site.css">
 
@@ -24,25 +24,25 @@
   <div id="site-header"></div>
   <script src="assets/js/nav.js"></script>
   <script src="assets/js/data.js"></script>
+  <script src="assets/js/reveal.js"></script>
 
   <main class="page-shell">
     <div class="page-hero">
       <span class="eyebrow">The Lineup</span>
-      <h1 class="page-hero-title">Profile</h1>
+      <h1 class="page-hero-title">Members</h1>
     </div>
 
     <div id="loading-overlay">
       <div class="spinner-ring"></div>
-      <div>กำลังโหลดข้อมูล NPT48...</div>
+      <div>Loading NPT48 data...</div>
     </div>
 
     <div id="main-view">
-      <div class="filter-tabs" id="filterChips"></div>
-      <div id="member-grid" class="members-grid"></div>
+      <div id="member-grid"></div>
     </div>
 
     <div id="detail-view">
-      <div class="back-btn" onclick="goBack()"><span>กลับ</span></div>
+      <div class="back-btn" onclick="goBack()"><span>Back</span></div>
       <div class="detail-layout">
         <div class="detail-image-box"><img id="m-img" class="detail-image" alt="Member Photo"></div>
         <div class="detail-content">
@@ -62,8 +62,8 @@
 
   <script>
     var membersData = [];
-    var currentTeamFilter = 'ALL';
     var currentMemberName = null;
+    var FACT_MONTH = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
     function init() {
       if (!window.NPT48_DATA.isConfigured()) {
@@ -73,67 +73,77 @@
       window.NPT48_DATA.fetchSheet('Profile')
         .then(function (data) {
           membersData = data;
-          buildFilterChips();
-          renderGrid('ALL');
+          renderGrid();
           document.getElementById('loading-overlay').style.display = 'none';
           document.getElementById('main-view').style.display = 'block';
         })
         .catch(function () {
-          document.getElementById('loading-overlay').innerHTML = 'ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่ภายหลัง';
+          document.getElementById('loading-overlay').innerHTML = 'Unable to load data. Please try again later.';
         });
     }
 
-    function buildFilterChips() {
-      var teams = [];
-      membersData.forEach(function (m) {
-        if (m.team && teams.indexOf(m.team) === -1) teams.push(m.team);
-      });
-      var wrap = document.getElementById('filterChips');
-      var html = '<button class="tab-btn active" data-team="ALL">ทั้งหมด</button>';
-      teams.forEach(function (team) {
-        html += '<button class="tab-btn" data-team="' + team + '">' + team + '</button>';
-      });
-      wrap.innerHTML = html;
-      wrap.querySelectorAll('.tab-btn').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          wrap.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); });
-          btn.classList.add('active');
-          currentTeamFilter = btn.getAttribute('data-team');
-          renderGrid(currentTeamFilter);
-        });
-      });
+    function shortBirthday(raw) {
+      var d = new Date(raw);
+      if (isNaN(d.getTime())) return '';
+      return d.getDate() + ' ' + FACT_MONTH[d.getMonth()];
     }
 
-    function renderGrid(team) {
+    function memberCardHTML(m, i) {
+      var nameSub = (m.fullNameEN || m.name).toString().toUpperCase();
+      var img = window.NPT48_DATA.getDirectImgLink(m.image);
+      var socialsHTML = '';
+      if (m.instagram && m.instagram !== '-') {
+        socialsHTML += '<a href="' + m.instagram + '" class="card-social-link" target="_blank" rel="noopener" onclick="event.stopPropagation()"><i class="fab fa-instagram"></i></a>';
+      }
+      var facts = [];
+      var bday = shortBirthday(m.birthday);
+      if (bday) facts.push(bday);
+      if (m.province) facts.push(m.province);
+      if (m.bloodType) facts.push('Type ' + m.bloodType);
+      var factsHTML = facts.length ? ('<div class="member-facts">' + facts.map(function (f) { return '<span>' + f + '</span>'; }).join('') + '</div>') : '';
+
+      return '' +
+        '<div class="member-card" data-name="' + m.name + '" data-pop style="--i:' + (i % 8) + '">' +
+          '<div class="photo-box" onclick="viewDetail(\'' + m.name + '\')">' +
+            '<img src="' + img + '" class="member-photo" alt="' + m.name + '" loading="lazy" onerror="this.src=\'assets/images/logo.png\'">' +
+            '<div class="member-overlay"><i class="fas fa-eye"></i></div>' +
+          '</div>' +
+          '<div class="card-info">' +
+            '<div class="card-name-row">' +
+              '<div class="member-name-main" onclick="viewDetail(\'' + m.name + '\')">' + m.name + '</div>' +
+              '<div class="card-socials">' + socialsHTML + '</div>' +
+            '</div>' +
+            '<div class="member-name-sub" onclick="viewDetail(\'' + m.name + '\')">' + nameSub + '</div>' +
+            factsHTML +
+          '</div>' +
+        '</div>';
+    }
+
+    function renderGrid() {
       var grid = document.getElementById('member-grid');
-      var filtered = team === 'ALL' ? membersData : membersData.filter(function (m) { return m.team === team; });
 
-      if (!filtered.length) {
-        grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--ink-soft)">ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่ภายหลัง</p>';
+      if (!membersData.length) {
+        grid.innerHTML = '<p style="text-align:center;color:var(--ink-soft)">Unable to load data. Please try again later.</p>';
         return;
       }
 
-      grid.innerHTML = filtered.map(function (m) {
-        var nameSub = (m.fullNameEN || m.name).toString().toUpperCase();
-        var img = window.NPT48_DATA.getDirectImgLink(m.image);
-        var socialsHTML = '';
-        if (m.instagram && m.instagram !== '-') {
-          socialsHTML += '<a href="' + m.instagram + '" class="card-social-link" target="_blank" rel="noopener" onclick="event.stopPropagation()"><i class="fab fa-instagram"></i></a>';
-        }
+      var idx = 0;
+      var gens = [];
+      membersData.forEach(function (m) {
+        if (m.generation && gens.indexOf(m.generation) === -1) gens.push(m.generation);
+      });
+
+      grid.innerHTML = gens.map(function (g) {
+        var members = membersData.filter(function (m) { return m.generation === g; });
+        var cardsHTML = members.map(function (m) { return memberCardHTML(m, idx++); }).join('');
         return '' +
-          '<div class="member-card" data-name="' + m.name + '">' +
-            '<div class="photo-box" onclick="viewDetail(\'' + m.name + '\')">' +
-              '<img src="' + img + '" class="member-photo" alt="' + m.name + '" loading="lazy" onerror="this.src=\'assets/images/logo.png\'">' +
-            '</div>' +
-            '<div class="card-info">' +
-              '<div class="card-name-row">' +
-                '<div class="member-name-main" onclick="viewDetail(\'' + m.name + '\')">' + m.name + '</div>' +
-                '<div class="card-socials">' + socialsHTML + '</div>' +
-              '</div>' +
-              '<div class="member-name-sub" onclick="viewDetail(\'' + m.name + '\')">' + nameSub + '</div>' +
-            '</div>' +
+          '<div class="team-group">' +
+            '<h2 class="team-heading">' + g + '</h2>' +
+            '<div class="members-grid">' + cardsHTML + '</div>' +
           '</div>';
       }).join('');
+
+      if (window.NPT48_POPIN) window.NPT48_POPIN.init();
     }
 
     function viewDetail(nickname) {
@@ -145,14 +155,14 @@
       document.getElementById('m-name-en').innerText = m.fullNameEN || '';
 
       var infoList = [
-        { label: 'รุ่น', value: m.generation },
-        { label: 'ทีม', value: m.team },
-        { label: 'วันเกิด', value: m.birthday },
-        { label: 'โอชิมาร์ค', value: m.oshiMark },
-        { label: 'จังหวัด', value: m.province },
-        { label: 'กรุ๊ปเลือด', value: m.bloodType },
-        { label: 'สิ่งที่ชอบ', value: m.like },
-        { label: 'งานอดิเรก', value: m.hobby }
+        { label: 'Generation', value: m.generation },
+        { label: 'Team', value: m.team },
+        { label: 'Birthday', value: m.birthday },
+        { label: 'Oshi Mark', value: m.oshiMark },
+        { label: 'Province', value: m.province },
+        { label: 'Blood Type', value: m.bloodType },
+        { label: 'Likes', value: m.like },
+        { label: 'Hobby', value: m.hobby }
       ];
 
       document.getElementById('m-info-table').innerHTML = infoList.map(function (item) {

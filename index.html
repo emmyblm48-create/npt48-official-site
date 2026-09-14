@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
-  <title>NPT48 Official Home — New Era</title>
+  <title>NPT48 Official Site — Home</title>
   <link rel="icon" type="image/png" href="assets/images/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Kanit:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="assets/css/site.css">
@@ -25,15 +25,17 @@
   <div id="site-header"></div>
   <script src="assets/js/nav.js"></script>
   <script src="assets/js/data.js"></script>
+  <script src="assets/js/reveal.js"></script>
 
   <!-- HERO -->
   <section class="hero">
-    <img src="assets/images/hero-banner.svg" alt="NPT48 — จากขุนเขาสู่ท้องทะเล">
+    <img src="assets/images/hero-banner.svg" alt="NPT48 — from the mountains to the sea">
+    <div class="scroll-cue"><span>Scroll</span><i class="fas fa-chevron-down"></i></div>
   </section>
 
   <!-- BENTO STRIP: Birthday + Spotlight -->
   <div class="bento-row">
-    <div class="bento-card">
+    <div class="bento-card" data-pop>
       <div class="bento-card-head">
         <span class="eyebrow">Birthday This Month</span>
         <span class="data-date" id="birthdayMonthLabel"></span>
@@ -41,9 +43,9 @@
       <div class="bday-list" id="birthdayList">
         <div class="bday-empty">...</div>
       </div>
-      <a href="profile.html" class="arrow-link">ดูสมาชิกทั้งหมด</a>
+      <a href="profile.html" class="arrow-link">View All Members</a>
     </div>
-    <div class="bento-card">
+    <div class="bento-card" data-pop style="--i:1">
       <span class="eyebrow">Latest Release</span>
       <div id="spotlightCard" style="margin-top:20px">
         <div class="bday-empty">...</div>
@@ -52,14 +54,14 @@
   </div>
 
   <!-- TOPICS STRIP -->
-  <section class="topics-section">
+  <section class="topics-section" data-pop>
     <div class="sec-head no-underline">
       <h2 class="sec-title">Topics</h2>
     </div>
     <div class="rail-wrap">
       <div class="rail" id="topicsRail">
         <a href="about.html" class="topic-tile">
-          <div class="topic-thumb"><img src="assets/images/hero-banner.svg" alt="เกี่ยวกับ NPT48"></div>
+          <div class="topic-thumb"><img src="assets/images/hero-banner.svg" alt="About NPT48"></div>
           <div class="topic-cap">Mountain &amp; Sea <i class="fas fa-arrow-right"></i></div>
         </a>
         <a href="discography.html" class="topic-tile">
@@ -81,14 +83,14 @@
   </section>
 
   <!-- MEMBERS -->
-  <section class="members-section">
+  <section class="members-section" data-pop>
     <div class="sec-head no-underline">
       <h2 class="sec-title">Members</h2>
-      <a href="profile.html" class="arrow-link">ดูสมาชิกทั้งหมด</a>
+      <a href="profile.html" class="arrow-link">View All Members</a>
     </div>
     <div class="rail-wrap">
       <div class="rail" id="membersRail">
-        <div class="bday-empty">กำลังโหลดข้อมูล NPT48...</div>
+        <div class="bday-empty">Loading NPT48 data...</div>
       </div>
       <button type="button" class="rail-nav-btn rail-nav-prev" id="membersPrev" aria-label="Previous members"><i class="fas fa-chevron-left"></i></button>
       <button type="button" class="rail-nav-btn rail-nav-next" id="membersNext" aria-label="Next members"><i class="fas fa-chevron-right"></i></button>
@@ -96,7 +98,7 @@
   </section>
 
   <!-- NEWS & SCHEDULE -->
-  <section class="content-box-section">
+  <section class="content-box-section" data-pop>
     <div>
       <div class="sec-head no-underline">
         <h2 class="sec-title">News</h2>
@@ -104,15 +106,15 @@
       <div class="data-list">
         <div class="data-row">
           <div class="data-date-group"><span class="kicker kicker-gold">Release</span><span class="data-date">2026.09.12</span></div>
-          <div class="data-title">ประกาศกำหนดการซิงเกิลแรก "Kaze wo Matsu" พร้อมเปิดจองอีเวนต์เปิดตัวที่กรุงเทพฯ</div>
+          <div class="data-title">Debut single "Kaze wo Matsu" release date announced, with launch event registration now open in Bangkok</div>
         </div>
         <div class="data-row">
           <div class="data-date-group"><span class="kicker kicker-outline">Event</span><span class="data-date">2026.09.10</span></div>
-          <div class="data-title">เปิดตัวเว็บไซต์ทางการ NPT48 อย่างเป็นทางการวันนี้ พร้อมข้อมูลสมาชิกรุ่นแรกครบทุกคน</div>
+          <div class="data-title">The NPT48 official website has officially launched today, with full profiles for every first-generation member</div>
         </div>
         <div class="data-row">
           <div class="data-date-group"><span class="kicker kicker-outline">Event</span><span class="data-date">2026.09.01</span></div>
-          <div class="data-title">NPT48 เปิดรับสมัครออดิชันสมาชิกฝึกหัดรุ่นใหม่ เร็วๆ นี้</div>
+          <div class="data-title">NPT48 will soon open auditions for a new generation of trainee members</div>
         </div>
       </div>
     </div>
@@ -122,23 +124,23 @@
         <h2 class="sec-title">Schedule</h2>
       </div>
       <div class="data-list" id="scheduleColumn">
-        <div class="data-empty">กำลังโหลดข้อมูล NPT48...</div>
+        <div class="data-empty">Loading NPT48 data...</div>
       </div>
-      <a href="schedule.html" class="arrow-link">ดูตารางงานทั้งหมด</a>
+      <a href="schedule.html" class="arrow-link">View Full Schedule</a>
     </div>
   </section>
 
   <!-- VIDEO -->
-  <section class="video-section">
+  <section class="video-section" data-pop>
     <div class="sec-head no-underline">
-      <h2 class="sec-title">MOVIE</h2>
-      <a href="discography.html" class="arrow-link">ดูผลงานทั้งหมด</a>
+      <h2 class="sec-title">Videos</h2>
+      <a href="discography.html" class="arrow-link">View All Releases</a>
     </div>
 
     <div class="video-swiper-container">
       <div class="swiper video-swiper">
         <div class="swiper-wrapper" id="videoWrapper">
-          <div class="swiper-slide"><div class="data-empty">กำลังโหลดข้อมูล NPT48...</div></div>
+          <div class="swiper-slide"><div class="data-empty">Loading NPT48 data...</div></div>
         </div>
       </div>
       <div class="swiper-button-prev video-nav-prev"></div>
@@ -147,9 +149,9 @@
   </section>
 
   <!-- GROUP NETWORK -->
-  <div class="group-band">
+  <div class="group-band" data-pop>
     <div class="group-inner">
-      <div class="eyebrow" style="justify-content:center; margin-bottom: 24px;">AKB48 Group</div>
+      <div class="group-divider"><hr><span>AKB48 Group</span><hr></div>
       <div class="logo-grid">
         <a href="https://www.akb48.co.jp/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_akb48.png?ver=53" alt="AKB48"></a>
         <a href="https://www.ske48.co.jp/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_ske48.png?ver=53" alt="SKE48"></a>
@@ -203,12 +205,12 @@
     wireRailNav('topicsRail', 'topicsPrev', 'topicsNext', '.topic-tile');
     wireRailNav('membersRail', 'membersPrev', 'membersNext', '.member-mini');
 
-    var MONTH_TH = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+    var MONTH_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
     function renderBirthdayMonth(members) {
       var today = new Date();
       var monthLabelEl = document.getElementById('birthdayMonthLabel');
-      if (monthLabelEl) monthLabelEl.textContent = MONTH_TH[today.getMonth()] + ' ' + (today.getFullYear() + 543);
+      if (monthLabelEl) monthLabelEl.textContent = MONTH_EN[today.getMonth()] + ' ' + today.getFullYear();
 
       var listEl = document.getElementById('birthdayList');
       if (!listEl) return;
@@ -220,7 +222,7 @@
         .sort(function (a, b) { return a.bday.getDate() - b.bday.getDate(); });
 
       if (!celebrants.length) {
-        listEl.innerHTML = '<div class="bday-empty">ไม่มีวันเกิดสมาชิกในเดือนนี้</div>';
+        listEl.innerHTML = '<div class="bday-empty">No member birthdays this month.</div>';
         return;
       }
 
@@ -229,7 +231,7 @@
         return '' +
           '<a href="profile.html" class="bday-item">' +
             '<div class="bday-avatar"><img src="' + img + '" alt="' + c.member.name + '" onerror="this.src=\'assets/images/logo.png\'"></div>' +
-            '<div class="bday-info"><span class="bday-name">' + c.member.name + '</span><span class="bday-date">' + c.bday.getDate() + ' ' + MONTH_TH[c.bday.getMonth()] + '</span></div>' +
+            '<div class="bday-info"><span class="bday-name">' + c.member.name + '</span><span class="bday-date">' + c.bday.getDate() + ' ' + MONTH_EN[c.bday.getMonth()] + '</span></div>' +
           '</a>';
       }).join('');
     }
@@ -237,7 +239,7 @@
     function renderMembersRail(members) {
       var rail = document.getElementById('membersRail');
       if (!members.length) {
-        rail.innerHTML = '<div class="bday-empty">ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่ภายหลัง</div>';
+        rail.innerHTML = '<div class="bday-empty">Unable to load data. Please try again later.</div>';
         return;
       }
       rail.innerHTML = members.map(function (m) {
@@ -263,15 +265,15 @@
           renderMembersRail(data);
         })
         .catch(function () {
-          document.getElementById('birthdayList').innerHTML = '<div class="bday-empty">ไม่สามารถโหลดข้อมูลได้</div>';
-          document.getElementById('membersRail').innerHTML = '<div class="bday-empty">ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่ภายหลัง</div>';
+          document.getElementById('birthdayList').innerHTML = '<div class="bday-empty">Unable to load data.</div>';
+          document.getElementById('membersRail').innerHTML = '<div class="bday-empty">Unable to load data. Please try again later.</div>';
         });
     }
     loadProfileData();
 
     function renderSpotlight(items) {
       var card = document.getElementById('spotlightCard');
-      if (!items.length) { card.innerHTML = '<div class="bday-empty">ยังไม่มีผลงานเพลง</div>'; return; }
+      if (!items.length) { card.innerHTML = '<div class="bday-empty">No releases yet.</div>'; return; }
       var latest = items[items.length - 1];
       var img = window.NPT48_DATA.getDirectImgLink(latest.image);
       var link = latest.link || '#';
@@ -280,26 +282,50 @@
         '<a href="' + link + '" target="_blank" class="spot-card">' +
           '<div class="spot-thumb"><img src="' + img + '" alt="' + latest.songName + '"></div>' +
           '<div>' +
-            '<div class="kicker kicker-gold">' + (isAlbum ? 'อัลบั้ม' : 'ซิงเกิล') + '</div>' +
+            '<div class="kicker kicker-gold">' + (isAlbum ? 'Album' : 'Single') + '</div>' +
             '<div class="spot-title">' + latest.songName + '</div>' +
             '<span class="arrow-link">Watch MV</span>' +
           '</div>' +
         '</a>';
     }
 
+    function loadSpotlight() {
+      var spot = document.getElementById('spotlightCard');
+      if (!window.NPT48_DATA.isConfigured()) {
+        spot.innerHTML = '<div class="bday-empty">Google Sheets not connected yet</div>';
+        return;
+      }
+      window.NPT48_DATA.fetchSheet('Discography')
+        .then(renderSpotlight)
+        .catch(function () {
+          spot.innerHTML = '<div class="bday-empty">Unable to load data.</div>';
+        });
+    }
+    loadSpotlight();
+
+    function formatMovieDate(raw) {
+      var d = new Date(raw);
+      if (isNaN(d.getTime())) return String(raw || '');
+      return d.getDate() + ' ' + MONTH_EN[d.getMonth()] + ' ' + d.getFullYear();
+    }
+
     function renderVideoCarousel(items) {
       var wrapper = document.getElementById('videoWrapper');
-      if (!items.length) { wrapper.innerHTML = '<div class="swiper-slide"><div class="data-empty">ยังไม่มีผลงานเพลง</div></div>'; return; }
-      var slides = items.slice().reverse().map(function (d) {
-        var img = window.NPT48_DATA.getDirectImgLink(d.image);
-        var link = d.link || '#';
+      if (!items.length) { wrapper.innerHTML = '<div class="swiper-slide"><div class="data-empty">No releases yet.</div></div>'; return; }
+      var slides = items.map(function (d) {
+        // The Movie sheet columns (Date, Title Name Song, Description, Link, Img) come back
+        // from the Apps Script under generic field names, not their own header text.
+        var img = window.NPT48_DATA.getDirectImgLink(d.generation);
+        var link = d.fullNameEN || '#';
+        var title = d.nameEN || '';
+        var description = d.fullNameTH || '';
         return '' +
           '<div class="swiper-slide">' +
-            '<a href="' + link + '" target="_blank" class="video-item">' +
-              '<div class="video-thumb-box"><img src="' + img + '" alt="' + d.songName + '"></div>' +
+            '<a href="' + link + '" target="_blank" class="video-item" title="' + description.toString().replace(/"/g, '&quot;') + '">' +
+              '<div class="video-thumb-box"><img src="' + img + '" alt="' + title + '"></div>' +
               '<div class="video-cap">' +
-                '<div class="video-cap-title">' + d.songName + '</div>' +
-                '<div class="video-cap-date">' + (d.release || '') + '</div>' +
+                '<div class="video-cap-title">' + title + '</div>' +
+                '<div class="video-cap-date">' + formatMovieDate(d.name) + '</div>' +
               '</div>' +
             '</a>' +
           '</div>';
@@ -320,25 +346,28 @@
       });
     }
 
-    function loadDiscographyData() {
-      var spot = document.getElementById('spotlightCard');
+    function loadMovies() {
       var wrapper = document.getElementById('videoWrapper');
       if (!window.NPT48_DATA.isConfigured()) {
-        spot.innerHTML = '<div class="bday-empty">Google Sheets not connected yet</div>';
         wrapper.innerHTML = '<div class="swiper-slide"><div class="data-empty">Google Sheets not connected yet</div></div>';
         return;
       }
-      window.NPT48_DATA.fetchSheet('Discography')
+      window.NPT48_DATA.fetchSheet('Movie')
         .then(function (data) {
-          renderSpotlight(data);
-          renderVideoCarousel(data);
+          var sorted = data.slice().sort(function (a, b) {
+            var da = new Date(a.name).getTime();
+            var db = new Date(b.name).getTime();
+            if (isNaN(da)) da = 0;
+            if (isNaN(db)) db = 0;
+            return db - da;
+          });
+          renderVideoCarousel(sorted);
         })
         .catch(function () {
-          spot.innerHTML = '<div class="bday-empty">ไม่สามารถโหลดข้อมูลได้</div>';
-          wrapper.innerHTML = '<div class="swiper-slide"><div class="data-empty">ไม่สามารถโหลดข้อมูลได้</div></div>';
+          wrapper.innerHTML = '<div class="swiper-slide"><div class="data-empty">Unable to load data.</div></div>';
         });
     }
-    loadDiscographyData();
+    loadMovies();
 
     var SCHEDULE_TYPE_MAP = {
       EVENT: 'kicker-outline', MEDIA: 'kicker-gold', LIVE: 'kicker-live', RELEASE: 'kicker-dark'
@@ -370,7 +399,7 @@
               '</a>';
           }).join('');
         })
-        .catch(function () { col.innerHTML = '<div class="data-empty">ยังไม่มีตารางงานในตอนนี้</div>'; });
+        .catch(function () { col.innerHTML = '<div class="data-empty">No schedule at this time.</div>'; });
     }
     loadScheduleColumn();
   </script>

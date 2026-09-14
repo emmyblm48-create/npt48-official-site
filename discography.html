@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
-  <title>NPT48 Official - DISCOGRAPHY</title>
+  <title>NPT48 Official Site — Discography</title>
   <link rel="icon" type="image/png" href="assets/images/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Kanit:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="assets/css/site.css">
 
@@ -24,6 +24,7 @@
   <div id="site-header"></div>
   <script src="assets/js/nav.js"></script>
   <script src="assets/js/data.js"></script>
+  <script src="assets/js/reveal.js"></script>
 
   <main class="page-shell">
     <div class="page-hero">
@@ -33,16 +34,21 @@
 
     <div id="loading-overlay">
       <div class="spinner-ring"></div>
-      <div>กำลังโหลดข้อมูล NPT48...</div>
+      <div>Loading NPT48 data...</div>
     </div>
 
     <div id="disco-view">
-      <div class="filter-tabs" id="filterChips">
-        <button class="tab-btn active" data-type="ALL">ทั้งหมด</button>
-        <button class="tab-btn" data-type="SINGLE">ซิงเกิล</button>
-        <button class="tab-btn" data-type="ALBUM">อัลบั้ม</button>
+      <div class="disco-select-wrap">
+        <div class="select-shell">
+          <select id="typeSelect" class="disco-select">
+            <option value="ALL">All</option>
+            <option value="SINGLE">Single</option>
+            <option value="ALBUM">Album</option>
+          </select>
+          <i class="fas fa-chevron-down select-chevron"></i>
+        </div>
       </div>
-      <div id="disco-grid" class="disco-grid"></div>
+      <div id="disco-grid" class="disco-list"></div>
     </div>
   </main>
 
@@ -65,17 +71,13 @@
           document.getElementById('disco-view').style.display = 'block';
         })
         .catch(function () {
-          document.getElementById('loading-overlay').innerHTML = 'ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่ภายหลัง';
+          document.getElementById('loading-overlay').innerHTML = 'Unable to load data. Please try again later.';
         });
     }
 
-    document.getElementById('filterChips').querySelectorAll('.tab-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        document.querySelectorAll('#filterChips .tab-btn').forEach(function (b) { b.classList.remove('active'); });
-        btn.classList.add('active');
-        currentTypeFilter = btn.getAttribute('data-type');
-        renderGrid(currentTypeFilter);
-      });
+    document.getElementById('typeSelect').addEventListener('change', function () {
+      currentTypeFilter = this.value;
+      renderGrid(currentTypeFilter);
     });
 
     function renderGrid(type) {
@@ -85,30 +87,27 @@
       });
 
       if (!filtered.length) {
-        grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--ink-soft)">ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่ภายหลัง</p>';
+        grid.innerHTML = '<p style="text-align:center;color:var(--ink-soft)">Unable to load data. Please try again later.</p>';
         return;
       }
 
-      grid.innerHTML = filtered.map(function (d) {
+      grid.innerHTML = filtered.map(function (d, i) {
         var img = window.NPT48_DATA.getDirectImgLink(d.image);
         var isAlbum = (d.type || '').toString().toUpperCase() === 'ALBUM';
         var kickerClass = isAlbum ? 'kicker-dark' : 'kicker-outline';
-        var typeLabel = isAlbum ? 'อัลบั้ม' : 'ซิงเกิล';
+        var typeLabel = isAlbum ? 'Album' : 'Single';
         var link = d.link || '#';
         return '' +
-          '<div class="disco-item">' +
-            '<a href="' + link + '" target="_blank" class="cover-link">' +
-              '<div class="cover-box">' +
-                '<img src="' + img + '" alt="' + d.songName + '" loading="lazy" onerror="this.style.display=\'none\'">' +
-                '<div class="overlay"><span><i class="fas fa-play"></i> Watch MV</span></div>' +
-              '</div>' +
-              '<div class="item-info">' +
-                '<div class="meta"><span class="kicker ' + kickerClass + '">' + typeLabel + '</span><span class="date">' + (d.release || '') + '</span></div>' +
-                '<h3 class="disco-title">' + d.songName + '</h3>' +
-              '</div>' +
-            '</a>' +
-          '</div>';
+          '<a href="' + link + '" target="_blank" class="disco-row" data-pop style="--i:' + (i % 8) + '">' +
+            '<div class="disco-row-thumb"><img src="' + img + '" alt="' + d.songName + '" loading="lazy" onerror="this.style.display=\'none\'"></div>' +
+            '<div class="disco-row-info">' +
+              '<span class="kicker ' + kickerClass + '">' + typeLabel + '</span>' +
+              '<div class="disco-row-title">' + d.songName + '</div>' +
+              '<div class="disco-row-date">' + (d.release || '') + ' Release</div>' +
+            '</div>' +
+          '</a>';
       }).join('');
+      if (window.NPT48_POPIN) window.NPT48_POPIN.init();
     }
 
     init();
