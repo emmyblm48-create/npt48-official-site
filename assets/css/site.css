@@ -61,11 +61,9 @@
 @keyframes shimmerSweep { from { transform: translateX(-130%) skewX(-12deg); } to { transform: translateX(230%) skewX(-12deg); } }
 @keyframes windDrift { 0% { transform: translateX(-10%); } 50% { transform: translateX(6%); } 100% { transform: translateX(-10%); } }
 @keyframes bubbleRise {
-  0% { transform: translate(0, 0) scale(0.8); opacity: 0; }
-  10% { opacity: 0.9; }
-  50% { transform: translate(14px, -50vh) scale(1); }
-  90% { opacity: 0.55; }
-  100% { transform: translate(-10px, -105vh) scale(1.05); opacity: 0; }
+  0% { bottom: -100px; transform: translateX(0); opacity: 0.85; }
+  50% { transform: translateX(var(--drift, 60px)); }
+  100% { bottom: 112vh; transform: translateX(0); opacity: 0.85; }
 }
 @keyframes leafDrift {
   0% { transform: translate(0, 0) rotate(-10deg); opacity: 0; }
@@ -596,7 +594,7 @@ a:hover > .kicker, .kicker:hover { transform: scale(1.06); }
   position: fixed; inset: 0; z-index: 9999;
   display: flex; align-items: center; justify-content: center;
   overflow: hidden;
-  background: linear-gradient(180deg, #eaf6ff 0%, #cdeafe 45%, #9fd8f7 100%);
+  background: #c7e8fa;
   transition: opacity 0.4s ease, visibility 0.4s ease;
 }
 .site-loader.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
@@ -616,11 +614,10 @@ a:hover > .kicker, .kicker:hover { transform: scale(1.06); }
 .loader-bubbles, .loader-leaves { position: absolute; inset: 0; pointer-events: none; }
 
 .loader-bubble {
-  position: absolute; bottom: -60px; border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.15) 60%, rgba(255, 255, 255, 0.05) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  position: absolute; bottom: -100px; border-radius: 50%;
+  box-shadow: inset -4px -4px 8px rgba(15, 41, 66, 0.15), inset 3px 3px 6px rgba(255, 255, 255, 0.35);
   animation-name: bubbleRise;
-  animation-timing-function: ease-in;
+  animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
 }
 
@@ -633,7 +630,7 @@ a:hover > .kicker, .kicker:hover { transform: scale(1.06); }
 .loader-leaf svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 3px 4px rgba(13, 91, 181, 0.25)); }
 
 .loader-brand { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; animation: fadeUpIn 0.8s var(--ease); }
-.loader-logo { width: 76px; height: 76px; object-fit: contain; animation: fadePulse 2.4s ease-in-out infinite; }
+.loader-logo { width: 12vw; min-width: 64px; max-width: 120px; height: auto; object-fit: contain; animation: fadePulse 2.4s ease-in-out infinite; }
 .loader-title { font-family: var(--font-display); font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 700; color: var(--brand-deep); letter-spacing: 2px; }
 .loader-tagline { font-size: 12.5px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-soft); }
 
