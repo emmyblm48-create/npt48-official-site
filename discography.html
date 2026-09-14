@@ -10,7 +10,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="assets/css/site.css">
 
   <style>
@@ -117,7 +116,7 @@
         var link = d.link || '#';
         return '' +
           '<a href="' + link + '" target="_blank" class="disco-card" data-pop style="--i:' + (i % 9) + '">' +
-            '<div class="disco-card-thumb"><img src="' + img + '" alt="' + d.songName + '" loading="lazy" onerror="this.style.display=\'none\'"></div>' +
+            '<div class="disco-card-thumb"><img src="' + img + '" alt="' + d.songName + '" loading="lazy" decoding="async" onerror="this.style.display=\'none\'"></div>' +
             '<div class="disco-card-meta">' +
               '<span class="disco-type-pill" style="color:' + color + '">' + TYPE_LABEL[typeKey] + '</span>' +
               '<span class="disco-release-label">Release ' + (d.release || '') + '</span>' +

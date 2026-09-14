@@ -77,6 +77,9 @@ h1, h2, h3, .font-display { font-family: var(--font-display); }
 
 ::selection { background: var(--brand); color: #fff; }
 
+/* ---------------- Inline icons (self-hosted, no icon-font dependency) ---------------- */
+.icon { width: 1em; height: 1em; display: inline-block; vertical-align: -0.125em; flex-shrink: 0; }
+
 a:focus-visible, button:focus-visible, [tabindex]:focus-visible, [role="button"]:focus-visible {
   outline: 2px solid var(--brand);
   outline-offset: 2px;
@@ -218,11 +221,13 @@ a:hover > .kicker, .kicker:hover { transform: scale(1.06); }
   transition: gap 0.25s var(--ease), color 0.2s var(--ease);
 }
 .arrow-link::after {
-  content: '\f061';
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 900;
-  font-size: 11px;
+  content: '';
+  width: 12px; height: 12px;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h15m-6-6 6 6-6 6'/%3E%3C/svg%3E") no-repeat center / contain;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h15m-6-6 6 6-6 6'/%3E%3C/svg%3E") no-repeat center / contain;
   display: inline-block;
+  flex-shrink: 0;
   transition: transform 0.25s var(--ease);
 }
 .arrow-link:hover { gap: 12px; color: var(--brand-deep); }
@@ -443,6 +448,7 @@ a:hover > .kicker, .kicker:hover { transform: scale(1.06); }
   background: none; border: 1.5px solid rgba(255, 255, 255, 0.25);
   color: #fff;
   width: 38px; height: 38px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
   font-size: 16px; cursor: pointer;
   transition: border-color 0.2s var(--ease), transform 0.25s var(--ease);
 }
@@ -585,7 +591,7 @@ a:hover > .kicker, .kicker:hover { transform: scale(1.06); }
   color: #fff; font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
   z-index: 3;
 }
-.scroll-cue i { animation: fadePulse 2s ease-in-out infinite; }
+.scroll-cue .icon { animation: fadePulse 2s ease-in-out infinite; }
 
 /* ---- Homepage: bento strip (overlaps hero) ---- */
 .bento-row {
@@ -636,7 +642,7 @@ a:hover > .kicker, .kicker:hover { transform: scale(1.06); }
   transition: background 0.25s var(--ease), color 0.25s var(--ease), transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
 }
 .rail-nav-btn:hover { background: var(--grad-brand); border-color: transparent; color: #fff; transform: translateY(-50%) scale(1.08); box-shadow: var(--shadow-hover); }
-.rail-nav-btn i { font-size: 14px; }
+.rail-nav-btn .icon { font-size: 14px; }
 .rail-nav-prev { left: -18px; }
 .rail-nav-next { right: -18px; }
 @media (max-width: 768px) { .rail-nav-prev { left: -8px; } .rail-nav-next { right: -8px; } }
@@ -668,7 +674,7 @@ a:hover > .kicker, .kicker:hover { transform: scale(1.06); }
   transition: transform 0.25s var(--ease), background 0.25s var(--ease);
 }
 .movie-item:hover .movie-play-btn { transform: translate(-50%, -50%) scale(1.08); background: var(--grad-brand); }
-.movie-play-btn i { font-size: 20px; margin-left: 3px; }
+.movie-play-btn .icon { font-size: 20px; margin-left: 3px; }
 .movie-cap {
   position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 20px 16px;
   background: linear-gradient(0deg, rgba(11, 46, 74, 0.8) 0%, rgba(11, 46, 74, 0.35) 60%, transparent 100%);
@@ -725,9 +731,9 @@ a:hover > .kicker, .kicker:hover { transform: scale(1.06); }
 .photo-box { position: relative; width: 100%; aspect-ratio: 3/4; overflow: hidden; background: var(--surface); border-radius: var(--r-md); margin-bottom: 14px; cursor: pointer; border: 1px solid var(--line-solid); transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease), transform 0.25s var(--ease); }
 .member-card:hover .photo-box { border-color: transparent; box-shadow: var(--shadow-hover); transform: translateY(-4px); }
 .member-overlay { position: absolute; inset: 0; background: rgba(11, 46, 74, 0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.25s var(--ease); }
-.member-overlay i { color: #fff; font-size: 18px; width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.7); display: flex; align-items: center; justify-content: center; transform: scale(0.85); transition: transform 0.25s var(--ease); }
+.member-eye-badge { color: #fff; font-size: 18px; width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.7); display: flex; align-items: center; justify-content: center; transform: scale(0.85); transition: transform 0.25s var(--ease); }
 .member-card:hover .member-overlay { opacity: 1; }
-.member-card:hover .member-overlay i { transform: scale(1); }
+.member-card:hover .member-eye-badge { transform: scale(1); }
 .member-photo { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.35s var(--ease); }
 .member-card:hover .member-photo { transform: scale(1.06); }
 
@@ -746,7 +752,14 @@ a:hover > .kicker, .kicker:hover { transform: scale(1.06); }
 #detail-view { display: none; animation: fadeUpIn 0.35s var(--ease); }
 
 .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--ink); cursor: pointer; font-weight: 800; letter-spacing: 0.4px; text-transform: uppercase; margin-bottom: 32px; transition: color 0.2s var(--ease); font-size: 12.5px; }
-.back-btn::before { content: '\f060'; font-family: 'Font Awesome 6 Free'; font-weight: 900; font-size: 12px; }
+.back-btn::before {
+  content: '';
+  width: 12px; height: 12px;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 12H5m6-6-6 6 6 6'/%3E%3C/svg%3E") no-repeat center / contain;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 12H5m6-6-6 6 6 6'/%3E%3C/svg%3E") no-repeat center / contain;
+  display: inline-block;
+}
 .back-btn:hover { color: var(--brand-deep); }
 
 .detail-layout { display: flex; flex-direction: row; gap: 48px; text-align: left; }

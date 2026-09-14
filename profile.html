@@ -10,7 +10,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="assets/css/site.css">
 
   <style>
@@ -68,6 +67,8 @@
   <div id="site-footer"></div>
 
   <script>
+    var ICON_INSTAGRAM = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>';
+    var ICON_EYE = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>';
     var membersData = [];
     var currentMemberName = null;
     var currentTeamFilter = 'ALL';
@@ -110,7 +111,7 @@
       var img = window.NPT48_DATA.getDirectImgLink(m.image);
       var socialsHTML = '';
       if (m.instagram && m.instagram !== '-') {
-        socialsHTML += '<a href="' + m.instagram + '" class="card-social-link" target="_blank" rel="noopener" onclick="event.stopPropagation()"><i class="fab fa-instagram"></i></a>';
+        socialsHTML += '<a href="' + m.instagram + '" class="card-social-link" target="_blank" rel="noopener" onclick="event.stopPropagation()">' + ICON_INSTAGRAM + '</a>';
       }
       var facts = [];
       var bday = shortBirthday(m.birthday);
@@ -122,8 +123,8 @@
       return '' +
         '<div class="member-card" data-name="' + m.name + '" data-pop style="--i:' + (i % 8) + '">' +
           '<div class="photo-box" onclick="viewDetail(\'' + m.name + '\')">' +
-            '<img src="' + img + '" class="member-photo" alt="' + m.name + '" loading="lazy" onerror="this.src=\'assets/images/logo.png\'">' +
-            '<div class="member-overlay"><i class="fas fa-eye"></i></div>' +
+            '<img src="' + img + '" class="member-photo" alt="' + m.name + '" loading="lazy" decoding="async" onerror="this.src=\'assets/images/logo.png\'">' +
+            '<div class="member-overlay"><span class="member-eye-badge">' + ICON_EYE + '</span></div>' +
           '</div>' +
           '<div class="card-info">' +
             '<div class="card-name-row">' +
@@ -184,7 +185,7 @@
       }).join('');
 
       var sHTML = '';
-      if (m.instagram && m.instagram !== '-') sHTML += '<a href="' + m.instagram + '" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>';
+      if (m.instagram && m.instagram !== '-') sHTML += '<a href="' + m.instagram + '" class="social-link" target="_blank">' + ICON_INSTAGRAM + '</a>';
       document.getElementById('m-social').innerHTML = sHTML;
 
       document.getElementById('main-view').style.display = 'none';
