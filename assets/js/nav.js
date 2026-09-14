@@ -10,9 +10,9 @@
   ];
 
   var TICKER_ITEMS = [
-    { href: '#', text: 'NPT48 OFFICIAL SITE IS NOW LIVE' },
-    { href: '#', text: '1ST SINGLE "KAZE WO MATSU" COMING SOON' },
-    { href: '#', text: 'FROM THE MOUNTAINS TO THE SEA' }
+    { href: '#', text: 'NPT48 OFFICIAL SITE' },
+    { href: '#', text: 'NPT48 'Omoidaseru Koi wo Shiyou มารักกันให้เป็นความทรงจำ(Thai Ver.)' },
+    { href: '#', text: 'NewPlaneT48' }
   ];
 
   var ICON_XMARK = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
