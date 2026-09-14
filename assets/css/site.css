@@ -806,34 +806,6 @@ a:hover > .kicker, .kicker:hover { transform: scale(1.06); }
   .info-row { grid-template-columns: 1fr; gap: 4px; }
 }
 
-/* ---- Schedule ---- */
-#schedule-view { display: none; }
-.schedule-list { max-width: 860px; margin: 0 auto; }
-.schedule-empty { text-align: center; color: var(--ink-soft); padding: 40px 0; }
-.day-card {
-  display: flex; align-items: center; gap: 26px;
-  padding: 22px 4px;
-  border-bottom: 1px solid var(--line-solid);
-  transition: background 0.2s var(--ease), transform 0.25s var(--ease);
-}
-.day-card:first-child { padding-top: 4px; }
-.day-card:hover { background: var(--surface); border-radius: var(--r-md); padding-left: 16px; padding-right: 16px; transform: translateX(3px); }
-
-.date-box { min-width: 82px; text-align: left; flex-shrink: 0; }
-.date-day { font-family: var(--font-display); font-size: 21px; font-weight: 800; color: var(--ink); display: block; line-height: 1.1; }
-.date-num { font-size: 11px; color: var(--ink-faint); font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; }
-
-.event-info { flex-grow: 1; }
-.event-time { font-size: 12px; color: var(--ink-faint); font-weight: 500; margin-bottom: 5px; display: flex; align-items: center; gap: 6px; }
-.event-title { font-size: 15px; color: var(--ink); font-weight: 700; line-height: 1.4; }
-
-@media (max-width: 600px) {
-  .day-card { flex-wrap: wrap; padding: 18px 4px; }
-  .date-box { min-width: auto; display: flex; align-items: baseline; gap: 10px; }
-  .event-title { font-size: 14.5px; }
-  .status-tag { margin-left: auto; }
-}
-
 /* ---- Discography: colored filter tabs + card grid ---- */
 #disco-view { display: none; }
 
