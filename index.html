@@ -246,15 +246,11 @@
         var img = window.NPT48_DATA.getDirectImgLink(d.generation);
         var link = d.fullNameEN || '#';
         var title = d.nameEN || '';
-        var description = d.fullNameTH || '';
+        var tooltip = (title + ' — ' + formatMovieDate(d.name)).replace(/"/g, '&quot;');
         return '' +
-          '<a href="' + link + '" target="_blank" class="movie-item" data-pop style="--i:' + i + '" title="' + description.toString().replace(/"/g, '&quot;') + '">' +
+          '<a href="' + link + '" target="_blank" class="movie-item" data-pop style="--i:' + i + '" title="' + tooltip + '">' +
             '<img src="' + img + '" alt="' + title + '" loading="lazy" decoding="async">' +
             '<span class="movie-play-btn"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 6.5v11l9-5.5-9-5.5z"/></svg></span>' +
-            '<div class="movie-cap">' +
-              '<div class="movie-cap-title">' + title + '</div>' +
-              '<div class="movie-cap-date">' + formatMovieDate(d.name) + '</div>' +
-            '</div>' +
           '</a>';
       }).join('');
       if (window.NPT48_POPIN) window.NPT48_POPIN.init();
