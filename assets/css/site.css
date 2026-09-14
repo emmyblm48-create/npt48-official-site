@@ -34,8 +34,8 @@
 
   --navy-dark: #0b2e4a;
 
-  --font-display: 'Comfortaa', -apple-system, 'Segoe UI', sans-serif;
-  --font-body: 'Comfortaa', -apple-system, 'Segoe UI', 'Noto Sans Thai', sans-serif;
+  --font-display: 'Comfortaa', 'K2D', -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Comfortaa', 'K2D', -apple-system, 'Segoe UI', 'Noto Sans Thai', sans-serif;
 
   --r-sm: 10px;
   --r-md: 14px;
