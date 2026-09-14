@@ -20,6 +20,70 @@
 </head>
 <body>
 
+  <!-- INTRO LOADER -->
+  <div id="siteLoader" class="site-loader">
+    <div class="loader-wind"></div>
+    <div class="loader-bubbles" id="loaderBubbles"></div>
+    <div class="loader-leaves" id="loaderLeaves"></div>
+    <div class="loader-brand">
+      <img class="loader-logo" src="assets/images/logo.png" alt="NPT48" width="500" height="500">
+      <div class="loader-title">NPT48</div>
+      <div class="loader-tagline">From the mountains to the sea</div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var loader = document.getElementById('siteLoader');
+      if (!loader) return;
+
+      if (sessionStorage.getItem('npt48IntroShown')) {
+        loader.remove();
+        return;
+      }
+
+      var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!reduced) {
+        var bubbleWrap = document.getElementById('loaderBubbles');
+        for (var i = 0; i < 16; i++) {
+          var b = document.createElement('span');
+          b.className = 'loader-bubble';
+          var size = 8 + Math.random() * 26;
+          b.style.left = (Math.random() * 100) + '%';
+          b.style.width = size + 'px';
+          b.style.height = size + 'px';
+          b.style.animationDuration = (6 + Math.random() * 6) + 's';
+          b.style.animationDelay = (Math.random() * 6) + 's';
+          bubbleWrap.appendChild(b);
+        }
+
+        var leafSVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.5 2 2 6.9 2 12.7 2 18 6 22 12 22s10-4 10-9.3C22 6.9 17.5 2 12 2z" fill="currentColor"/><path d="M12 4.5v15" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity=".5"/></svg>';
+        var leafWrap = document.getElementById('loaderLeaves');
+        for (var j = 0; j < 8; j++) {
+          var l = document.createElement('span');
+          l.className = 'loader-leaf';
+          l.innerHTML = leafSVG;
+          var lsize = 18 + Math.random() * 16;
+          l.style.top = (Math.random() * 70) + '%';
+          l.style.width = lsize + 'px';
+          l.style.height = lsize + 'px';
+          l.style.animationDuration = (5 + Math.random() * 4) + 's';
+          l.style.animationDelay = (Math.random() * 5) + 's';
+          leafWrap.appendChild(l);
+        }
+      }
+
+      document.body.style.overflow = 'hidden';
+
+      setTimeout(function () {
+        loader.classList.add('is-hidden');
+        document.body.style.overflow = '';
+        sessionStorage.setItem('npt48IntroShown', '1');
+        setTimeout(function () { loader.remove(); }, 700);
+      }, reduced ? 400 : 3400);
+    })();
+  </script>
+
   <div id="site-header"></div>
   <script src="assets/js/nav.js"></script>
   <script src="assets/js/data.js"></script>

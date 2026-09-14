@@ -72,7 +72,6 @@
     var membersData = [];
     var currentMemberName = null;
     var currentTeamFilter = 'ALL';
-    var FACT_MONTH = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
     function init() {
       if (!window.NPT48_DATA.isConfigured()) {
@@ -100,12 +99,6 @@
       });
     });
 
-    function shortBirthday(raw) {
-      var d = new Date(raw);
-      if (isNaN(d.getTime())) return '';
-      return d.getDate() + ' ' + FACT_MONTH[d.getMonth()];
-    }
-
     function memberCardHTML(m, i) {
       var nameSub = (m.fullNameEN || m.name).toString().toUpperCase();
       var img = window.NPT48_DATA.getDirectImgLink(m.image);
@@ -113,12 +106,6 @@
       if (m.instagram && m.instagram !== '-') {
         socialsHTML += '<a href="' + m.instagram + '" class="card-social-link" target="_blank" rel="noopener" onclick="event.stopPropagation()">' + ICON_INSTAGRAM + '</a>';
       }
-      var facts = [];
-      var bday = shortBirthday(m.birthday);
-      if (bday) facts.push(bday);
-      if (m.province) facts.push(m.province);
-      if (m.bloodType) facts.push('Type ' + m.bloodType);
-      var factsHTML = facts.length ? ('<div class="member-facts">' + facts.map(function (f) { return '<span>' + f + '</span>'; }).join('') + '</div>') : '';
 
       return '' +
         '<div class="member-card" data-name="' + m.name + '" data-pop style="--i:' + (i % 8) + '">' +
@@ -132,7 +119,6 @@
               '<div class="card-socials">' + socialsHTML + '</div>' +
             '</div>' +
             '<div class="member-name-sub" onclick="viewDetail(\'' + m.name + '\')">' + nameSub + '</div>' +
-            factsHTML +
           '</div>' +
         '</div>';
     }
