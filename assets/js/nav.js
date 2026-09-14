@@ -3,10 +3,10 @@
    ========================================================= */
 (function () {
   var NAV_LINKS = [
-    { href: 'index.html', page: 'index', label: 'Home' },
-    { href: 'profile.html', page: 'profile', label: 'Profile' },
-    { href: 'discography.html', page: 'discography', label: 'Discography' },
-    { href: 'about.html', page: 'about', label: 'About' }
+    { href: './', page: 'index', label: 'Home' },
+    { href: 'profile', page: 'profile', label: 'Profile' },
+    { href: 'discography', page: 'discography', label: 'Discography' },
+    { href: 'about', page: 'about', label: 'About' }
   ];
 
   var TICKER_ITEMS = [
@@ -51,13 +51,13 @@
       '</div>' +
       '<header class="site-header">' +
         '<div class="site-header-inner">' +
-          '<a href="index.html" class="site-logo">' +
+          '<a href="./" class="site-logo">' +
             '<img class="logo-img" src="assets/images/logo.png" alt="NPT48" width="500" height="500">' +
             '<span class="logo-sub">Official Site</span>' +
           '</a>' +
           '<nav class="site-nav" aria-label="Main navigation">' + navLinksHTML('') + '</nav>' +
           '<div class="header-actions">' +
-            '<a href="about.html" class="header-cta">About NPT48</a>' +
+            '<a href="about" class="header-cta">About NPT48</a>' +
             '<button type="button" class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">' +
               '<span></span><span></span><span></span>' +
             '</button>' +
@@ -68,7 +68,7 @@
       '<aside class="mobile-nav-panel" id="mobileNavPanel">' +
         '<button type="button" class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">' + ICON_XMARK + '</button>' +
         '<nav class="mobile-nav-links" aria-label="Mobile navigation">' + navLinksHTML('') + '</nav>' +
-        '<a href="about.html" class="mobile-nav-cta">About NPT48</a>' +
+        '<a href="about" class="mobile-nav-cta">About NPT48</a>' +
       '</aside>';
 
     markActiveLinks();
@@ -88,18 +88,18 @@
             '<a href="https://www.tiktok.com/@npt48_official" class="social-btn-icon" aria-label="TikTok" target="_blank" rel="noopener">' + ICON_TIKTOK + '</a>' +
           '</div>' +
 
-          '<a href="index.html" class="footer-emblem"><img src="assets/images/logo.png" alt="NPT48" width="500" height="500" loading="lazy" decoding="async"></a>' +
+          '<a href="./" class="footer-emblem"><img src="assets/images/logo.png" alt="NPT48" width="500" height="500" loading="lazy" decoding="async"></a>' +
 
           '<div class="footer-banner-grid">' +
-            '<a href="profile.html" class="footer-banner-card">' +
+            '<a href="profile" class="footer-banner-card">' +
               '<span class="fb-card-title">Profile</span>' +
               '<span class="fb-card-sub">Meet the Members</span>' +
             '</a>' +
-            '<a href="discography.html" class="footer-banner-card">' +
+            '<a href="discography" class="footer-banner-card">' +
               '<span class="fb-card-title">Discography</span>' +
               '<span class="fb-card-sub">Music &amp; Releases</span>' +
             '</a>' +
-            '<a href="about.html" class="footer-banner-card">' +
+            '<a href="about" class="footer-banner-card">' +
               '<span class="fb-card-title">About</span>' +
               '<span class="fb-card-sub">Our Story</span>' +
             '</a>' +

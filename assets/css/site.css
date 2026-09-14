@@ -65,11 +65,11 @@
 }
 
 /* ---------------- Global base ---------------- */
-html { background: var(--surface); }
+html { background: var(--paper); }
 body {
   font-family: var(--font-body);
   color: var(--ink);
-  background: var(--surface);
+  background: var(--paper);
   padding-top: calc(var(--header-h) + var(--ticker-h));
   position: relative;
 }

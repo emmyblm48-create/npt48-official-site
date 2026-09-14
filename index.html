@@ -41,7 +41,7 @@
       <div class="bday-list" id="birthdayList">
         <div class="bday-empty">...</div>
       </div>
-      <a href="profile.html" class="arrow-link">View All Members</a>
+      <a href="profile" class="arrow-link">View All Members</a>
     </div>
     <div class="bento-card" data-pop style="--i:1">
       <span class="eyebrow">Latest Release</span>
@@ -55,7 +55,7 @@
   <section class="members-section" data-pop>
     <div class="sec-head no-underline">
       <h2 class="sec-title">Members</h2>
-      <a href="profile.html" class="arrow-link">View All Members</a>
+      <a href="profile" class="arrow-link">View All Members</a>
     </div>
     <div class="rail-wrap">
       <div class="rail" id="membersRail">
@@ -70,7 +70,7 @@
   <section class="video-section" data-pop>
     <div class="sec-head no-underline">
       <h2 class="sec-title">Movie</h2>
-      <a href="discography.html" class="arrow-link">View All Releases</a>
+      <a href="discography" class="arrow-link">View All Releases</a>
     </div>
 
     <div class="movie-grid" id="movieGrid">
@@ -157,7 +157,7 @@
       listEl.innerHTML = celebrants.map(function (c) {
         var img = window.NPT48_DATA.getDirectImgLink(c.member.image);
         return '' +
-          '<a href="profile.html" class="bday-item">' +
+          '<a href="profile" class="bday-item">' +
             '<div class="bday-avatar"><img src="' + img + '" alt="' + c.member.name + '" decoding="async" onerror="this.src=\'assets/images/logo.png\'"></div>' +
             '<div class="bday-info"><span class="bday-name">' + c.member.name + '</span><span class="bday-date">' + c.bday.getDate() + ' ' + MONTH_EN[c.bday.getMonth()] + '</span></div>' +
           '</a>';
@@ -174,7 +174,7 @@
         var img = window.NPT48_DATA.getDirectImgLink(m.image);
         var badge = m.generation ? '<span class="member-mini-badge">' + m.generation + '</span>' : '';
         return '' +
-          '<a href="profile.html" class="member-mini">' +
+          '<a href="profile" class="member-mini">' +
             '<div class="member-mini-photo">' + badge + '<img src="' + img + '" alt="' + m.name + '" loading="lazy" decoding="async" onerror="this.src=\'assets/images/logo.png\'"></div>' +
             '<div class="member-mini-name">' + m.name + '</div>' +
           '</a>';
