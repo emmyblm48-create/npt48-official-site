@@ -36,41 +36,37 @@
       var loader = document.getElementById('siteLoader');
       if (!loader) return;
 
-      var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var bubbleColors = ['#0d5bb5', '#1e88e5', '#6fc3f7', '#ffffff', '#0f2942'];
+      var bubbleWrap = document.getElementById('loaderBubbles');
+      for (var i = 0; i < 18; i++) {
+        var b = document.createElement('span');
+        b.className = 'loader-bubble';
+        var size = 10 + Math.random() * 60;
+        var color = bubbleColors[Math.floor(Math.random() * bubbleColors.length)];
+        b.style.left = (Math.random() * 100) + '%';
+        b.style.width = size + 'px';
+        b.style.height = size + 'px';
+        b.style.background = color;
+        if (color === '#ffffff') b.style.border = '2px solid rgba(13, 91, 181, 0.25)';
+        b.style.setProperty('--drift', (Math.random() * 120 - 60) + 'px');
+        b.style.setProperty('--dur', (3 + Math.random() * 5) + 's');
+        b.style.animationDelay = (Math.random() * 6) + 's';
+        bubbleWrap.appendChild(b);
+      }
 
-      if (!reduced) {
-        var bubbleColors = ['#0d5bb5', '#1e88e5', '#6fc3f7', '#ffffff', '#0f2942'];
-        var bubbleWrap = document.getElementById('loaderBubbles');
-        for (var i = 0; i < 18; i++) {
-          var b = document.createElement('span');
-          b.className = 'loader-bubble';
-          var size = 10 + Math.random() * 60;
-          var color = bubbleColors[Math.floor(Math.random() * bubbleColors.length)];
-          b.style.left = (Math.random() * 100) + '%';
-          b.style.width = size + 'px';
-          b.style.height = size + 'px';
-          b.style.background = color;
-          if (color === '#ffffff') b.style.border = '2px solid rgba(13, 91, 181, 0.25)';
-          b.style.setProperty('--drift', (Math.random() * 120 - 60) + 'px');
-          b.style.animationDuration = (3 + Math.random() * 5) + 's';
-          b.style.animationDelay = (Math.random() * 6) + 's';
-          bubbleWrap.appendChild(b);
-        }
-
-        var leafSVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.5 2 2 6.9 2 12.7 2 18 6 22 12 22s10-4 10-9.3C22 6.9 17.5 2 12 2z" fill="currentColor"/><path d="M12 4.5v15" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity=".5"/></svg>';
-        var leafWrap = document.getElementById('loaderLeaves');
-        for (var j = 0; j < 8; j++) {
-          var l = document.createElement('span');
-          l.className = 'loader-leaf';
-          l.innerHTML = leafSVG;
-          var lsize = 18 + Math.random() * 16;
-          l.style.top = (Math.random() * 70) + '%';
-          l.style.width = lsize + 'px';
-          l.style.height = lsize + 'px';
-          l.style.animationDuration = (5 + Math.random() * 4) + 's';
-          l.style.animationDelay = (Math.random() * 5) + 's';
-          leafWrap.appendChild(l);
-        }
+      var leafSVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.5 2 2 6.9 2 12.7 2 18 6 22 12 22s10-4 10-9.3C22 6.9 17.5 2 12 2z" fill="currentColor"/><path d="M12 4.5v15" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity=".5"/></svg>';
+      var leafWrap = document.getElementById('loaderLeaves');
+      for (var j = 0; j < 8; j++) {
+        var l = document.createElement('span');
+        l.className = 'loader-leaf';
+        l.innerHTML = leafSVG;
+        var lsize = 18 + Math.random() * 16;
+        l.style.top = (Math.random() * 70) + '%';
+        l.style.width = lsize + 'px';
+        l.style.height = lsize + 'px';
+        l.style.setProperty('--dur', (5 + Math.random() * 4) + 's');
+        l.style.animationDelay = (Math.random() * 5) + 's';
+        leafWrap.appendChild(l);
       }
 
       document.body.style.overflow = 'hidden';
