@@ -36,11 +36,6 @@
       var loader = document.getElementById('siteLoader');
       if (!loader) return;
 
-      if (sessionStorage.getItem('npt48IntroShown')) {
-        loader.remove();
-        return;
-      }
-
       var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       if (!reduced) {
@@ -78,7 +73,6 @@
       setTimeout(function () {
         loader.classList.add('is-hidden');
         document.body.style.overflow = '';
-        sessionStorage.setItem('npt48IntroShown', '1');
         setTimeout(function () { loader.remove(); }, 400);
       }, 2600);
     })();
