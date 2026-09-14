@@ -12,6 +12,7 @@
   var TICKER_ITEMS = [
     { href: '#', text: 'NPT48 OFFICIAL SITE' },
     { href: '#', text: 'NPT48 Omoidaseru Koi wo Shiyou มารักกันให้เป็นความทรงจำ(Thai Ver.)' },
+    { href: '#', text: 'NPT48' },
     { href: '#', text: 'NewPlaneT48' }
   ];
 
