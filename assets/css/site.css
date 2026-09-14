@@ -597,7 +597,7 @@ a:hover > .kicker, .kicker:hover { transform: scale(1.06); }
   display: flex; align-items: center; justify-content: center;
   overflow: hidden;
   background: linear-gradient(180deg, #eaf6ff 0%, #cdeafe 45%, #9fd8f7 100%);
-  transition: opacity 0.7s ease, visibility 0.7s ease;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
 }
 .site-loader.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
