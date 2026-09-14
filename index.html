@@ -52,35 +52,6 @@
     </div>
   </div>
 
-  <!-- TOPICS STRIP -->
-  <section class="topics-section" data-pop>
-    <div class="sec-head no-underline">
-      <h2 class="sec-title">Topics</h2>
-    </div>
-    <div class="rail-wrap">
-      <div class="rail" id="topicsRail">
-        <a href="about.html" class="topic-tile">
-          <div class="topic-thumb"><img src="assets/images/hero-banner.svg" alt="About NPT48"></div>
-          <div class="topic-cap">Mountain &amp; Sea <i class="fas fa-arrow-right"></i></div>
-        </a>
-        <a href="discography.html" class="topic-tile">
-          <div class="topic-thumb"><img src="assets/images/hero-banner.svg" alt="1st Single Coming Soon"></div>
-          <div class="topic-cap">1st Single Coming Soon <i class="fas fa-arrow-right"></i></div>
-        </a>
-        <a href="profile.html" class="topic-tile">
-          <div class="topic-thumb"><img src="assets/images/hero-banner.svg" alt="Meet the Members"></div>
-          <div class="topic-cap">Meet the Members <i class="fas fa-arrow-right"></i></div>
-        </a>
-        <a href="schedule.html" class="topic-tile">
-          <div class="topic-thumb"><img src="assets/images/hero-banner.svg" alt="Follow NPT48 Official"></div>
-          <div class="topic-cap">Follow NPT48 Official <i class="fas fa-arrow-right"></i></div>
-        </a>
-      </div>
-      <button type="button" class="rail-nav-btn rail-nav-prev" id="topicsPrev" aria-label="Previous topics"><i class="fas fa-chevron-left"></i></button>
-      <button type="button" class="rail-nav-btn rail-nav-next" id="topicsNext" aria-label="Next topics"><i class="fas fa-chevron-right"></i></button>
-    </div>
-  </section>
-
   <!-- MEMBERS -->
   <section class="members-section" data-pop>
     <div class="sec-head no-underline">
@@ -93,39 +64,6 @@
       </div>
       <button type="button" class="rail-nav-btn rail-nav-prev" id="membersPrev" aria-label="Previous members"><i class="fas fa-chevron-left"></i></button>
       <button type="button" class="rail-nav-btn rail-nav-next" id="membersNext" aria-label="Next members"><i class="fas fa-chevron-right"></i></button>
-    </div>
-  </section>
-
-  <!-- NEWS & SCHEDULE -->
-  <section class="content-box-section" data-pop>
-    <div>
-      <div class="sec-head no-underline">
-        <h2 class="sec-title">News</h2>
-      </div>
-      <div class="data-list">
-        <div class="data-row">
-          <div class="data-date-group"><span class="kicker kicker-gold">Release</span><span class="data-date">2026.09.12</span></div>
-          <div class="data-title">Debut single "Kaze wo Matsu" release date announced, with launch event registration now open in Bangkok</div>
-        </div>
-        <div class="data-row">
-          <div class="data-date-group"><span class="kicker kicker-outline">Event</span><span class="data-date">2026.09.10</span></div>
-          <div class="data-title">The NPT48 official website has officially launched today, with full profiles for every first-generation member</div>
-        </div>
-        <div class="data-row">
-          <div class="data-date-group"><span class="kicker kicker-outline">Event</span><span class="data-date">2026.09.01</span></div>
-          <div class="data-title">NPT48 will soon open auditions for a new generation of trainee members</div>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <div class="sec-head no-underline">
-        <h2 class="sec-title">Schedule</h2>
-      </div>
-      <div class="data-list" id="scheduleColumn">
-        <div class="data-empty">Loading NPT48 data...</div>
-      </div>
-      <a href="schedule.html" class="arrow-link">View Full Schedule</a>
     </div>
   </section>
 
@@ -194,7 +132,6 @@
       prevBtn.addEventListener('click', function () { rail.scrollBy({ left: -step(), behavior: 'smooth' }); });
       nextBtn.addEventListener('click', function () { rail.scrollBy({ left: step(), behavior: 'smooth' }); });
     }
-    wireRailNav('topicsRail', 'topicsPrev', 'topicsNext', '.topic-tile');
     wireRailNav('membersRail', 'membersPrev', 'membersNext', '.member-mini');
 
     var MONTH_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -346,40 +283,6 @@
         });
     }
     loadMovies();
-
-    var SCHEDULE_TYPE_MAP = {
-      EVENT: 'kicker-outline', MEDIA: 'kicker-gold', LIVE: 'kicker-live', RELEASE: 'kicker-dark'
-    };
-
-    function parseHomeDate(raw) {
-      var d = new Date(raw);
-      if (isNaN(d.getTime())) return { label: String(raw || '-'), sortKey: 0 };
-      return { label: ('0' + d.getDate()).slice(-2) + '.' + ('0' + (d.getMonth() + 1)).slice(-2) + '.' + d.getFullYear(), sortKey: d.getTime() };
-    }
-
-    function loadScheduleColumn() {
-      var col = document.getElementById('scheduleColumn');
-      if (!window.NPT48_DATA.isConfigured()) { col.innerHTML = '<div class="data-empty">Google Sheets not connected yet</div>'; return; }
-      window.NPT48_DATA.fetchSheet('Schedule')
-        .then(function (data) {
-          if (!Array.isArray(data) || !data.length) throw new Error('empty');
-          var upcoming = data.slice().sort(function (a, b) {
-            return parseHomeDate(a.date).sortKey - parseHomeDate(b.date).sortKey;
-          }).slice(0, 6);
-          col.innerHTML = upcoming.map(function (s) {
-            var typeKey = (s.type || '').toString().toUpperCase();
-            var kickerClass = SCHEDULE_TYPE_MAP[typeKey] || 'kicker-outline';
-            var d = parseHomeDate(s.date);
-            return '' +
-              '<a href="schedule.html" class="data-row">' +
-                '<div class="data-date-group"><span class="kicker ' + kickerClass + '">' + (s.type || '') + '</span><span class="data-date">' + d.label + '</span></div>' +
-                '<div class="data-title">' + s.title + '</div>' +
-              '</a>';
-          }).join('');
-        })
-        .catch(function () { col.innerHTML = '<div class="data-empty">No schedule at this time.</div>'; });
-    }
-    loadScheduleColumn();
   </script>
 
 </body>
