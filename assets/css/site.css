@@ -435,7 +435,7 @@ a:hover > .kicker, .kicker:hover { transform: scale(1.06); }
 .mobile-nav-panel {
   position: fixed; top: 0; right: -100%;
   width: 86%; max-width: 380px; height: 100%;
-  background: var(--navy-dark);
+  background: var(--brand-deep);
   z-index: 4000;
   padding: 96px 36px 40px;
   display: flex; flex-direction: column; gap: 36px;
@@ -462,16 +462,15 @@ a:hover > .kicker, .kicker:hover { transform: scale(1.06); }
   font-weight: 700;
   letter-spacing: -0.3px;
   padding: 10px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  transition: color 0.2s var(--ease), padding-left 0.25s var(--ease);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  border-left: 3px solid transparent;
+  transition: color 0.2s var(--ease), padding-left 0.25s var(--ease), border-left-color 0.2s var(--ease);
   display: block;
 }
 .mobile-nav-links a:hover, .mobile-nav-links a.active {
-  background: var(--grad-brand);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  padding-left: 8px;
+  color: #fff;
+  padding-left: 14px;
+  border-left: 3px solid #fff;
 }
 .mobile-nav-cta {
   position: relative;
