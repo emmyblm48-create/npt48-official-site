@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
-  <title>NPT48 Official Site — Members</title>
+  <title>NPT48 Official Site — Profile</title>
   <link rel="icon" type="image/png" href="assets/images/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,7 +29,7 @@
   <main class="page-shell">
     <div class="page-hero">
       <span class="eyebrow">The Lineup</span>
-      <h1 class="page-hero-title">Members</h1>
+      <h1 class="page-hero-title">Profile</h1>
     </div>
 
     <div id="loading-overlay">
@@ -38,6 +38,13 @@
     </div>
 
     <div id="main-view">
+      <div class="filter-tabs" id="teamFilterTabs">
+        <button class="tab-btn active" data-team="ALL">All</button>
+        <button class="tab-btn" data-team="N">Team N</button>
+        <button class="tab-btn" data-team="P">Team P</button>
+        <button class="tab-btn" data-team="T">Team T</button>
+        <button class="tab-btn" data-team="Trainee">Trainee</button>
+      </div>
       <div id="member-grid"></div>
     </div>
 
@@ -63,6 +70,7 @@
   <script>
     var membersData = [];
     var currentMemberName = null;
+    var currentTeamFilter = 'ALL';
     var FACT_MONTH = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
     function init() {
@@ -81,6 +89,15 @@
           document.getElementById('loading-overlay').innerHTML = 'Unable to load data. Please try again later.';
         });
     }
+
+    document.getElementById('teamFilterTabs').querySelectorAll('.tab-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('#teamFilterTabs .tab-btn').forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        currentTeamFilter = btn.getAttribute('data-team');
+        renderGrid();
+      });
+    });
 
     function shortBirthday(raw) {
       var d = new Date(raw);
@@ -127,21 +144,18 @@
         return;
       }
 
-      var idx = 0;
-      var gens = [];
-      membersData.forEach(function (m) {
-        if (m.generation && gens.indexOf(m.generation) === -1) gens.push(m.generation);
+      var list = currentTeamFilter === 'ALL' ? membersData.slice() : membersData.filter(function (m) {
+        return (m.team || '').toString() === currentTeamFilter;
       });
+      list.sort(function (a, b) { return (a.name || '').localeCompare(b.name || ''); });
 
-      grid.innerHTML = gens.map(function (g) {
-        var members = membersData.filter(function (m) { return m.generation === g; });
-        var cardsHTML = members.map(function (m) { return memberCardHTML(m, idx++); }).join('');
-        return '' +
-          '<div class="team-group">' +
-            '<h2 class="team-heading">' + g + '</h2>' +
-            '<div class="members-grid">' + cardsHTML + '</div>' +
-          '</div>';
-      }).join('');
+      if (!list.length) {
+        grid.innerHTML = '<p style="text-align:center;color:var(--ink-soft)">No members found.</p>';
+        return;
+      }
+
+      var cardsHTML = list.map(function (m, i) { return memberCardHTML(m, i); }).join('');
+      grid.innerHTML = '<div class="members-grid">' + cardsHTML + '</div>';
 
       if (window.NPT48_POPIN) window.NPT48_POPIN.init();
     }

@@ -10,7 +10,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="assets/css/site.css">
 
@@ -130,21 +129,15 @@
     </div>
   </section>
 
-  <!-- VIDEO -->
+  <!-- MOVIE -->
   <section class="video-section" data-pop>
     <div class="sec-head no-underline">
-      <h2 class="sec-title">Videos</h2>
+      <h2 class="sec-title">Movie</h2>
       <a href="discography.html" class="arrow-link">View All Releases</a>
     </div>
 
-    <div class="video-swiper-container">
-      <div class="swiper video-swiper">
-        <div class="swiper-wrapper" id="videoWrapper">
-          <div class="swiper-slide"><div class="data-empty">Loading NPT48 data...</div></div>
-        </div>
-      </div>
-      <div class="swiper-button-prev video-nav-prev"></div>
-      <div class="swiper-button-next video-nav-next"></div>
+    <div class="movie-grid" id="movieGrid">
+      <div class="data-empty">Loading NPT48 data...</div>
     </div>
   </section>
 
@@ -172,7 +165,6 @@
   <!-- FOOTER -->
   <div id="site-footer"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
     // Horizontal rail drag-to-scroll
     document.querySelectorAll('.rail').forEach(function (rail) {
@@ -309,10 +301,10 @@
       return d.getDate() + ' ' + MONTH_EN[d.getMonth()] + ' ' + d.getFullYear();
     }
 
-    function renderVideoCarousel(items) {
-      var wrapper = document.getElementById('videoWrapper');
-      if (!items.length) { wrapper.innerHTML = '<div class="swiper-slide"><div class="data-empty">No releases yet.</div></div>'; return; }
-      var slides = items.map(function (d) {
+    function renderMovieGrid(items) {
+      var grid = document.getElementById('movieGrid');
+      if (!items.length) { grid.innerHTML = '<div class="data-empty">No releases yet.</div>'; return; }
+      grid.innerHTML = items.slice(0, 4).map(function (d, i) {
         // The Movie sheet columns (Date, Title Name Song, Description, Link, Img) come back
         // from the Apps Script under generic field names, not their own header text.
         var img = window.NPT48_DATA.getDirectImgLink(d.generation);
@@ -320,36 +312,22 @@
         var title = d.nameEN || '';
         var description = d.fullNameTH || '';
         return '' +
-          '<div class="swiper-slide">' +
-            '<a href="' + link + '" target="_blank" class="video-item" title="' + description.toString().replace(/"/g, '&quot;') + '">' +
-              '<div class="video-thumb-box"><img src="' + img + '" alt="' + title + '"></div>' +
-              '<div class="video-cap">' +
-                '<div class="video-cap-title">' + title + '</div>' +
-                '<div class="video-cap-date">' + formatMovieDate(d.name) + '</div>' +
-              '</div>' +
-            '</a>' +
-          '</div>';
+          '<a href="' + link + '" target="_blank" class="movie-item" data-pop style="--i:' + i + '" title="' + description.toString().replace(/"/g, '&quot;') + '">' +
+            '<img src="' + img + '" alt="' + title + '">' +
+            '<span class="movie-play-btn"><i class="fas fa-play"></i></span>' +
+            '<div class="movie-cap">' +
+              '<div class="movie-cap-title">' + title + '</div>' +
+              '<div class="movie-cap-date">' + formatMovieDate(d.name) + '</div>' +
+            '</div>' +
+          '</a>';
       }).join('');
-      wrapper.innerHTML = slides;
-
-      new Swiper('.video-swiper', {
-        slidesPerView: 3.2,
-        spaceBetween: 22,
-        grabCursor: true,
-        loop: false,
-        navigation: { nextEl: '.video-nav-next', prevEl: '.video-nav-prev' },
-        breakpoints: {
-          320: { slidesPerView: 1.15, spaceBetween: 14 },
-          640: { slidesPerView: 2.1, spaceBetween: 16 },
-          1024: { slidesPerView: 3.2, spaceBetween: 22 }
-        }
-      });
+      if (window.NPT48_POPIN) window.NPT48_POPIN.init();
     }
 
     function loadMovies() {
-      var wrapper = document.getElementById('videoWrapper');
+      var grid = document.getElementById('movieGrid');
       if (!window.NPT48_DATA.isConfigured()) {
-        wrapper.innerHTML = '<div class="swiper-slide"><div class="data-empty">Google Sheets not connected yet</div></div>';
+        grid.innerHTML = '<div class="data-empty">Google Sheets not connected yet</div>';
         return;
       }
       window.NPT48_DATA.fetchSheet('Movie')
@@ -361,10 +339,10 @@
             if (isNaN(db)) db = 0;
             return db - da;
           });
-          renderVideoCarousel(sorted);
+          renderMovieGrid(sorted);
         })
         .catch(function () {
-          wrapper.innerHTML = '<div class="swiper-slide"><div class="data-empty">Unable to load data.</div></div>';
+          grid.innerHTML = '<div class="data-empty">Unable to load data.</div>';
         });
     }
     loadMovies();

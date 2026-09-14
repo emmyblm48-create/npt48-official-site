@@ -38,17 +38,13 @@
     </div>
 
     <div id="disco-view">
-      <div class="disco-select-wrap">
-        <div class="select-shell">
-          <select id="typeSelect" class="disco-select">
-            <option value="ALL">All</option>
-            <option value="SINGLE">Single</option>
-            <option value="ALBUM">Album</option>
-          </select>
-          <i class="fas fa-chevron-down select-chevron"></i>
-        </div>
+      <div class="disco-filter-tabs" id="discoFilterTabs">
+        <button class="disco-filter-tab active" data-type="ALL" style="--tab-color:var(--ink)">All</button>
+        <button class="disco-filter-tab" data-type="SINGLE" style="--tab-color:#e0629b">Single</button>
+        <button class="disco-filter-tab" data-type="ALBUM" style="--tab-color:#3fb88a">Album</button>
+        <button class="disco-filter-tab" data-type="DVD" style="--tab-color:#3f8ee0">DVD/BD</button>
       </div>
-      <div id="disco-grid" class="disco-list"></div>
+      <div id="disco-grid" class="disco-grid"></div>
     </div>
   </main>
 
@@ -57,6 +53,14 @@
   <script>
     var discoData = [];
     var currentTypeFilter = 'ALL';
+    var TYPE_LABEL = { SINGLE: 'Single', ALBUM: 'Album', DVD: 'DVD/BD' };
+
+    function classifyType(raw) {
+      var t = (raw || '').toString().toUpperCase();
+      if (t.indexOf('ALBUM') !== -1) return 'ALBUM';
+      if (t.indexOf('DVD') !== -1 || t.indexOf('BD') !== -1 || t.indexOf('BLU') !== -1) return 'DVD';
+      return 'SINGLE';
+    }
 
     function init() {
       if (!window.NPT48_DATA.isConfigured()) {
@@ -75,15 +79,19 @@
         });
     }
 
-    document.getElementById('typeSelect').addEventListener('change', function () {
-      currentTypeFilter = this.value;
-      renderGrid(currentTypeFilter);
+    document.getElementById('discoFilterTabs').querySelectorAll('.disco-filter-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('#discoFilterTabs .disco-filter-tab').forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        currentTypeFilter = btn.getAttribute('data-type');
+        renderGrid(currentTypeFilter);
+      });
     });
 
     function renderGrid(type) {
       var grid = document.getElementById('disco-grid');
       var filtered = type === 'ALL' ? discoData : discoData.filter(function (d) {
-        return (d.type || '').toString().toUpperCase() === type;
+        return classifyType(d.type) === type;
       });
 
       if (!filtered.length) {
@@ -93,18 +101,17 @@
 
       grid.innerHTML = filtered.map(function (d, i) {
         var img = window.NPT48_DATA.getDirectImgLink(d.image);
-        var isAlbum = (d.type || '').toString().toUpperCase() === 'ALBUM';
-        var kickerClass = isAlbum ? 'kicker-dark' : 'kicker-outline';
-        var typeLabel = isAlbum ? 'Album' : 'Single';
+        var typeKey = classifyType(d.type);
+        var color = document.querySelector('.disco-filter-tab[data-type="' + typeKey + '"]').style.getPropertyValue('--tab-color');
         var link = d.link || '#';
         return '' +
-          '<a href="' + link + '" target="_blank" class="disco-row" data-pop style="--i:' + (i % 8) + '">' +
-            '<div class="disco-row-thumb"><img src="' + img + '" alt="' + d.songName + '" loading="lazy" onerror="this.style.display=\'none\'"></div>' +
-            '<div class="disco-row-info">' +
-              '<span class="kicker ' + kickerClass + '">' + typeLabel + '</span>' +
-              '<div class="disco-row-title">' + d.songName + '</div>' +
-              '<div class="disco-row-date">' + (d.release || '') + ' Release</div>' +
+          '<a href="' + link + '" target="_blank" class="disco-card" data-pop style="--i:' + (i % 9) + '">' +
+            '<div class="disco-card-thumb"><img src="' + img + '" alt="' + d.songName + '" loading="lazy" onerror="this.style.display=\'none\'"></div>' +
+            '<div class="disco-card-meta">' +
+              '<span class="disco-type-pill" style="color:' + color + '">' + TYPE_LABEL[typeKey] + '</span>' +
+              '<span class="disco-release-label">Release ' + (d.release || '') + '</span>' +
             '</div>' +
+            '<div class="disco-card-title">' + d.songName + '</div>' +
           '</a>';
       }).join('');
       if (window.NPT48_POPIN) window.NPT48_POPIN.init();

@@ -5,7 +5,7 @@
   var NAV_LINKS = [
     { href: 'index.html', page: 'index', label: 'Home' },
     { href: 'schedule.html', page: 'schedule', label: 'Schedule' },
-    { href: 'profile.html', page: 'profile', label: 'Members' },
+    { href: 'profile.html', page: 'profile', label: 'Profile' },
     { href: 'discography.html', page: 'discography', label: 'Discography' },
     { href: 'about.html', page: 'about', label: 'About' }
   ];
@@ -88,7 +88,7 @@
                 '<div class="footer-col-title">Explore</div>' +
                 '<ul class="footer-links-list">' +
                   '<li><a href="schedule.html">Schedule</a></li>' +
-                  '<li><a href="profile.html">Members</a></li>' +
+                  '<li><a href="profile.html">Profile</a></li>' +
                   '<li><a href="discography.html">Discography</a></li>' +
                   '<li><a href="about.html">About</a></li>' +
                 '</ul>' +
