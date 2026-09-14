@@ -62,6 +62,15 @@
       return 'SINGLE';
     }
 
+    function parseReleaseDate(raw) {
+      var parts = (raw || '').toString().split(/[.\-\/]/).map(Number);
+      if (parts.length === 3 && parts.every(function (n) { return !isNaN(n); })) {
+        return new Date(parts[0], parts[1] - 1, parts[2]).getTime();
+      }
+      var d = new Date(raw);
+      return isNaN(d.getTime()) ? 0 : d.getTime();
+    }
+
     function init() {
       if (!window.NPT48_DATA.isConfigured()) {
         document.getElementById('loading-overlay').innerHTML = 'Google Sheets not connected yet — set SCRIPT_URL in <code>assets/js/data.js</code>';
@@ -69,7 +78,9 @@
       }
       window.NPT48_DATA.fetchSheet('Discography')
         .then(function (data) {
-          discoData = data;
+          discoData = data.slice().sort(function (a, b) {
+            return parseReleaseDate(b.release) - parseReleaseDate(a.release);
+          });
           renderGrid('ALL');
           document.getElementById('loading-overlay').style.display = 'none';
           document.getElementById('disco-view').style.display = 'block';

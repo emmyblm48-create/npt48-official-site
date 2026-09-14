@@ -75,56 +75,48 @@
     if (!mount) return;
 
     mount.innerHTML =
-      '<footer class="ske-footer">' +
-        '<div class="footer-inner">' +
-          '<div class="footer-top">' +
-            '<div>' +
-              '<h2 class="footer-brand-title">NPT48</h2>' +
-              '<p class="footer-brand-desc">From the mountains to the sea — a nonprofit Thai virtual idol group.</p>' +
-            '</div>' +
-            '<div class="footer-nav-cols">' +
-              '<div>' +
-                '<div class="footer-col-title">Explore</div>' +
-                '<ul class="footer-links-list">' +
-                  '<li><a href="profile.html">Profile</a></li>' +
-                  '<li><a href="discography.html">Discography</a></li>' +
-                  '<li><a href="about.html">About</a></li>' +
-                '</ul>' +
-              '</div>' +
-              '<div>' +
-                '<div class="footer-col-title">Connect</div>' +
-                '<ul class="footer-links-list">' +
-                  '<li><a href="#">Privacy Policy</a></li>' +
-                  '<li><a href="#">Terms of Use</a></li>' +
-                  '<li><a href="#">Contact Us</a></li>' +
-                '</ul>' +
-              '</div>' +
-            '</div>' +
+      '<footer class="site-footer-v2">' +
+        '<div class="footer-inner-v2">' +
+          '<div class="footer-social-row">' +
+            '<a href="https://www.instagram.com/npt48official/" class="social-btn-icon" aria-label="Instagram" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>' +
+            '<a href="https://www.youtube.com/@NPT48OfficialYouTubeChannel" class="social-btn-icon" aria-label="YouTube" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>' +
+            '<a href="https://www.tiktok.com/@npt48_official" class="social-btn-icon" aria-label="TikTok" target="_blank" rel="noopener"><i class="fab fa-tiktok"></i></a>' +
           '</div>' +
-          '<div class="footer-bottom-row">' +
-            '<div class="footer-social-row">' +
-              '<a href="#" class="social-btn-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>' +
-              '<a href="#" class="social-btn-icon" aria-label="X">' +
-                '<svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>' +
-              '</a>' +
-              '<a href="#" class="social-btn-icon" aria-label="YouTube"><i class="fab fa-youtube"></i></a>' +
-              '<a href="#" class="social-btn-icon" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>' +
-              '<a href="#" class="social-btn-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>' +
-            '</div>' +
-            '<div class="copyright-text">&copy; 2026 NPT48. All rights reserved.</div>' +
-            '<button type="button" class="page-top-btn" id="pageTopBtn">' +
-              '<span>Page Top</span><i class="fas fa-arrow-up" aria-hidden="true"></i>' +
-            '</button>' +
+
+          '<a href="index.html" class="footer-emblem"><img src="assets/images/logo.png" alt="NPT48"></a>' +
+
+          '<div class="footer-banner-grid">' +
+            '<a href="profile.html" class="footer-banner-card">' +
+              '<i class="fas fa-users"></i>' +
+              '<span class="fb-card-title">Profile</span>' +
+              '<span class="fb-card-sub">Meet the Members</span>' +
+            '</a>' +
+            '<a href="discography.html" class="footer-banner-card">' +
+              '<i class="fas fa-compact-disc"></i>' +
+              '<span class="fb-card-title">Discography</span>' +
+              '<span class="fb-card-sub">Music &amp; Releases</span>' +
+            '</a>' +
+            '<a href="about.html" class="footer-banner-card">' +
+              '<i class="fas fa-circle-info"></i>' +
+              '<span class="fb-card-title">About</span>' +
+              '<span class="fb-card-sub">Our Story</span>' +
+            '</a>' +
+            '<a href="https://www.akb48.co.jp/" target="_blank" rel="noopener" class="footer-banner-card">' +
+              '<i class="fas fa-globe"></i>' +
+              '<span class="fb-card-title">AKB48 Group</span>' +
+              '<span class="fb-card-sub">Official Site</span>' +
+            '</a>' +
           '</div>' +
+
+          '<div class="footer-contact-grid">' +
+            '<a href="#" class="footer-contact-card">Contact Us</a>' +
+            '<a href="#" class="footer-contact-card">Privacy Policy &amp; Terms of Use</a>' +
+          '</div>' +
+
+          '<div class="footer-org-line">NPT48</div>' +
+          '<div class="footer-copyright">&copy; 2026 NPT48. All rights reserved.</div>' +
         '</div>' +
       '</footer>';
-
-    var topBtn = document.getElementById('pageTopBtn');
-    if (topBtn) {
-      topBtn.addEventListener('click', function () {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    }
   }
 
   function markActiveLinks() {
