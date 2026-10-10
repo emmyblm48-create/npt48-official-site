@@ -41,16 +41,25 @@
     setTimeout(function () { root.classList.add('hero-in'); }, 120);
   }
 
-  // Mouse + scroll parallax: write --mx/--my (-1..1) and --sy (px) on the hero.
+  // Mouse + scroll parallax. Writes `translate` straight onto each [data-depth]
+  // element (a GPU-composited property) instead of setting inherited CSS
+  // variables on the hero, which would re-style the whole hero subtree.
   function initParallax() {
     var hero = document.querySelector('.top-hero');
     if (!hero) return;
-    var pending = false, mx = 0, my = 0;
+    var items = [].map.call(hero.querySelectorAll('[data-depth]'), function (el) {
+      return { el: el, depth: parseFloat(getComputedStyle(el).getPropertyValue('--depth')) || 0 };
+    });
+    if (!items.length) return;
+    var pending = false, mx = 0, my = 0, heroBottom = hero.offsetTop + hero.offsetHeight;
     function apply() {
       pending = false;
-      hero.style.setProperty('--mx', mx.toFixed(3));
-      hero.style.setProperty('--my', my.toFixed(3));
-      hero.style.setProperty('--sy', Math.min(window.scrollY, 1200).toFixed(0));
+      var sy = window.scrollY;
+      if (sy > heroBottom) return; // hero is off-screen: nothing visible to move
+      for (var i = 0; i < items.length; i++) {
+        var d = items[i].depth;
+        items[i].el.style.translate = (mx * d).toFixed(1) + 'px ' + (my * d - sy * d * 0.005).toFixed(1) + 'px';
+      }
     }
     function queue() { if (!pending) { pending = true; requestAnimationFrame(apply); } }
     if (finePointer) {
@@ -61,6 +70,7 @@
       }, { passive: true });
     }
     window.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', function () { heroBottom = hero.offsetTop + hero.offsetHeight; });
   }
 
   // 3D tilt for cards under the mouse (delegated, so data-rendered cards work too).
