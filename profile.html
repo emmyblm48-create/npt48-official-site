@@ -51,6 +51,7 @@
               <option value="Trainee">TRAINEE</option>
             </select>
           </label>
+          <button type="button" class="pill back-btn" id="backBtn" onclick="goBack()" hidden>‹ BACK</button>
         </div>
         <div id="loading-overlay">
           <div class="spinner-ring"></div>
@@ -62,18 +63,17 @@
         </div>
 
         <div id="detail-view">
-          <button type="button" class="pill back-btn" onclick="goBack()">‹ BACK</button>
           <div class="detail-layout">
-            <div class="detail-photo">
-              <div class="pickup-photo"><img id="m-img" alt="Member photo"></div>
-            </div>
+            <div class="detail-photo"><img id="m-img" alt="Member photo"></div>
             <div class="detail-content">
               <div class="info-header">
-                <h1 id="m-name-th"></h1>
+                <div class="info-name-row">
+                  <h2 id="m-name-th"></h2>
+                  <div class="social-section" id="m-social"></div>
+                </div>
                 <p id="m-name-en"></p>
               </div>
               <div class="info-table" id="m-info-table"></div>
-              <div class="social-section" id="m-social"></div>
             </div>
           </div>
         </div>
@@ -130,8 +130,10 @@
     });
 
     // The team dropdown only applies to the grid, so hide it on a member's page.
+    // and BACK takes its place in the title row while a member is open.
     function setFilterVisible(show) {
-      document.getElementById('teamFilterWrap').style.visibility = show ? '' : 'hidden';
+      document.getElementById('teamFilterWrap').hidden = !show;
+      document.getElementById('backBtn').hidden = show;
     }
 
     function memberCardHTML(m, i) {
