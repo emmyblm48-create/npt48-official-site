@@ -54,6 +54,12 @@
     }).join('');
   }
 
+  function topNavHTML() {
+    return NAV_LINKS.map(function (l) {
+      return '<a href="' + l.href + '" data-page="' + l.page + '"><span class="en">' + l.label + '</span><span class="th">' + l.sub + '</span></a>';
+    }).join('');
+  }
+
   function socialRowHTML(extraClass) {
     return '<div class="social-row ' + (extraClass || '') + '">' +
       '<a href="' + SOCIALS.youtube + '" target="_blank" rel="noopener" aria-label="YouTube">' + ICON.youtube + '</a>' +
@@ -76,6 +82,16 @@
       '<a href="./" class="brand-badge" aria-label="NPT48 home">' +
         '<img src="assets/images/logo.png" alt="NPT48" width="500" height="500">' +
       '</a>' +
+      '<header class="top-header">' +
+        '<nav class="top-nav" aria-label="Main navigation">' + topNavHTML() + '</nav>' +
+        '<div class="top-actions">' +
+          socialRowHTML() +
+          '<div class="pill-row">' +
+            '<a class="pill pill-yellow" href="' + SOCIALS.instagram + '" target="_blank" rel="noopener">FOLLOW</a>' +
+            '<a class="pill" href="' + SOCIALS.youtube + '" target="_blank" rel="noopener">WATCH</a>' +
+          '</div>' +
+        '</div>' +
+      '</header>' +
       '<button type="button" class="menu-blob" id="menuBlob" aria-label="Open menu" aria-expanded="false" aria-controls="siteMenu">' +
         '<svg class="blob-shape" viewBox="0 0 128 108" aria-hidden="true"><path d="M24 10 C52 -6 104 0 120 26 C134 50 122 88 96 100 C68 112 30 106 14 86 C-2 66 -2 26 24 10Z"/></svg>' +
         '<span class="menu-blob-label" id="menuBlobLabel" aria-hidden="true">' + blobLabel('MENU') + '</span>' +
@@ -139,7 +155,7 @@
 
   function markActiveLinks() {
     var page = currentPage();
-    document.querySelectorAll('.site-menu-links a, .hero-nav a').forEach(function (a) {
+    document.querySelectorAll('.site-menu-links a, .top-nav a').forEach(function (a) {
       if (a.getAttribute('data-page') === page) a.classList.add('active');
     });
   }
@@ -175,14 +191,11 @@
   }
 
   function wireScrollState() {
-    var ticking = false;
+    // classList.toggle is a no-op when the state doesn't change, so no rAF throttle needed
     function update() {
       document.body.classList.toggle('is-scrolled', window.scrollY > 120);
-      ticking = false;
     }
-    window.addEventListener('scroll', function () {
-      if (!ticking) { ticking = true; requestAnimationFrame(update); }
-    }, { passive: true });
+    window.addEventListener('scroll', update, { passive: true });
     update();
   }
 

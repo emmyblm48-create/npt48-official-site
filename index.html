@@ -66,55 +66,51 @@
   <script src="assets/js/reveal.js"></script>
 
   <main>
-    <!-- HERO: split layout -->
+    <!-- HERO -->
     <section class="top-hero">
-      <div class="top-hero-left">
-        <div class="dots" aria-hidden="true">
-          <span class="dot dot--yellow" style="width:30px;height:30px;left:-10px;top:24%;--d:7s"></span>
-          <span class="dot dot--ring" style="width:14px;height:14px;left:48%;top:18%;--d:5s"></span>
-          <span class="dot dot--navy" style="width:22px;height:22px;left:84%;top:52%;--d:6s;--delay:-2s"></span>
-          <span class="dot dot--ring" style="width:16px;height:16px;left:38%;top:70%;--d:8s"></span>
-          <span class="dot dot--yellow" style="width:14px;height:14px;left:92%;top:68%;--d:6s;--delay:-1s"></span>
-          <span class="dot dot--white" style="width:70px;height:70px;left:10%;top:56%;--d:9s;opacity:.7"></span>
-          <span class="dot dot--white" style="width:38px;height:38px;left:72%;top:30%;--d:7s;opacity:.8"></span>
-        </div>
-        <nav class="hero-nav" id="heroNav" aria-label="Quick links"></nav>
+      <div class="dots" aria-hidden="true">
+        <span class="dot dot--yellow" style="width:48px;height:48px;left:-24px;top:34%;--d:9s"></span>
+        <span class="dot dot--ring" style="width:28px;height:28px;left:25%;top:27%;--d:6s;border-color:var(--navy)"></span>
+        <span class="dot dot--yellow" style="width:14px;height:14px;left:39.5%;top:33%;--d:7s"></span>
+        <span class="dot dot--white" style="width:22px;height:22px;left:49%;top:50%;--d:8s;box-shadow:0 0 0 1px var(--sky-400)"></span>
+        <span class="dot" style="width:48px;height:48px;left:41.5%;top:76%;--d:10s;background:var(--navy)"></span>
+        <span class="stripe-ball stripe-ball--white" style="width:116px;height:116px;left:6%;top:76%;--d:11s"></span>
+      </div>
+      <span class="scroll-line" aria-hidden="true"></span>
+
+      <div class="hero-copy">
         <h1 class="hero-wordmark">NPT48<span>Official Site</span></h1>
-        <div id="heroSocial"></div>
       </div>
 
-      <div class="top-hero-right">
-        <div class="hero-side-head">
-          <div class="side-emblem" id="heroEmblem"></div>
-          <div class="side-title">From the Mountains to the Sea</div>
-        </div>
-        <div class="pickup">
-          <div class="pickup-frame">
-            <div class="pickup-photo"><img id="pickupImg" src="assets/images/logo.png" alt="" fetchpriority="high"></div>
-            <a href="discography" class="release-mini" id="releaseMini" hidden>
-              <div class="release-mini-inner">
-                <div class="release-mini-kicker">LATEST RELEASE</div>
-                <img id="releaseMiniImg" src="" alt="">
-                <div class="release-mini-title" id="releaseMiniTitle"></div>
-              </div>
-            </a>
-            <div class="pickup-badge">
-              <span class="pickup-kicker">PICK UP!</span>
-              <span class="pickup-name" id="pickupName">NPT48</span>
-              <a href="profile" class="pickup-more" id="pickupMore">PROFILE ›</a>
+      <div class="hero-visual">
+        <div class="pickup-frame">
+          <div class="pickup-photo"><img id="pickupImg" src="assets/images/logo.png" alt="" fetchpriority="high"></div>
+          <a href="discography" class="release-mini" id="releaseMini" hidden>
+            <div class="release-mini-inner">
+              <div class="release-mini-brand">NPT48</div>
+              <div class="release-mini-kicker">Latest Release</div>
+              <img id="releaseMiniImg" src="" alt="">
+              <div class="release-mini-title" id="releaseMiniTitle"></div>
             </div>
+          </a>
+          <div class="pickup-badge">
+            <span class="pickup-kicker">PICK UP!</span>
+            <span class="pickup-name" id="pickupName">NPT48</span>
+            <a href="profile" class="pickup-more" id="pickupMore">PROFILE</a>
           </div>
         </div>
+        <span class="stripe-ball stripe-ball--navy" aria-hidden="true"></span>
+        <span class="stripe-ball stripe-ball--yellow" aria-hidden="true"></span>
       </div>
-      <a href="#banner" class="scroll-cue">SCROLL</a>
     </section>
 
-    <!-- KEY VISUAL BANNER -->
-    <section class="banner-band" id="banner">
-      <div class="banner-frame" data-pop>
-        <img src="https://lh3.googleusercontent.com/d/16h5s_zmCcpfUp12RwzNzeFYnjnp109RK=s1400" alt="NPT48 — from the mountains to the sea" decoding="async">
+    <!-- BANNER RAIL -->
+    <section class="banner-band" id="banner" aria-label="Highlights">
+      <div class="rail banner-rail" id="bannerRail">
+        <a href="about" class="banner-card banner-card--kv">
+          <img src="https://lh3.googleusercontent.com/d/16h5s_zmCcpfUp12RwzNzeFYnjnp109RK=s1000" alt="NPT48 — from the mountains to the sea" decoding="async" onerror="NPT48_DATA.imgFallback(this)">
+        </a>
       </div>
-      <p class="banner-caption">NPT48 — FROM THE MOUNTAINS TO THE SEA, THE SOUND OF NATURE</p>
     </section>
 
     <!-- BIRTHDAY -->
@@ -175,11 +171,6 @@
   <div id="site-footer"></div>
 
   <script>
-    // Hero nav + socials reuse the shared menu markup from nav.js
-    document.getElementById('heroNav').innerHTML = window.NPT48_NAV.navLinksHTML();
-    document.getElementById('heroSocial').innerHTML = window.NPT48_NAV.socialRowHTML();
-    document.getElementById('heroEmblem').innerHTML = window.NPT48_NAV.emblem;
-
     // Horizontal rail drag-to-scroll (mouse only; touch scrolls natively)
     document.querySelectorAll('.rail').forEach(function (rail) {
       var isDown = false, moved = false, startX, scrollLeft;
@@ -337,6 +328,20 @@
       }).join('');
     }
 
+    // Banner row under the hero: key visual first, then the latest videos
+    function renderBannerRail(items) {
+      var rail = document.getElementById('bannerRail');
+      rail.insertAdjacentHTML('beforeend', items.slice(0, 4).map(function (d) {
+        var img = window.NPT48_DATA.getDirectImgLink(d.generation);
+        var title = d.nameEN || '';
+        return '' +
+          '<a href="' + esc(d.fullNameEN || '#') + '" target="_blank" rel="noopener" class="banner-card" title="' + esc(title) + '">' +
+            '<img src="' + esc(img) + '" alt="' + esc(title) + '" loading="lazy" decoding="async" onerror="NPT48_DATA.imgFallback(this)">' +
+            '<span class="banner-card-label">MOVIE</span>' +
+          '</a>';
+      }).join(''));
+    }
+
     function loadMovies() {
       var grid = document.getElementById('movieGrid');
       if (!window.NPT48_DATA.isConfigured()) {
@@ -353,6 +358,7 @@
             return db - da;
           });
           renderMovieGrid(sorted);
+          renderBannerRail(sorted);
         })
         .catch(function () {
           grid.innerHTML = '<div class="data-empty">Unable to load data.</div>';
