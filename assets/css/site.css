@@ -1182,8 +1182,7 @@ body.is-scrolled .page-top { opacity: 1; visibility: visible; transform: none; t
 .section--full .movie-rail { margin-right: calc(-1 * var(--full-pad)); padding-right: var(--full-pad); }
 .section--full .movie-rail .movie-item { width: clamp(280px, 40vw, 780px); }
 .section--full .movie-title { font-size: clamp(15px, 1.05vw, 19px); letter-spacing: 0.08em; margin-top: 18px; }
-/* "current" card gets the offset glow the reference shows in yellow */
-.section--full .movie-item:first-child .movie-thumb,
+/* every card gets the gold offset glow on hover (same treatment for all cards) */
 .section--full .movie-item:hover .movie-thumb { box-shadow: 10px 10px 0 rgba(255, 230, 128, 0.85), 0 0 26px rgba(255, 230, 128, 0.35); }
 
 /* side arrows centred on the thumbnails */
