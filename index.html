@@ -70,21 +70,23 @@
     <!-- HERO -->
     <section class="top-hero">
       <div class="dots" aria-hidden="true">
-        <span class="dot dot--yellow" style="width:48px;height:48px;left:-24px;top:34%;--d:9s"></span>
-        <span class="dot dot--ring" style="width:28px;height:28px;left:25%;top:27%;--d:6s"></span>
-        <span class="dot dot--yellow" style="width:14px;height:14px;left:39.5%;top:33%;--d:7s"></span>
-        <span class="dot dot--yellow" style="width:22px;height:22px;left:49%;top:50%;--d:8s"></span>
-        <span class="dot dot--navy" style="width:48px;height:48px;left:41.5%;top:76%;--d:10s"></span>
-        <span class="stripe-ball stripe-ball--white" style="width:116px;height:116px;left:6%;top:76%;--d:11s"></span>
+        <span class="dot dot--yellow" data-depth style="width:48px;height:48px;left:-24px;top:34%;--d:9s;--depth:30"></span>
+        <span class="dot dot--ring" data-depth style="width:28px;height:28px;left:25%;top:27%;--d:6s;--depth:18"></span>
+        <span class="dot dot--yellow" data-depth style="width:14px;height:14px;left:39.5%;top:33%;--d:7s;--depth:42"></span>
+        <span class="dot dot--yellow" data-depth style="width:22px;height:22px;left:49%;top:50%;--d:8s;--depth:26"></span>
+        <span class="dot dot--navy" data-depth style="width:48px;height:48px;left:41.5%;top:76%;--d:10s;--depth:34"></span>
+        <span class="stripe-ball stripe-ball--white" data-depth style="width:116px;height:116px;left:6%;top:76%;--d:11s;--depth:22"></span>
       </div>
       <span class="scroll-line" aria-hidden="true"></span>
 
-      <div class="hero-copy">
+      <div class="hero-copy" data-depth style="--depth:-10">
         <h1 class="hero-wordmark">NPT48<span>Official Site</span></h1>
       </div>
 
       <div class="hero-visual">
-        <div class="pickup-frame">
+        <div class="pickup-frame" data-depth style="--depth:10">
+          <span class="orbit-track" aria-hidden="true"></span>
+          <span class="orbit-track orbit-track--gold" aria-hidden="true"></span>
           <div class="pickup-photo"><img id="pickupImg" src="assets/images/logo.png" alt="" fetchpriority="high"></div>
           <a href="discography" class="release-mini" id="releaseMini" hidden>
             <div class="release-mini-inner">
@@ -100,8 +102,8 @@
             <a href="profile" class="pickup-more" id="pickupMore">PROFILE</a>
           </div>
         </div>
-        <span class="stripe-ball stripe-ball--navy" aria-hidden="true"></span>
-        <span class="stripe-ball stripe-ball--yellow" aria-hidden="true"></span>
+        <span class="stripe-ball stripe-ball--navy" data-depth style="--depth:46" aria-hidden="true"></span>
+        <span class="stripe-ball stripe-ball--yellow" data-depth style="--depth:60" aria-hidden="true"></span>
       </div>
     </section>
 
@@ -132,7 +134,7 @@
     <!-- MEMBERS -->
     <section class="section section--white wave-top" id="members">
       <div class="section-inner">
-        <div class="sec-head" data-pop>
+        <div class="sec-head" data-pop="left">
           <h2 class="sec-title">Profile<small>สมาชิก NPT48</small></h2>
           <a href="profile" class="view-all">VIEW ALL</a>
         </div>
@@ -151,7 +153,7 @@
     <!-- MOVIE -->
     <section class="section section--sky wave-top" id="movie">
       <div class="section-inner">
-        <div class="sec-head" data-pop>
+        <div class="sec-head" data-pop="left">
           <h2 class="sec-title">Movie<small>วิดีโอล่าสุด</small></h2>
           <a href="discography" class="view-all">VIEW ALL</a>
         </div>
@@ -368,5 +370,6 @@
     loadMovies();
   </script>
 
+  <script src="assets/js/motion.js"></script>
 </body>
 </html>
