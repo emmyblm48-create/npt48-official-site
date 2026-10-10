@@ -3,13 +3,11 @@
    Hero entrance on page load, mouse/scroll parallax,
    3D card tilt, a cursor sparkle trail and the PAGE TOP rocket.
    Pairs with the "Motion layer" block in site.css. Everything
-   here is skipped in calm mode (html.calm), and the tilt /
-   parallax / sparkles only run with a fine pointer (mouse).
+   here always runs (the site owner chose animations on for everyone);
+   tilt / sparkles / mouse parallax only run with a fine pointer (mouse).
    ========================================================= */
 (function (window, document) {
   var root = document.documentElement;
-  // html.calm is decided in each page <head> (saved toggle choice, else OS setting)
-  var reduced = root.classList.contains('calm');
   var finePointer = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   // Split the hero wordmark ("NPT48") into per-letter spans for the fly-in.
@@ -130,12 +128,6 @@
       setTimeout(done, 1100); // fallback if animationend never fires
 
     });
-  }
-
-  if (reduced) {
-    // No hidden-then-animated states: show everything as-is.
-    root.classList.add('hero-in');
-    return;
   }
 
   root.classList.add('motion-ready');

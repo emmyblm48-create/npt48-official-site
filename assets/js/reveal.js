@@ -1,15 +1,14 @@
 /* =========================================================
    NPT48 — Scroll pop-in utility
    Observes [data-pop] elements and adds .in-view when they
-   scroll into view. No-ops immediately under prefers-reduced-motion.
+   scroll into view (falls back to showing everything without IntersectionObserver).
    ========================================================= */
 (function (window) {
   function initPopIn() {
     var items = document.querySelectorAll('[data-pop]');
     if (!items.length) return;
 
-    var reduced = document.documentElement.classList.contains('calm');
-    if (reduced || !('IntersectionObserver' in window)) {
+    if (!('IntersectionObserver' in window)) {
       items.forEach(function (el) { el.classList.add('in-view'); });
       return;
     }
