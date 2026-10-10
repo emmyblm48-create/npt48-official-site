@@ -77,11 +77,6 @@
   100% { opacity: 0; transform: translate(-520px, 364px) rotate(145deg) scaleX(1); }
 }
 @keyframes orbit { to { transform: rotate(360deg); } }
-@keyframes bubbleRise {
-  0% { bottom: -100px; transform: translateX(0); opacity: 0.9; }
-  50% { transform: translateX(var(--drift, 60px)); }
-  100% { bottom: 112vh; transform: translateX(0); opacity: 0.9; }
-}
 @keyframes menuLetters { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
 /* Calm mode: html.calm is set in each page <head> from the visitor's saved choice
@@ -1218,70 +1213,10 @@ body.is-scrolled .page-top { opacity: 1; visibility: visible; transform: none; t
 .slogan small { display: block; margin-top: 6px; font-family: var(--font-body); font-weight: 400; font-size: 14px; color: var(--sky-200); }
 
 /* =========================================================
-   Intro loader
-   ========================================================= */
-.site-loader {
-  position: fixed;
-  inset: 0;
-  z-index: 200;
-  background: radial-gradient(ellipse at 50% 40%, var(--space-700), var(--space-950) 75%);
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  transition: opacity 0.4s var(--ease), visibility 0.4s;
-}
-.site-loader.is-hidden { opacity: 0; visibility: hidden; }
-.loader-bubbles { position: absolute; inset: 0; }
-.loader-bubble { position: absolute; bottom: -100px; border-radius: 50%; animation: bubbleRise var(--dur, 2s) ease-in infinite; }
-.loader-brand { position: relative; text-align: center; }
-.loader-logo { width: 120px; height: auto; margin: 0 auto; filter: drop-shadow(0 0 26px rgba(124, 194, 238, 0.6)); }
-.loader-tagline { font-family: var(--font-display); font-size: 14px; letter-spacing: 0.24em; margin-bottom: 12px; color: var(--sky-200); }
-
-/* ---------------- Full-width home sections (Profile, Movie) ----------------
-   Like the reference: content spans the page between the same side margins
-   as the banner row; six large member circles fill the row, and the video
-   rail runs off the right edge with arrows on both sides. */
-.section--full { --full-pad: clamp(24px, 6vw, 118px); --rail-gap: clamp(20px, 1.8vw, 32px); padding-left: var(--full-pad); padding-right: var(--full-pad); }
-.section--full .section-inner { max-width: none; }
-.section--full .rail { gap: var(--rail-gap); }
-.section--full .rail .member-circle { width: calc((100% - 5 * var(--rail-gap)) / 6); min-width: 130px; }
-.section--full .member-circle-photo { padding: 8px; }
-.section--full .member-circle-name { margin-top: 18px; font-size: clamp(15px, 1.1vw, 19px); letter-spacing: 0.12em; }
-.section--full .member-circle-en { font-size: clamp(9.5px, 0.65vw, 12px); min-width: 60%; }
-
-.section--full .movie-rail { margin-right: calc(-1 * var(--full-pad)); padding-right: var(--full-pad); }
-.section--full .movie-rail .movie-item { width: clamp(280px, 40vw, 780px); }
-.section--full .movie-title { font-size: clamp(15px, 1.05vw, 19px); letter-spacing: 0.08em; margin-top: 18px; }
-/* "current" card gets the offset glow the reference shows in yellow */
-.section--full .movie-item:first-child .movie-thumb,
-.section--full .movie-item:hover .movie-thumb { box-shadow: 10px 10px 0 rgba(255, 230, 128, 0.85), 0 0 26px rgba(255, 230, 128, 0.35); }
-
-/* side arrows centred on the thumbnails */
-.movie-rail-wrap .rail-controls {
-  position: absolute;
-  left: calc(-1 * var(--full-pad));
-  right: calc(-1 * var(--full-pad));
-  top: calc(10px + clamp(280px, 40vw, 780px) * 9 / 32);
-  margin: -22px 0 0;
-  padding: 0 clamp(8px, 2vw, 40px);
-  justify-content: space-between;
-  pointer-events: none;
-  z-index: 3;
-}
-.movie-rail-wrap .rail-nav-btn { pointer-events: auto; width: 52px; height: 52px; background: rgba(11, 18, 64, 0.7); backdrop-filter: blur(6px); box-shadow: var(--glow); }
-
-@media (max-width: 900px) {
-  .section--full .rail .member-circle { width: clamp(130px, 38vw, 220px); }
-  .section--full .movie-rail .movie-item { width: 82vw; }
-  .movie-rail-wrap .rail-controls { position: static; margin-top: 24px; padding: 0; justify-content: center; }
-  .movie-rail-wrap .rail-nav-btn { width: 44px; height: 44px; }
-}
-
-/* =========================================================
    Motion layer (driven by assets/js/motion.js)
    - html.motion-ready : JS is running and motion is allowed, so
      entrance elements may start hidden
-   - html.hero-in      : the intro loader is gone; play entrances
+   - html.hero-in      : play the entrances (added on the next frame)
    Entrance keyframes animate the individual `translate` / `scale` /
    `rotate` properties so they compose with the `transform`-based
    idle animations (bob, morph) instead of fighting them.

@@ -1,9 +1,9 @@
 /* =========================================================
    NPT48 — Motion layer
-   Hero entrance after the intro loader, mouse/scroll parallax,
+   Hero entrance on page load, mouse/scroll parallax,
    3D card tilt, a cursor sparkle trail and the PAGE TOP rocket.
    Pairs with the "Motion layer" block in site.css. Everything
-   here is skipped under prefers-reduced-motion, and the tilt /
+   here is skipped in calm mode (html.calm), and the tilt /
    parallax / sparkles only run with a fine pointer (mouse).
    ========================================================= */
 (function (window, document) {
@@ -34,18 +34,11 @@
     if (sub) { sub.classList.add('sub'); sub.setAttribute('aria-hidden', 'true'); }
   }
 
-  // Play entrances once the intro loader (home page only) has faded.
-  function startWhenLoaderGone() {
-    var loader = document.getElementById('siteLoader');
-    function go() { requestAnimationFrame(function () { root.classList.add('hero-in'); }); }
-    if (!loader) { go(); return; }
-    if (loader.classList.contains('is-hidden')) { go(); return; }
-    var mo = new MutationObserver(function () {
-      if (loader.classList.contains('is-hidden') || !loader.isConnected) { mo.disconnect(); go(); }
-    });
-    mo.observe(loader, { attributes: true, attributeFilter: ['class'] });
-    // Safety net in case the loader script never runs.
-    setTimeout(function () { mo.disconnect(); go(); }, 4000);
+  // Play the entrances on the next frame (after the hidden start state has painted).
+  function startEntrances() {
+    requestAnimationFrame(function () { root.classList.add('hero-in'); });
+    // Fallback in case requestAnimationFrame is throttled (e.g. background tab).
+    setTimeout(function () { root.classList.add('hero-in'); }, 120);
   }
 
   // Mouse + scroll parallax: write --mx/--my (-1..1) and --sy (px) on the hero.
@@ -137,7 +130,7 @@
 
   root.classList.add('motion-ready');
   splitWordmark();
-  startWhenLoaderGone();
+  startEntrances();
   initParallax();
   initRocket();
   if (finePointer) {
