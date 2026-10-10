@@ -37,8 +37,8 @@
     instagram: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>',
     youtube: '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 8.5v7l6-3.5-6-3.5z" fill="currentColor"/></svg>',
     tiktok: '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 3c.4 2 1.9 3.6 4 3.9v3.1c-1.5-.1-2.9-.6-4-1.4v6.6a5.7 5.7 0 1 1-5.7-5.7c.3 0 .6 0 .9.1v3.2a2.6 2.6 0 1 0 1.8 2.5V3h3z"/></svg>',
-    // Mountain-over-wave emblem: "from the mountains to the sea"
-    emblem: '<svg class="icon" viewBox="0 0 32 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15l7-10 5 6 3-3 7 7"/><path d="M2 20c3-2.5 6-2.5 9 0s6 2.5 9 0 6-2.5 9 0"/></svg>',
+    // Ringed-planet emblem: "New Planet"
+    emblem: '<svg class="icon" viewBox="0 0 32 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="16" cy="12" r="6.5"/><path d="M9.6 10.2C4.4 11.4 1.6 13.4 2.2 15c.8 2.1 7.4 1.6 14.6-1.1S29.4 7.4 28.7 5.3c-.5-1.5-3.6-1.6-7.8-.6"/><circle cx="27" cy="19" r="1" fill="currentColor" stroke="none"/></svg>',
     up: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg>'
   };
 
@@ -74,7 +74,23 @@
     }).join('');
   }
 
+  // Fixed night sky behind every page: two twinkling star layers + a few shooting stars
+  function injectStarfield() {
+    if (document.querySelector('.starfield')) return;
+    var sky = document.createElement('div');
+    sky.className = 'starfield';
+    sky.setAttribute('aria-hidden', 'true');
+    sky.innerHTML =
+      '<span class="stars stars--small"></span>' +
+      '<span class="stars stars--big"></span>' +
+      '<span class="shooting-star" style="--x:78%;--y:6%;--dur:11s;--delay:2s"></span>' +
+      '<span class="shooting-star" style="--x:42%;--y:2%;--dur:15s;--delay:7s"></span>' +
+      '<span class="shooting-star" style="--x:96%;--y:34%;--dur:19s;--delay:12s"></span>';
+    document.body.insertBefore(sky, document.body.firstChild);
+  }
+
   function injectHeader() {
+    injectStarfield();
     var mount = document.getElementById('site-header');
     if (!mount) return;
 
@@ -135,7 +151,7 @@
       '<footer class="site-footer">' +
         '<div class="footer-inner">' +
           '<a href="./" class="footer-logo" aria-label="NPT48 home"><img class="logo-crop" src="assets/images/logo.png" alt="NPT48" width="500" height="500" loading="lazy"></a>' +
-          '<div class="footer-tagline">FROM THE MOUNTAINS TO THE SEA</div>' +
+          '<div class="footer-tagline">A NEW PLANET, A NEW LIGHT</div>' +
           socialRowHTML('footer-social') +
           '<div class="group-label">AKB48 GROUP</div>' +
           '<div class="logo-grid">' + logos + '</div>' +

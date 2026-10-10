@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#c7e8fa">
+  <meta name="theme-color" content="#0b1240">
   <title>NPT48 Official Site — Home</title>
   <link rel="icon" type="image/png" href="assets/images/logo.png">
 
@@ -33,17 +33,18 @@
       var loader = document.getElementById('siteLoader');
       if (!loader) return;
 
-      var bubbleColors = ['#ffffff', '#ffffff', '#7cc2ee', '#2c4fa8', '#fff27a'];
+      var bubbleColors = ['#ffffff', '#ffffff', '#a2d7f6', '#ffe680'];
       var bubbleWrap = document.getElementById('loaderBubbles');
-      for (var i = 0; i < 18; i++) {
+      for (var i = 0; i < 40; i++) {
         var b = document.createElement('span');
         b.className = 'loader-bubble';
-        var size = 10 + Math.random() * 50;
+        var size = 2 + Math.random() * 5;
         var color = bubbleColors[Math.floor(Math.random() * bubbleColors.length)];
         b.style.left = (Math.random() * 100) + '%';
         b.style.width = size + 'px';
         b.style.height = size + 'px';
         b.style.background = color;
+        b.style.boxShadow = '0 0 ' + (size * 2) + 'px ' + color;
         b.style.setProperty('--drift', (20 + Math.random() * 50) + 'px');
         b.style.setProperty('--dur', (1.2 + Math.random() * 1.6) + 's');
         b.style.animationDelay = (Math.random() * 1) + 's';
@@ -70,10 +71,10 @@
     <section class="top-hero">
       <div class="dots" aria-hidden="true">
         <span class="dot dot--yellow" style="width:48px;height:48px;left:-24px;top:34%;--d:9s"></span>
-        <span class="dot dot--ring" style="width:28px;height:28px;left:25%;top:27%;--d:6s;border-color:var(--navy)"></span>
+        <span class="dot dot--ring" style="width:28px;height:28px;left:25%;top:27%;--d:6s"></span>
         <span class="dot dot--yellow" style="width:14px;height:14px;left:39.5%;top:33%;--d:7s"></span>
-        <span class="dot dot--white" style="width:22px;height:22px;left:49%;top:50%;--d:8s;box-shadow:0 0 0 1px var(--sky-400)"></span>
-        <span class="dot" style="width:48px;height:48px;left:41.5%;top:76%;--d:10s;background:var(--navy)"></span>
+        <span class="dot dot--yellow" style="width:22px;height:22px;left:49%;top:50%;--d:8s"></span>
+        <span class="dot dot--navy" style="width:48px;height:48px;left:41.5%;top:76%;--d:10s"></span>
         <span class="stripe-ball stripe-ball--white" style="width:116px;height:116px;left:6%;top:76%;--d:11s"></span>
       </div>
       <span class="scroll-line" aria-hidden="true"></span>
