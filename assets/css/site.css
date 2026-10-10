@@ -55,7 +55,8 @@
   33% { border-radius: 58% 42% 55% 45% / 44% 58% 42% 56%; }
   66% { border-radius: 40% 60% 48% 52% / 60% 46% 54% 40%; }
 }
-@keyframes waveSlide { from { background-position-x: 0; } to { background-position-x: -240px; } }
+@keyframes waveY { from { background-position: 0 0; } to { background-position: 0 800px; } }
+@keyframes waveX { from { background-position: 0 0; } to { background-position: 800px 0; } }
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes bubbleRise {
   0% { bottom: -100px; transform: translateX(0); opacity: 0.85; }
@@ -200,6 +201,7 @@ body.menu-open { overflow: hidden; }
   left: -22px;
   width: 30px;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='80' viewBox='0 0 30 80'%3E%3Cpath d='M22 0 C36 20 36 20 22 40 C8 60 8 60 22 80 L30 80 L30 0Z' fill='%23a2d7f6'/%3E%3Cpath d='M18 0 C32 20 32 20 18 40 C4 60 4 60 18 80' fill='none' stroke='%23fff27a' stroke-width='1.5'/%3E%3C/svg%3E") repeat-y;
+  animation: waveY 24s linear infinite;
 }
 .site-menu-links {
   display: grid;
@@ -285,17 +287,40 @@ body.menu-open { overflow: hidden; }
 .section--pale { background: var(--sky-100); }
 .section--mid { background: var(--sky-400); }
 
-/* Wavy top edge for a section (color = the section's own background) */
-.wave-top::before {
+/* ---------------- Animated waves ----------------
+   Like the reference: each wave edge stacks a filled wave, a white line and a
+   yellow line in one pseudo-element; the three backgrounds drift sideways at
+   different speeds/directions so the lines keep crossing the fill. Every
+   end offset is a multiple of the 140px tile, so the loop is seamless. */
+:root {
+  --wave-line-yellow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='34' viewBox='0 0 140 34'%3E%3Cpath d='M0 4 C35 4 35 18 70 18 S105 4 140 4' fill='none' stroke='%23fff27a' stroke-opacity='1' stroke-width='1.6'/%3E%3C/svg%3E");
+  --wave-line-white: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='34' viewBox='0 0 140 34'%3E%3Cpath d='M0 7 C35 7 35 21 70 21 S105 7 140 7' fill='none' stroke='%23ffffff' stroke-opacity='1' stroke-width='1.6'/%3E%3C/svg%3E");
+  --wave-line-white-soft: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='34' viewBox='0 0 140 34'%3E%3Cpath d='M0 4 C35 4 35 18 70 18 S105 4 140 4' fill='none' stroke='%23ffffff' stroke-opacity='0.5' stroke-width='1.6'/%3E%3C/svg%3E");
+  --wave-fill-white: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='34' viewBox='0 0 140 34'%3E%3Cpath d='M0 10 C35 10 35 24 70 24 S105 10 140 10 V34 H0Z' fill='%23ffffff'/%3E%3C/svg%3E");
+  --wave-fill-sky100: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='34' viewBox='0 0 140 34'%3E%3Cpath d='M0 10 C35 10 35 24 70 24 S105 10 140 10 V34 H0Z' fill='%23e4f4fd'/%3E%3C/svg%3E");
+  --wave-fill-sky200: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='34' viewBox='0 0 140 34'%3E%3Cpath d='M0 10 C35 10 35 24 70 24 S105 10 140 10 V34 H0Z' fill='%23c7e8fa'/%3E%3C/svg%3E");
+  --wave-fill-navy: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='34' viewBox='0 0 140 34'%3E%3Cpath d='M0 10 C35 10 35 24 70 24 S105 10 140 10 V34 H0Z' fill='%231b2b78'/%3E%3C/svg%3E");
+}
+@keyframes waveDrift {
+  from { background-position: 0 0, 0 0, 0 0; }
+  to { background-position: 1120px 0, -1680px 0, 560px 0; }
+}
+.wave-top { --wave-fill: var(--wave-fill-white); }
+.section--pale.wave-top { --wave-fill: var(--wave-fill-sky100); }
+.section--sky.wave-top { --wave-fill: var(--wave-fill-sky200); }
+.wave-top::before,
+.site-footer::before {
   content: '';
   position: absolute;
   left: 0;
   right: 0;
-  top: -23px;
-  height: 24px;
-  background-color: inherit;
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='24' viewBox='0 0 120 24'%3E%3Cpath d='M0 12 C20 0 40 0 60 12 C80 24 100 24 120 12 L120 24 L0 24Z'/%3E%3C/svg%3E") repeat-x bottom / 120px 24px;
-          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='24' viewBox='0 0 120 24'%3E%3Cpath d='M0 12 C20 0 40 0 60 12 C80 24 100 24 120 12 L120 24 L0 24Z'/%3E%3C/svg%3E") repeat-x bottom / 120px 24px;
+  top: -33px;
+  height: 34px;
+  pointer-events: none;
+  background-image: var(--wave-line-yellow), var(--wave-line-white), var(--wave-fill);
+  background-size: 140px 34px;
+  background-repeat: repeat-x;
+  animation: waveDrift 60s linear infinite;
 }
 
 .sec-head {
@@ -787,26 +812,12 @@ body.menu-open { overflow: hidden; }
   padding: 72px var(--gutter) 40px;
   margin-top: 30px;
 }
-.site-footer::before,
-.site-footer::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 26px;
-  background-repeat: repeat-x;
-  background-size: 240px 26px;
+.site-footer {
+  --wave-fill: var(--wave-fill-navy);
 }
 .site-footer::before {
-  top: -38px;
-  height: 40px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='40' viewBox='0 0 240 40'%3E%3Cpath d='M0 20 C40 4 80 4 120 20 C160 36 200 36 240 20 L240 40 L0 40Z' fill='%232c4fa8'/%3E%3C/svg%3E");
-  background-size: 240px 40px;
-  animation: waveSlide 14s linear infinite;
-}
-.site-footer::after {
-  top: -24px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='26' viewBox='0 0 240 26'%3E%3Cpath d='M0 13 C40 26 80 26 120 13 C160 0 200 0 240 13 L240 26 L0 26Z' fill='%231b2b78'/%3E%3C/svg%3E");
+  background-image: var(--wave-line-white-soft), var(--wave-line-white), var(--wave-fill);
+  animation-duration: 45s;
 }
 .footer-inner { max-width: 1120px; margin: 0 auto; text-align: center; }
 .footer-logo { display: block; width: 72px; margin: 0 auto; }
@@ -1076,6 +1087,7 @@ body.is-scrolled .page-top { opacity: 1; visibility: visible; transform: none; t
   .site-menu-side::before {
     top: -22px; bottom: auto; left: 0; right: 0; width: auto; height: 30px;
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='30' viewBox='0 0 80 30'%3E%3Cpath d='M0 22 C20 8 20 8 40 22 C60 36 60 36 80 22 L80 30 L0 30Z' fill='%23a2d7f6'/%3E%3Cpath d='M0 18 C20 4 20 4 40 18 C60 32 60 32 80 18' fill='none' stroke='%23fff27a' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x;
+    animation-name: waveX;
   }
 
   .detail-layout { grid-template-columns: 1fr; }
