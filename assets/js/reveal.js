@@ -8,7 +8,7 @@
     var items = document.querySelectorAll('[data-pop]');
     if (!items.length) return;
 
-    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var reduced = document.documentElement.classList.contains('calm');
     if (reduced || !('IntersectionObserver' in window)) {
       items.forEach(function (el) { el.classList.add('in-view'); });
       return;

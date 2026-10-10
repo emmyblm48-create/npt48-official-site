@@ -8,7 +8,8 @@
    ========================================================= */
 (function (window, document) {
   var root = document.documentElement;
-  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // html.calm is decided in each page <head> (saved toggle choice, else OS setting)
+  var reduced = root.classList.contains('calm');
   var finePointer = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   // Split the hero wordmark ("NPT48") into per-letter spans for the fly-in.

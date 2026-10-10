@@ -84,9 +84,9 @@
 }
 @keyframes menuLetters { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
-}
+/* Calm mode: html.calm is set in each page <head> from the visitor's saved choice
+   (motion toggle button), falling back to prefers-reduced-motion. */
+html.calm *, html.calm *::before, html.calm *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
 
 /* ---------------- Base ---------------- */
 html { background: var(--space-900); }
@@ -1450,12 +1450,36 @@ html.hero-in .top-actions { animation: dropIn 0.6s var(--ease) 0.5s backwards; }
 /* ---------- PAGE TOP rocket launch ---------- */
 .page-top.is-launching { animation: launch 0.9s cubic-bezier(0.5, 0, 0.75, 0) forwards; }
 
-/* Reduced motion: no movement, but keep the gentle (opacity-only) star twinkle */
-@media (prefers-reduced-motion: reduce) {
-  .stars { animation: twinkle 4s ease-in-out infinite alternate !important; }
-  [data-depth] { translate: none; }
-  [data-pop="left"] { transform: none; }
+/* Calm mode: no movement, but keep the gentle (opacity-only) star twinkle */
+html.calm .stars { animation: twinkle 4s ease-in-out infinite alternate !important; }
+html.calm [data-depth] { translate: none; }
+html.calm [data-pop="left"] { transform: none; }
+
+/* ---------- Motion on/off toggle (injected by nav.js) ---------- */
+.motion-toggle {
+  position: fixed;
+  left: clamp(12px, 3vw, 28px);
+  bottom: clamp(12px, 3vw, 28px);
+  z-index: 80;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px 8px 10px;
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--sky-300);
+  background: rgba(11, 18, 64, 0.75);
+  backdrop-filter: blur(6px);
+  box-shadow: var(--glow);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  transition: background 0.25s, color 0.25s, box-shadow 0.25s;
 }
+.motion-toggle .icon { font-size: 15px; color: var(--gold); }
+.motion-toggle:hover { box-shadow: var(--glow-gold); border-color: var(--gold); }
+.motion-toggle[aria-pressed="false"] { color: var(--ink-soft); }
+.motion-toggle[aria-pressed="false"] .icon { color: var(--ink-soft); }
 
 /* =========================================================
    Responsive

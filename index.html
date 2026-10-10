@@ -11,6 +11,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&family=K2D:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/site.css">
+  <script>
+    // Motion preference: saved toggle choice wins, else follow the OS reduced-motion setting.
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem('npt48_motion'); } catch (e) {}
+      var calm = saved ? saved === 'off' : !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+      if (calm) document.documentElement.classList.add('calm');
+    })();
+  </script>
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
