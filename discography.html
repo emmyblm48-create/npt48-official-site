@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#c7e8fa">
   <title>NPT48 Official Site — Discography</title>
   <link rel="icon" type="image/png" href="assets/images/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400|K2D:300,400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&family=K2D:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/site.css">
 
   <style>
@@ -25,25 +25,38 @@
   <script src="assets/js/data.js"></script>
   <script src="assets/js/reveal.js"></script>
 
-  <main class="page-shell">
-    <div class="page-hero">
-      <span class="eyebrow">Music &amp; Releases</span>
-      <h1 class="page-hero-title">Discography</h1>
-    </div>
-
-    <div id="loading-overlay">
-      <div class="spinner-ring"></div>
-      <div>Loading NPT48 data...</div>
-    </div>
-
-    <div id="disco-view">
-      <div class="disco-filter-tabs" id="discoFilterTabs">
-        <button class="disco-filter-tab active" data-type="ALL" style="--tab-color:var(--ink)">All</button>
-        <button class="disco-filter-tab" data-type="SINGLE" style="--tab-color:#e0629b">Single</button>
-        <button class="disco-filter-tab" data-type="ALBUM" style="--tab-color:#3fb88a">Album</button>
-        <button class="disco-filter-tab" data-type="DVD" style="--tab-color:#3f8ee0">DVD/BD</button>
+  <main>
+    <header class="page-head">
+      <div class="dots" aria-hidden="true">
+        <span class="dot dot--white" style="width:90px;height:90px;left:72%;top:30%;--d:9s;opacity:.7"></span>
+        <span class="dot dot--yellow" style="width:20px;height:20px;left:62%;top:64%;--d:6s"></span>
+        <span class="dot dot--ring" style="width:16px;height:16px;left:88%;top:70%;--d:7s"></span>
+        <span class="dot dot--navy" style="width:12px;height:12px;left:52%;top:26%;--d:5s"></span>
       </div>
-      <div id="disco-grid" class="disco-grid"></div>
+      <div class="page-head-inner">
+        <div class="crumbs"><a href="./">HOME</a> › DISCOGRAPHY</div>
+        <h1 class="page-title">Discography</h1>
+        <p class="page-sub">ผลงานเพลงทั้งหมดของ NPT48</p>
+      </div>
+    </header>
+
+    <div class="page-body wave-top">
+      <div class="page-body-inner">
+        <div id="loading-overlay">
+          <div class="spinner-ring"></div>
+          <div>Loading NPT48 data...</div>
+        </div>
+
+        <div id="disco-view">
+          <div class="filter-tabs" id="discoFilterTabs">
+            <button class="tab-btn active" data-type="ALL">ALL</button>
+            <button class="tab-btn" data-type="SINGLE">SINGLE</button>
+            <button class="tab-btn" data-type="ALBUM">ALBUM</button>
+            <button class="tab-btn" data-type="DVD">DVD / BD</button>
+          </div>
+          <div id="disco-grid" class="disco-grid"></div>
+        </div>
+      </div>
     </div>
   </main>
 
@@ -51,8 +64,13 @@
 
   <script>
     var discoData = [];
-    var currentTypeFilter = 'ALL';
-    var TYPE_LABEL = { SINGLE: 'Single', ALBUM: 'Album', DVD: 'DVD/BD' };
+    var TYPE_LABEL = { SINGLE: 'SINGLE', ALBUM: 'ALBUM', DVD: 'DVD/BD' };
+
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
 
     function classifyType(raw) {
       var t = (raw || '').toString().toUpperCase();
@@ -89,12 +107,11 @@
         });
     }
 
-    document.getElementById('discoFilterTabs').querySelectorAll('.disco-filter-tab').forEach(function (btn) {
+    document.getElementById('discoFilterTabs').querySelectorAll('.tab-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        document.querySelectorAll('#discoFilterTabs .disco-filter-tab').forEach(function (b) { b.classList.remove('active'); });
+        document.querySelectorAll('#discoFilterTabs .tab-btn').forEach(function (b) { b.classList.remove('active'); });
         btn.classList.add('active');
-        currentTypeFilter = btn.getAttribute('data-type');
-        renderGrid(currentTypeFilter);
+        renderGrid(btn.getAttribute('data-type'));
       });
     });
 
@@ -105,23 +122,22 @@
       });
 
       if (!filtered.length) {
-        grid.innerHTML = '<p style="text-align:center;color:var(--ink-soft)">Unable to load data. Please try again later.</p>';
+        grid.innerHTML = '<p class="data-empty">No releases in this category yet.</p>';
         return;
       }
 
       grid.innerHTML = filtered.map(function (d, i) {
         var img = window.NPT48_DATA.getDirectImgLink(d.image);
         var typeKey = classifyType(d.type);
-        var color = document.querySelector('.disco-filter-tab[data-type="' + typeKey + '"]').style.getPropertyValue('--tab-color');
         var link = d.link || '#';
         return '' +
-          '<a href="' + link + '" target="_blank" class="disco-card" data-pop style="--i:' + (i % 9) + '">' +
-            '<div class="disco-card-thumb"><img src="' + img + '" alt="' + d.songName + '" loading="lazy" decoding="async" onerror="this.style.display=\'none\'"></div>' +
+          '<a href="' + esc(link) + '" target="_blank" rel="noopener" class="disco-card" data-pop style="--i:' + (i % 8) + '">' +
+            '<div class="disco-card-thumb"><img src="' + esc(img) + '" alt="' + esc(d.songName) + '" loading="lazy" decoding="async" onerror="NPT48_DATA.imgFallback(this)"></div>' +
             '<div class="disco-card-meta">' +
-              '<span class="disco-type-pill" style="color:' + color + '">' + TYPE_LABEL[typeKey] + '</span>' +
-              '<span class="disco-release-label">Release ' + (d.release || '') + '</span>' +
+              '<span class="tag tag--' + typeKey.toLowerCase() + '">' + TYPE_LABEL[typeKey] + '</span>' +
+              '<span class="disco-release">' + esc(d.release || '') + '</span>' +
             '</div>' +
-            '<div class="disco-card-title">' + d.songName + '</div>' +
+            '<div class="disco-card-title">' + esc(d.songName) + '</div>' +
           '</a>';
       }).join('');
       if (window.NPT48_POPIN) window.NPT48_POPIN.init();

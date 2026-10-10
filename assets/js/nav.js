@@ -1,25 +1,46 @@
 /* =========================================================
-   NPT48 — Shared Header / Footer Injection & Interactions
+   NPT48 — Shared chrome: striped logo badge, blob MENU button,
+   full-screen split menu, wavy footer and page-top button.
    ========================================================= */
 (function () {
   var NAV_LINKS = [
-    { href: './', page: 'index', label: 'Home' },
-    { href: 'profile', page: 'profile', label: 'Profile' },
-    { href: 'discography', page: 'discography', label: 'Discography' },
-    { href: 'about', page: 'about', label: 'About' }
+    { href: './', page: 'index', label: 'Home', sub: 'หน้าแรก' },
+    { href: 'profile', page: 'profile', label: 'Profile', sub: 'โปรไฟล์สมาชิก' },
+    { href: 'discography', page: 'discography', label: 'Discography', sub: 'ผลงานเพลง' },
+    { href: './#movie', page: 'movie', label: 'Movie', sub: 'วิดีโอ' },
+    { href: 'about', page: 'about', label: 'About', sub: 'เกี่ยวกับวง' },
+    { href: './#birthday', page: 'birthday', label: 'Birthday', sub: 'วันเกิดเดือนนี้' }
   ];
 
-  var TICKER_ITEMS = [
-    { href: '#', text: 'NPT48 OFFICIAL SITE' },
-    { href: '#', text: 'NPT48 Omoidaseru Koi wo Shiyou มารักกันให้เป็นความทรงจำ(Thai Ver.)' },
-    { href: '#', text: 'NPT48' },
-    { href: '#', text: 'NewPlaneT48' }
+  var SOCIALS = {
+    instagram: 'https://www.instagram.com/npt48official/',
+    youtube: 'https://www.youtube.com/@NPT48OfficialYouTubeChannel',
+    tiktok: 'https://www.tiktok.com/@npt48_official'
+  };
+
+  var GROUPS = [
+    ['https://www.akb48.co.jp/', 'akb48', 'AKB48'],
+    ['https://www.ske48.co.jp/', 'ske48', 'SKE48'],
+    ['https://nmb48.com/', 'nmb48', 'NMB48'],
+    ['http://www.hkt48.jp/', 'hkt48', 'HKT48'],
+    ['https://ngt48.jp/', 'ngt48', 'NGT48'],
+    ['https://www.stu48.com/', 'stu48', 'STU48'],
+    ['https://www.jkt48.com/', 'jkt48', 'JKT48'],
+    ['https://www.bnk48.com/', 'bnk48', 'BNK48'],
+    ['https://weibo.com/akb48teamsh', 'tsh48', 'TSH48'],
+    ['https://www.tpe48.tw/', 'tpe48', 'TPE48'],
+    ['https://www.cgm48official.com/', 'cgm48', 'CGM48'],
+    ['https://klp48.my/', 'klp48', 'KLP48']
   ];
 
-  var ICON_XMARK = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
-  var ICON_INSTAGRAM = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>';
-  var ICON_YOUTUBE = '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 8.5v7l6-3.5-6-3.5z" fill="currentColor"/></svg>';
-  var ICON_TIKTOK = '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 3c.4 2 1.9 3.6 4 3.9v3.1c-1.5-.1-2.9-.6-4-1.4v6.6a5.7 5.7 0 1 1-5.7-5.7c.3 0 .6 0 .9.1v3.2a2.6 2.6 0 1 0 1.8 2.5V3h3z"/></svg>';
+  var ICON = {
+    instagram: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>',
+    youtube: '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 8.5v7l6-3.5-6-3.5z" fill="currentColor"/></svg>',
+    tiktok: '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 3c.4 2 1.9 3.6 4 3.9v3.1c-1.5-.1-2.9-.6-4-1.4v6.6a5.7 5.7 0 1 1-5.7-5.7c.3 0 .6 0 .9.1v3.2a2.6 2.6 0 1 0 1.8 2.5V3h3z"/></svg>',
+    // Mountain-over-wave emblem: "from the mountains to the sea"
+    emblem: '<svg class="icon" viewBox="0 0 32 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15l7-10 5 6 3-3 7 7"/><path d="M2 20c3-2.5 6-2.5 9 0s6 2.5 9 0 6-2.5 9 0"/></svg>',
+    up: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg>'
+  };
 
   function currentPage() {
     var path = window.location.pathname.split('/').pop() || 'index.html';
@@ -27,18 +48,24 @@
     return name === '' ? 'index' : name;
   }
 
-  function navLinksHTML(linkClass) {
+  function navLinksHTML() {
     return NAV_LINKS.map(function (l) {
-      return '<a href="' + l.href + '" class="' + linkClass + '" data-page="' + l.page + '">' + l.label + '</a>';
+      return '<a href="' + l.href + '" data-page="' + l.page + '">' + l.label + '<small>' + l.sub + '</small></a>';
     }).join('');
   }
 
-  function tickerTrackHTML() {
-    var itemsHTML = TICKER_ITEMS.map(function (item) {
-      return '<a href="' + item.href + '">' + item.text + '</a>';
+  function socialRowHTML(extraClass) {
+    return '<div class="social-row ' + (extraClass || '') + '">' +
+      '<a href="' + SOCIALS.youtube + '" target="_blank" rel="noopener" aria-label="YouTube">' + ICON.youtube + '</a>' +
+      '<a href="' + SOCIALS.instagram + '" target="_blank" rel="noopener" aria-label="Instagram">' + ICON.instagram + '</a>' +
+      '<a href="' + SOCIALS.tiktok + '" target="_blank" rel="noopener" aria-label="TikTok">' + ICON.tiktok + '</a>' +
+    '</div>';
+  }
+
+  function blobLabel(word) {
+    return word.split('').map(function (ch, i) {
+      return '<span style="animation-delay:' + (i * 40) + 'ms">' + ch + '</span>';
     }).join('');
-    // Duplicated once so the -50% translateX loop is seamless.
-    return itemsHTML + itemsHTML;
   }
 
   function injectHeader() {
@@ -46,137 +73,134 @@
     if (!mount) return;
 
     mount.innerHTML =
-      '<div class="site-ticker">' +
-        '<span class="ticker-label">Today</span>' +
-        '<div class="ticker-track-wrap"><div class="ticker-track">' + tickerTrackHTML() + '</div></div>' +
-      '</div>' +
-      '<header class="site-header">' +
-        '<div class="site-header-inner">' +
-          '<a href="./" class="site-logo">' +
-            '<img class="logo-img" src="assets/images/logo.png" alt="NPT48" width="500" height="500">' +
-            '<span class="logo-sub">Official Site</span>' +
-          '</a>' +
-          '<nav class="site-nav" aria-label="Main navigation">' + navLinksHTML('') + '</nav>' +
-          '<div class="header-actions">' +
-            '<a href="about" class="header-cta">About NPT48</a>' +
-            '<button type="button" class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">' +
-              '<span></span><span></span><span></span>' +
-            '</button>' +
+      '<a href="./" class="brand-badge" aria-label="NPT48 home">' +
+        '<img src="assets/images/logo.png" alt="NPT48" width="500" height="500">' +
+      '</a>' +
+      '<button type="button" class="menu-blob" id="menuBlob" aria-label="Open menu" aria-expanded="false" aria-controls="siteMenu">' +
+        '<svg class="blob-shape" viewBox="0 0 128 108" aria-hidden="true"><path d="M24 10 C52 -6 104 0 120 26 C134 50 122 88 96 100 C68 112 30 106 14 86 C-2 66 -2 26 24 10Z"/></svg>' +
+        '<span class="menu-blob-label" id="menuBlobLabel" aria-hidden="true">' + blobLabel('MENU') + '</span>' +
+      '</button>' +
+      '<div class="site-menu" id="siteMenu" role="dialog" aria-modal="true" aria-label="Site menu">' +
+        '<div class="site-menu-main">' +
+          '<nav class="site-menu-links" aria-label="Main navigation">' + navLinksHTML() + '</nav>' +
+          socialRowHTML() +
+        '</div>' +
+        '<div class="site-menu-side">' +
+          '<div class="side-emblem">' + ICON.emblem + '</div>' +
+          '<div class="side-title">NPT48 Official</div>' +
+          '<div class="pill-row">' +
+            '<a class="pill pill-yellow" href="' + SOCIALS.instagram + '" target="_blank" rel="noopener">' + ICON.instagram + 'FOLLOW</a>' +
+            '<a class="pill" href="' + SOCIALS.youtube + '" target="_blank" rel="noopener">' + ICON.youtube + 'WATCH</a>' +
+          '</div>' +
+          '<div class="side-links">' +
+            '<a href="profile">MEMBERS</a>' +
+            '<a href="discography">RELEASES</a>' +
+            '<a href="./#movie">MOVIE</a>' +
+            '<a href="./#birthday">BIRTHDAY</a>' +
+            '<a href="about">OUR STORY</a>' +
+            '<a href="https://www.akb48.co.jp/" target="_blank" rel="noopener">AKB48 GROUP</a>' +
           '</div>' +
         '</div>' +
-      '</header>' +
-      '<div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>' +
-      '<aside class="mobile-nav-panel" id="mobileNavPanel">' +
-        '<button type="button" class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">' + ICON_XMARK + '</button>' +
-        '<nav class="mobile-nav-links" aria-label="Mobile navigation">' + navLinksHTML('') + '</nav>' +
-        '<a href="about" class="mobile-nav-cta">About NPT48</a>' +
-      '</aside>';
+      '</div>';
 
     markActiveLinks();
-    wireHeaderEvents();
+    wireMenu();
   }
 
   function injectFooter() {
     var mount = document.getElementById('site-footer');
     if (!mount) return;
 
+    var logos = GROUPS.map(function (g) {
+      return '<a href="' + g[0] + '" target="_blank" rel="noopener"><img src="https://s.akb48.co.jp/v2/index/img/g_' + g[1] + '.png?ver=53" alt="' + g[2] + '" width="100" height="140" loading="lazy" decoding="async"></a>';
+    }).join('');
+
     mount.innerHTML =
-      '<footer class="site-footer-v2">' +
-        '<div class="footer-inner-v2">' +
-          '<div class="footer-social-row">' +
-            '<a href="https://www.instagram.com/npt48official/" class="social-btn-icon" aria-label="Instagram" target="_blank" rel="noopener">' + ICON_INSTAGRAM + '</a>' +
-            '<a href="https://www.youtube.com/@NPT48OfficialYouTubeChannel" class="social-btn-icon" aria-label="YouTube" target="_blank" rel="noopener">' + ICON_YOUTUBE + '</a>' +
-            '<a href="https://www.tiktok.com/@npt48_official" class="social-btn-icon" aria-label="TikTok" target="_blank" rel="noopener">' + ICON_TIKTOK + '</a>' +
-          '</div>' +
-
-          '<a href="./" class="footer-emblem"><img src="assets/images/logo.png" alt="NPT48" width="500" height="500" loading="lazy" decoding="async"></a>' +
-
-          '<div class="footer-banner-grid">' +
-            '<a href="profile" class="footer-banner-card">' +
-              '<span class="fb-card-title">Profile</span>' +
-              '<span class="fb-card-sub">Meet the Members</span>' +
-            '</a>' +
-            '<a href="discography" class="footer-banner-card">' +
-              '<span class="fb-card-title">Discography</span>' +
-              '<span class="fb-card-sub">Music &amp; Releases</span>' +
-            '</a>' +
-            '<a href="about" class="footer-banner-card">' +
-              '<span class="fb-card-title">About</span>' +
-              '<span class="fb-card-sub">Our Story</span>' +
-            '</a>' +
-            '<a href="https://www.akb48.co.jp/" target="_blank" rel="noopener" class="footer-banner-card">' +
-              '<span class="fb-card-title">AKB48 Group</span>' +
-              '<span class="fb-card-sub">Official Site</span>' +
-            '</a>' +
-          '</div>' +
-
-          '<div class="footer-contact-grid">' +
-            '<a href="#" class="footer-contact-card">Contact Us</a>' +
-            '<a href="#" class="footer-contact-card">Privacy Policy &amp; Terms of Use</a>' +
-          '</div>' +
-
-          '<div class="footer-org-line">NPT48</div>' +
-          '<div class="footer-copyright">&copy; 2026 NPT48. All rights reserved.</div>' +
+      '<footer class="site-footer">' +
+        '<div class="footer-inner">' +
+          '<a href="./" class="footer-logo" aria-label="NPT48 home"><img class="logo-crop" src="assets/images/logo.png" alt="NPT48" width="500" height="500" loading="lazy"></a>' +
+          '<div class="footer-tagline">FROM THE MOUNTAINS TO THE SEA</div>' +
+          socialRowHTML('footer-social') +
+          '<div class="group-label">AKB48 GROUP</div>' +
+          '<div class="logo-grid">' + logos + '</div>' +
+          '<nav class="footer-links" aria-label="Footer">' +
+            '<a href="./">Home</a><a href="profile">Profile</a><a href="discography">Discography</a><a href="about">About</a>' +
+            '<a href="#">Contact Us</a><a href="#">Privacy Policy &amp; Terms</a>' +
+          '</nav>' +
+          '<div class="footer-copy">&copy; 2026 NPT48. All rights reserved.</div>' +
         '</div>' +
-      '</footer>';
+      '</footer>' +
+      '<button type="button" class="page-top" id="pageTop" aria-label="Back to top">' + ICON.up + 'PAGE<br>TOP</button>';
+
+    document.getElementById('pageTop').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   }
 
   function markActiveLinks() {
     var page = currentPage();
-    document.querySelectorAll('.site-nav a, .mobile-nav-links a').forEach(function (a) {
-      if (a.getAttribute('data-page') === page) {
-        a.classList.add('active');
-      }
+    document.querySelectorAll('.site-menu-links a, .hero-nav a').forEach(function (a) {
+      if (a.getAttribute('data-page') === page) a.classList.add('active');
     });
   }
 
-  function closeMobileMenu() {
-    var panel = document.getElementById('mobileNavPanel');
-    var backdrop = document.getElementById('mobileNavBackdrop');
-    var hamburger = document.getElementById('navHamburger');
-    if (panel) panel.classList.remove('open');
-    if (backdrop) backdrop.classList.remove('open');
-    if (hamburger) hamburger.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  }
+  function wireMenu() {
+    var btn = document.getElementById('menuBlob');
+    var label = document.getElementById('menuBlobLabel');
+    var menu = document.getElementById('siteMenu');
 
-  function openMobileMenu() {
-    var panel = document.getElementById('mobileNavPanel');
-    var backdrop = document.getElementById('mobileNavBackdrop');
-    var hamburger = document.getElementById('navHamburger');
-    if (panel) panel.classList.add('open');
-    if (backdrop) backdrop.classList.add('open');
-    if (hamburger) hamburger.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function wireHeaderEvents() {
-    var hamburger = document.getElementById('navHamburger');
-    var closeBtn = document.getElementById('mobileNavClose');
-    var backdrop = document.getElementById('mobileNavBackdrop');
-    var panel = document.getElementById('mobileNavPanel');
-
-    if (hamburger) hamburger.addEventListener('click', openMobileMenu);
-    if (closeBtn) closeBtn.addEventListener('click', closeMobileMenu);
-    if (backdrop) backdrop.addEventListener('click', closeMobileMenu);
-    if (panel) {
-      panel.querySelectorAll('a').forEach(function (a) {
-        a.addEventListener('click', closeMobileMenu);
-      });
+    function setOpen(open) {
+      document.body.classList.toggle('menu-open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      label.className = 'menu-blob-label' + (open ? ' is-close' : '');
+      label.innerHTML = blobLabel(open ? 'CLOSE' : 'MENU');
+      if (open) {
+        var first = menu.querySelector('a');
+        if (first) first.focus({ preventScroll: true });
+      } else {
+        btn.focus({ preventScroll: true });
+      }
     }
 
+    btn.addEventListener('click', function () {
+      setOpen(!document.body.classList.contains('menu-open'));
+    });
+    menu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { setOpen(false); });
+    });
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') closeMobileMenu();
+      if (e.key === 'Escape' && document.body.classList.contains('menu-open')) setOpen(false);
     });
   }
+
+  function wireScrollState() {
+    var ticking = false;
+    function update() {
+      document.body.classList.toggle('is-scrolled', window.scrollY > 120);
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    update();
+  }
+
+  window.NPT48_NAV = { navLinksHTML: navLinksHTML, socialRowHTML: socialRowHTML, emblem: ICON.emblem };
 
   // Header can be injected immediately (its placeholder is right after <body>).
   injectHeader();
 
-  // Footer placeholder sits at the end of <body>; inject once DOM is ready.
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', injectFooter);
-  } else {
+  function onReady() {
     injectFooter();
+    wireScrollState();
+    // Pages may render a hero nav (home) — mark its active link too.
+    markActiveLinks();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', onReady);
+  } else {
+    onReady();
   }
 })();

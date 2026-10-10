@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#c7e8fa">
   <title>NPT48 Official Site — Home</title>
   <link rel="icon" type="image/png" href="assets/images/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400|K2D:300,400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&family=K2D:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/site.css">
 
   <style>
@@ -24,8 +24,8 @@
   <div id="siteLoader" class="site-loader">
     <div class="loader-bubbles" id="loaderBubbles"></div>
     <div class="loader-brand">
-      <img class="loader-logo" src="assets/images/logo.png" alt="NPT48" width="500" height="500">
-      <div class="loader-tagline">Official Site</div>
+      <div class="loader-tagline">OFFICIAL SITE</div>
+      <img class="loader-logo logo-crop" src="assets/images/logo.png" alt="NPT48" width="500" height="500">
     </div>
   </div>
   <script>
@@ -33,18 +33,17 @@
       var loader = document.getElementById('siteLoader');
       if (!loader) return;
 
-      var bubbleColors = ['#0d5bb5', '#1e88e5', '#6fc3f7', '#ffffff', '#0f2942'];
+      var bubbleColors = ['#ffffff', '#ffffff', '#7cc2ee', '#2c4fa8', '#fff27a'];
       var bubbleWrap = document.getElementById('loaderBubbles');
       for (var i = 0; i < 18; i++) {
         var b = document.createElement('span');
         b.className = 'loader-bubble';
-        var size = 10 + Math.random() * 60;
+        var size = 10 + Math.random() * 50;
         var color = bubbleColors[Math.floor(Math.random() * bubbleColors.length)];
         b.style.left = (Math.random() * 100) + '%';
         b.style.width = size + 'px';
         b.style.height = size + 'px';
         b.style.background = color;
-        if (color === '#ffffff') b.style.border = '2px solid rgba(13, 91, 181, 0.25)';
         b.style.setProperty('--drift', (20 + Math.random() * 50) + 'px');
         b.style.setProperty('--dur', (1.2 + Math.random() * 1.6) + 's');
         b.style.animationDelay = (Math.random() * 1) + 's';
@@ -57,7 +56,7 @@
         loader.classList.add('is-hidden');
         document.body.style.overflow = '';
         setTimeout(function () { loader.remove(); }, 400);
-      }, 2600);
+      }, 2200);
     })();
   </script>
 
@@ -66,123 +65,174 @@
   <script src="assets/js/data.js"></script>
   <script src="assets/js/reveal.js"></script>
 
-  <!-- HERO -->
-  <section class="hero">
-    <img src="https://lh3.googleusercontent.com/d/16h5s_zmCcpfUp12RwzNzeFYnjnp109RK=s1000" alt="NPT48 — from the mountains to the sea" fetchpriority="high" decoding="async">
-  </section>
-
-  <!-- BENTO STRIP: Birthday + Spotlight -->
-  <div class="bento-row">
-    <div class="bento-card" data-pop>
-      <div class="bento-card-head">
-        <span class="eyebrow">Birthday This Month</span>
-        <span class="data-date" id="birthdayMonthLabel"></span>
+  <main>
+    <!-- HERO: split layout -->
+    <section class="top-hero">
+      <div class="top-hero-left">
+        <div class="dots" aria-hidden="true">
+          <span class="dot dot--yellow" style="width:30px;height:30px;left:-10px;top:24%;--d:7s"></span>
+          <span class="dot dot--ring" style="width:14px;height:14px;left:48%;top:18%;--d:5s"></span>
+          <span class="dot dot--navy" style="width:22px;height:22px;left:84%;top:52%;--d:6s;--delay:-2s"></span>
+          <span class="dot dot--ring" style="width:16px;height:16px;left:38%;top:70%;--d:8s"></span>
+          <span class="dot dot--yellow" style="width:14px;height:14px;left:92%;top:68%;--d:6s;--delay:-1s"></span>
+          <span class="dot dot--white" style="width:70px;height:70px;left:10%;top:56%;--d:9s;opacity:.7"></span>
+          <span class="dot dot--white" style="width:38px;height:38px;left:72%;top:30%;--d:7s;opacity:.8"></span>
+        </div>
+        <nav class="hero-nav" id="heroNav" aria-label="Quick links"></nav>
+        <h1 class="hero-wordmark">NPT48<span>Official Site</span></h1>
+        <div id="heroSocial"></div>
       </div>
-      <div class="bday-list" id="birthdayList">
-        <div class="bday-empty">...</div>
-      </div>
-      <a href="profile" class="arrow-link">View All Members</a>
-    </div>
-    <div class="bento-card" data-pop style="--i:1">
-      <span class="eyebrow">Latest Release</span>
-      <div id="spotlightCard" style="margin-top:20px">
-        <div class="bday-empty">...</div>
-      </div>
-    </div>
-  </div>
 
-  <!-- MEMBERS -->
-  <section class="members-section" data-pop>
-    <div class="sec-head no-underline">
-      <h2 class="sec-title">Members</h2>
-      <a href="profile" class="arrow-link">View All Members</a>
-    </div>
-    <div class="rail-wrap">
-      <div class="rail" id="membersRail">
-        <div class="bday-empty">Loading NPT48 data...</div>
+      <div class="top-hero-right">
+        <div class="hero-side-head">
+          <div class="side-emblem" id="heroEmblem"></div>
+          <div class="side-title">From the Mountains to the Sea</div>
+        </div>
+        <div class="pickup">
+          <div class="pickup-frame">
+            <div class="pickup-photo"><img id="pickupImg" src="assets/images/logo.png" alt="" fetchpriority="high"></div>
+            <a href="discography" class="release-mini" id="releaseMini" hidden>
+              <div class="release-mini-inner">
+                <div class="release-mini-kicker">LATEST RELEASE</div>
+                <img id="releaseMiniImg" src="" alt="">
+                <div class="release-mini-title" id="releaseMiniTitle"></div>
+              </div>
+            </a>
+            <div class="pickup-badge">
+              <span class="pickup-kicker">PICK UP!</span>
+              <span class="pickup-name" id="pickupName">NPT48</span>
+              <a href="profile" class="pickup-more" id="pickupMore">PROFILE ›</a>
+            </div>
+          </div>
+        </div>
       </div>
-      <button type="button" class="rail-nav-btn rail-nav-prev" id="membersPrev" aria-label="Previous members"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
-      <button type="button" class="rail-nav-btn rail-nav-next" id="membersNext" aria-label="Next members"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
-    </div>
-  </section>
+      <a href="#banner" class="scroll-cue">SCROLL</a>
+    </section>
 
-  <!-- MOVIE -->
-  <section class="video-section" data-pop>
-    <div class="sec-head no-underline">
-      <h2 class="sec-title">Movie</h2>
-      <a href="discography" class="arrow-link">View All Releases</a>
-    </div>
-
-    <div class="movie-grid" id="movieGrid">
-      <div class="data-empty">Loading NPT48 data...</div>
-    </div>
-  </section>
-
-  <!-- GROUP NETWORK -->
-  <div class="group-band" data-pop>
-    <div class="group-inner">
-      <div class="group-divider"><hr><span>AKB48 Group</span><hr></div>
-      <div class="logo-grid">
-        <a href="https://www.akb48.co.jp/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_akb48.png?ver=53" alt="AKB48" width="100" height="140" loading="lazy" decoding="async"></a>
-        <a href="https://www.ske48.co.jp/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_ske48.png?ver=53" alt="SKE48" width="100" height="140" loading="lazy" decoding="async"></a>
-        <a href="https://nmb48.com/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_nmb48.png?ver=53" alt="NMB48" width="100" height="140" loading="lazy" decoding="async"></a>
-        <a href="http://www.hkt48.jp/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_hkt48.png?ver=53" alt="HKT48" width="100" height="140" loading="lazy" decoding="async"></a>
-        <a href="https://ngt48.jp/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_ngt48.png?ver=53" alt="NGT48" width="100" height="140" loading="lazy" decoding="async"></a>
-        <a href="https://www.stu48.com/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_stu48.png?ver=53" alt="STU48" width="100" height="140" loading="lazy" decoding="async"></a>
-        <a href="https://www.jkt48.com/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_jkt48.png?ver=53" alt="JKT48" width="100" height="140" loading="lazy" decoding="async"></a>
-        <a href="https://www.bnk48.com/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_bnk48.png?ver=53" alt="BNK48" width="100" height="140" loading="lazy" decoding="async"></a>
-        <a href="https://weibo.com/akb48teamsh" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_tsh48.png?ver=53" alt="TSH48" width="100" height="140" loading="lazy" decoding="async"></a>
-        <a href="https://www.tpe48.tw/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_tpe48.png" alt="TPE48" width="100" height="140" loading="lazy" decoding="async"></a>
-        <a href="https://www.cgm48official.com/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_cgm48.png?ver=53" alt="CGM48" width="100" height="140" loading="lazy" decoding="async"></a>
-        <a href="https://klp48.my/" target="_blank"><img src="https://s.akb48.co.jp/v2/index/img/g_klp48.png?ver=53" alt="KLP48" width="100" height="140" loading="lazy" decoding="async"></a>
+    <!-- KEY VISUAL BANNER -->
+    <section class="banner-band" id="banner">
+      <div class="banner-frame" data-pop>
+        <img src="https://lh3.googleusercontent.com/d/16h5s_zmCcpfUp12RwzNzeFYnjnp109RK=s1400" alt="NPT48 — from the mountains to the sea" decoding="async">
       </div>
-    </div>
-  </div>
+      <p class="banner-caption">NPT48 — FROM THE MOUNTAINS TO THE SEA, THE SOUND OF NATURE</p>
+    </section>
+
+    <!-- BIRTHDAY -->
+    <section class="section section--pale wave-top" id="birthday">
+      <div class="section-inner">
+        <div class="bday-wrap" data-pop>
+          <div class="bday-head">
+            <h2 class="sec-title">Happy<br>Birthday<small>สมาชิกที่เกิดเดือนนี้</small></h2>
+            <span class="bday-month" id="birthdayMonthLabel"></span>
+          </div>
+          <div class="bday-list" id="birthdayList">
+            <div class="data-empty">Loading...</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEMBERS -->
+    <section class="section section--white wave-top" id="members">
+      <div class="section-inner">
+        <div class="sec-head" data-pop>
+          <h2 class="sec-title">Profile<small>สมาชิก NPT48</small></h2>
+          <a href="profile" class="view-all">VIEW ALL</a>
+        </div>
+        <div class="rail-wrap" data-pop>
+          <div class="rail" id="membersRail">
+            <div class="data-empty">Loading NPT48 data...</div>
+          </div>
+          <div class="rail-controls">
+            <button type="button" class="rail-nav-btn" id="membersPrev" aria-label="Previous members"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+            <button type="button" class="rail-nav-btn" id="membersNext" aria-label="Next members"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOVIE -->
+    <section class="section section--sky wave-top" id="movie">
+      <div class="section-inner">
+        <div class="sec-head" data-pop>
+          <h2 class="sec-title">Movie<small>วิดีโอล่าสุด</small></h2>
+          <a href="discography" class="view-all">VIEW ALL</a>
+        </div>
+        <div class="rail-wrap" data-pop>
+          <div class="rail movie-rail" id="movieGrid">
+            <div class="data-empty">Loading NPT48 data...</div>
+          </div>
+          <div class="rail-controls">
+            <button type="button" class="rail-nav-btn" id="moviePrev" aria-label="Previous videos"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+            <button type="button" class="rail-nav-btn" id="movieNext" aria-label="Next videos"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <!-- FOOTER -->
   <div id="site-footer"></div>
 
   <script>
-    // Horizontal rail drag-to-scroll
+    // Hero nav + socials reuse the shared menu markup from nav.js
+    document.getElementById('heroNav').innerHTML = window.NPT48_NAV.navLinksHTML();
+    document.getElementById('heroSocial').innerHTML = window.NPT48_NAV.socialRowHTML();
+    document.getElementById('heroEmblem').innerHTML = window.NPT48_NAV.emblem;
+
+    // Horizontal rail drag-to-scroll (mouse only; touch scrolls natively)
     document.querySelectorAll('.rail').forEach(function (rail) {
-      var isDown = false, startX, scrollLeft;
-      rail.addEventListener('mousedown', function (e) { isDown = true; rail.style.cursor = 'grabbing'; startX = e.pageX - rail.offsetLeft; scrollLeft = rail.scrollLeft; });
-      window.addEventListener('mouseup', function () { isDown = false; rail.style.cursor = 'grab'; });
+      var isDown = false, moved = false, startX, scrollLeft;
+      rail.addEventListener('mousedown', function (e) { isDown = true; moved = false; startX = e.pageX; scrollLeft = rail.scrollLeft; rail.style.scrollSnapType = 'none'; });
+      window.addEventListener('mouseup', function () { if (!isDown) return; isDown = false; rail.style.scrollSnapType = ''; });
       window.addEventListener('mousemove', function (e) {
         if (!isDown) return;
+        var dx = e.pageX - startX;
+        if (Math.abs(dx) > 4) moved = true;
         e.preventDefault();
-        var x = e.pageX - rail.offsetLeft;
-        rail.scrollLeft = scrollLeft - (x - startX);
+        rail.scrollLeft = scrollLeft - dx;
       });
+      // Don't follow a link at the end of a drag
+      rail.addEventListener('click', function (e) { if (moved) { e.preventDefault(); moved = false; } }, true);
+      rail.addEventListener('dragstart', function (e) { e.preventDefault(); });
     });
 
-    // Rail prev/next scroll buttons
-    function wireRailNav(railId, prevId, nextId, itemSelector) {
+    function wireRailNav(railId, prevId, nextId) {
       var rail = document.getElementById(railId);
       var prevBtn = document.getElementById(prevId);
       var nextBtn = document.getElementById(nextId);
       if (!rail || !prevBtn || !nextBtn) return;
-      function step() {
-        var item = rail.querySelector(itemSelector);
-        var gap = parseFloat(getComputedStyle(rail).columnGap || getComputedStyle(rail).gap || 16);
-        var itemWidth = item ? item.getBoundingClientRect().width : rail.clientWidth * 0.4;
-        return (itemWidth + gap) * 2;
-      }
+      function step() { return rail.clientWidth * 0.8; }
       prevBtn.addEventListener('click', function () { rail.scrollBy({ left: -step(), behavior: 'smooth' }); });
       nextBtn.addEventListener('click', function () { rail.scrollBy({ left: step(), behavior: 'smooth' }); });
     }
-    wireRailNav('membersRail', 'membersPrev', 'membersNext', '.member-mini');
+    wireRailNav('membersRail', 'membersPrev', 'membersNext');
+    wireRailNav('movieGrid', 'moviePrev', 'movieNext');
 
     var MONTH_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+
+    function renderPickup(members) {
+      if (!members.length) return;
+      var m = members[Math.floor(Math.random() * members.length)];
+      var img = document.getElementById('pickupImg');
+      img.src = window.NPT48_DATA.getDirectImgLink(m.image);
+      img.alt = m.name;
+      img.onerror = function () { window.NPT48_DATA.imgFallback(img); };
+      document.getElementById('pickupName').textContent = m.name;
+      document.getElementById('pickupMore').href = 'profile#' + encodeURIComponent(m.name);
+    }
+
     function renderBirthdayMonth(members) {
       var today = new Date();
-      var monthLabelEl = document.getElementById('birthdayMonthLabel');
-      if (monthLabelEl) monthLabelEl.textContent = MONTH_EN[today.getMonth()] + ' ' + today.getFullYear();
+      document.getElementById('birthdayMonthLabel').textContent = MONTH_EN[today.getMonth()].toUpperCase() + ' ' + today.getFullYear();
 
       var listEl = document.getElementById('birthdayList');
-      if (!listEl) return;
-
       var celebrants = members.map(function (m) {
         var bday = m.birthday ? new Date(m.birthday) : null;
         return (bday && !isNaN(bday.getTime())) ? { member: m, bday: bday } : null;
@@ -190,16 +240,17 @@
         .sort(function (a, b) { return a.bday.getDate() - b.bday.getDate(); });
 
       if (!celebrants.length) {
-        listEl.innerHTML = '<div class="bday-empty">No member birthdays this month.</div>';
+        listEl.innerHTML = '<div class="data-empty">No member birthdays this month.</div>';
         return;
       }
 
       listEl.innerHTML = celebrants.map(function (c) {
         var img = window.NPT48_DATA.getDirectImgLink(c.member.image);
         return '' +
-          '<a href="profile" class="bday-item">' +
-            '<div class="bday-avatar"><img src="' + img + '" alt="' + c.member.name + '" decoding="async" onerror="this.src=\'assets/images/logo.png\'"></div>' +
-            '<div class="bday-info"><span class="bday-name">' + c.member.name + '</span><span class="bday-date">' + c.bday.getDate() + ' ' + MONTH_EN[c.bday.getMonth()] + '</span></div>' +
+          '<a href="profile#' + encodeURIComponent(c.member.name) + '" class="bday-item">' +
+            '<div class="bday-avatar"><img src="' + esc(img) + '" alt="' + esc(c.member.name) + '" decoding="async" onerror="NPT48_DATA.imgFallback(this)"></div>' +
+            '<span class="bday-name">' + esc(c.member.name) + '</span>' +
+            '<span class="bday-date">' + c.bday.getDate() + ' ' + MONTH_EN[c.bday.getMonth()].toUpperCase() + '</span>' +
           '</a>';
       }).join('');
     }
@@ -207,93 +258,83 @@
     function renderMembersRail(members) {
       var rail = document.getElementById('membersRail');
       if (!members.length) {
-        rail.innerHTML = '<div class="bday-empty">Unable to load data. Please try again later.</div>';
+        rail.innerHTML = '<div class="data-empty">Unable to load data. Please try again later.</div>';
         return;
       }
       rail.innerHTML = members.map(function (m) {
         var img = window.NPT48_DATA.getDirectImgLink(m.image);
-        var badge = m.generation ? '<span class="member-mini-badge">' + m.generation + '</span>' : '';
+        var badge = m.generation ? '<span class="member-circle-badge">' + esc(String(m.generation).replace(/\s*Generation/i, ' Gen')) + '</span>' : '';
         return '' +
-          '<a href="profile" class="member-mini">' +
-            '<div class="member-mini-photo">' + badge + '<img src="' + img + '" alt="' + m.name + '" loading="lazy" decoding="async" onerror="this.src=\'assets/images/logo.png\'"></div>' +
-            '<div class="member-mini-name">' + m.name + '</div>' +
+          '<a href="profile#' + encodeURIComponent(m.name) + '" class="member-circle">' +
+            '<div class="member-circle-photo">' + badge + '<img src="' + esc(img) + '" alt="' + esc(m.name) + '" loading="lazy" decoding="async" onerror="NPT48_DATA.imgFallback(this)"></div>' +
+            '<div class="member-circle-name">' + esc(m.name) + '</div>' +
+            '<div class="member-circle-en">' + esc(m.fullNameEN || '') + '</div>' +
           '</a>';
       }).join('');
     }
 
     function loadProfileData() {
       if (!window.NPT48_DATA.isConfigured()) {
-        document.getElementById('birthdayList').innerHTML = '<div class="bday-empty">Google Sheets not connected yet</div>';
-        document.getElementById('membersRail').innerHTML = '<div class="bday-empty">Google Sheets not connected yet</div>';
+        document.getElementById('birthdayList').innerHTML = '<div class="data-empty">Google Sheets not connected yet</div>';
+        document.getElementById('membersRail').innerHTML = '<div class="data-empty">Google Sheets not connected yet</div>';
         return;
       }
       window.NPT48_DATA.fetchSheet('Profile')
         .then(function (data) {
+          renderPickup(data);
           renderBirthdayMonth(data);
           renderMembersRail(data);
         })
         .catch(function () {
-          document.getElementById('birthdayList').innerHTML = '<div class="bday-empty">Unable to load data.</div>';
-          document.getElementById('membersRail').innerHTML = '<div class="bday-empty">Unable to load data. Please try again later.</div>';
+          document.getElementById('birthdayList').innerHTML = '<div class="data-empty">Unable to load data.</div>';
+          document.getElementById('membersRail').innerHTML = '<div class="data-empty">Unable to load data. Please try again later.</div>';
         });
     }
     loadProfileData();
 
-    function renderSpotlight(items) {
-      var card = document.getElementById('spotlightCard');
-      if (!items.length) { card.innerHTML = '<div class="bday-empty">No releases yet.</div>'; return; }
+    function renderReleaseMini(items) {
+      if (!items.length) return;
       var latest = items[items.length - 1];
-      var img = window.NPT48_DATA.getDirectImgLink(latest.image);
-      var link = latest.link || '#';
-      var isAlbum = (latest.type || '').toString().toUpperCase() === 'ALBUM';
-      card.innerHTML = '' +
-        '<a href="' + link + '" target="_blank" class="spot-card">' +
-          '<div class="spot-thumb"><img src="' + img + '" alt="' + latest.songName + '" decoding="async"></div>' +
-          '<div>' +
-            '<div class="kicker kicker-gold">' + (isAlbum ? 'Album' : 'Single') + '</div>' +
-            '<div class="spot-title">' + latest.songName + '</div>' +
-            '<span class="arrow-link">Watch MV</span>' +
-          '</div>' +
-        '</a>';
+      var card = document.getElementById('releaseMini');
+      document.getElementById('releaseMiniImg').onerror = function () { window.NPT48_DATA.imgFallback(this); };
+      document.getElementById('releaseMiniImg').src = window.NPT48_DATA.getDirectImgLink(latest.image);
+      document.getElementById('releaseMiniImg').alt = latest.songName || '';
+      document.getElementById('releaseMiniTitle').textContent = latest.songName || '';
+      if (latest.link) { card.href = latest.link; card.target = '_blank'; card.rel = 'noopener'; }
+      card.hidden = false;
     }
 
-    function loadSpotlight() {
-      var spot = document.getElementById('spotlightCard');
-      if (!window.NPT48_DATA.isConfigured()) {
-        spot.innerHTML = '<div class="bday-empty">Google Sheets not connected yet</div>';
-        return;
-      }
-      window.NPT48_DATA.fetchSheet('Discography')
-        .then(renderSpotlight)
-        .catch(function () {
-          spot.innerHTML = '<div class="bday-empty">Unable to load data.</div>';
-        });
+    function loadReleaseMini() {
+      if (!window.NPT48_DATA.isConfigured()) return;
+      window.NPT48_DATA.fetchSheet('Discography').then(renderReleaseMini).catch(function () {});
     }
-    loadSpotlight();
+    loadReleaseMini();
 
     function formatMovieDate(raw) {
       var d = new Date(raw);
       if (isNaN(d.getTime())) return String(raw || '');
-      return d.getDate() + ' ' + MONTH_EN[d.getMonth()] + ' ' + d.getFullYear();
+      return d.getFullYear() + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + String(d.getDate()).padStart(2, '0');
     }
 
     function renderMovieGrid(items) {
       var grid = document.getElementById('movieGrid');
-      if (!items.length) { grid.innerHTML = '<div class="data-empty">No releases yet.</div>'; return; }
-      grid.innerHTML = items.slice(0, 4).map(function (d, i) {
+      if (!items.length) { grid.innerHTML = '<div class="data-empty">No videos yet.</div>'; return; }
+      grid.innerHTML = items.slice(0, 8).map(function (d) {
         // The Movie sheet columns (Date, Title Name Song, Description, Link, Img) come back
         // from the Apps Script under generic field names, not their own header text.
         var img = window.NPT48_DATA.getDirectImgLink(d.generation);
         var link = d.fullNameEN || '#';
         var title = d.nameEN || '';
-        var tooltip = (title + ' — ' + formatMovieDate(d.name)).replace(/"/g, '&quot;');
         return '' +
-          '<a href="' + link + '" target="_blank" class="movie-item" data-pop style="--i:' + i + '" title="' + tooltip + '">' +
-            '<img src="' + img + '" alt="' + title + '" loading="lazy" decoding="async">' +
-            '<span class="movie-play-btn"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 6.5v11l9-5.5-9-5.5z"/></svg></span>' +
+          '<a href="' + esc(link) + '" target="_blank" rel="noopener" class="movie-item">' +
+            '<div class="movie-thumb">' +
+              '<img src="' + esc(img) + '" alt="' + esc(title) + '" loading="lazy" decoding="async" onerror="NPT48_DATA.imgFallback(this)">' +
+              '<span class="movie-play"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 6.5v11l9-5.5-9-5.5z"/></svg></span>' +
+            '</div>' +
+            '<div class="movie-title">' + esc(title) + '</div>' +
+            '<div class="movie-date">' + esc(formatMovieDate(d.name)) + '</div>' +
           '</a>';
       }).join('');
-      if (window.NPT48_POPIN) window.NPT48_POPIN.init();
     }
 
     function loadMovies() {

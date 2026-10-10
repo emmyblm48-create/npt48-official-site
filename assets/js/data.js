@@ -20,6 +20,26 @@
     return url;
   }
 
+  // Google's image hosts intermittently reject bursts of requests. On error,
+  // alternate between lh3 and the Drive thumbnail endpoint with a growing
+  // back-off, then give up and show the logo.
+  var IMG_RETRIES = 4;
+  function imgFallback(img) {
+    var logo = 'assets/images/logo.png';
+    var src = img.getAttribute('src') || '';
+    var m = src.match(/(?:googleusercontent\.com\/d\/|thumbnail\?id=)([-\w]{25,})/);
+    var tries = Number(img.dataset.retries || 0);
+    if (m && tries < IMG_RETRIES) {
+      img.dataset.retries = tries + 1;
+      var next = tries % 2 === 0
+        ? 'https://drive.google.com/thumbnail?id=' + m[1] + '&sz=w1000'
+        : 'https://lh3.googleusercontent.com/d/' + m[1] + '=s1000';
+      setTimeout(function () { img.src = next; }, 400 * (tries + 1));
+    } else if (src.indexOf(logo) === -1) {
+      img.src = logo;
+    }
+  }
+
   function fetchSheet(sheetName) {
     if (!isConfigured()) {
       return Promise.reject(new Error('SCRIPT_URL not configured'));
@@ -44,6 +64,7 @@
   window.NPT48_DATA = {
     isConfigured: isConfigured,
     getDirectImgLink: getDirectImgLink,
+    imgFallback: imgFallback,
     fetchSheet: fetchSheet
   };
 })(window);
