@@ -26,34 +26,29 @@
   <script src="assets/js/reveal.js"></script>
 
   <main>
-    <header class="page-head">
-      <div class="dots" aria-hidden="true">
-        <span class="dot dot--white" style="width:90px;height:90px;left:72%;top:30%;--d:9s;opacity:.7"></span>
-        <span class="dot dot--yellow" style="width:20px;height:20px;left:62%;top:64%;--d:6s"></span>
-        <span class="dot dot--ring" style="width:16px;height:16px;left:88%;top:70%;--d:7s"></span>
-        <span class="dot dot--navy" style="width:12px;height:12px;left:52%;top:26%;--d:5s"></span>
-      </div>
-      <div class="page-head-inner">
-        <div class="crumbs"><a href="./">HOME</a> › DISCOGRAPHY</div>
-        <h1 class="page-title">Discography</h1>
-        <p class="page-sub">ผลงานเพลงทั้งหมดของ NPT48</p>
-      </div>
-    </header>
+    <div class="page-band" aria-hidden="true"></div>
 
     <div class="page-body wave-top">
-      <div class="page-body-inner">
+      <div class="page-body-inner page-narrow">
+        <div class="list-head">
+          <h1 class="list-title">DISCOGRAPHY</h1>
+          <label class="select-pill">
+            <span class="sr-only">Filter by type</span>
+            <select id="discoFilter">
+              <option value="ALL">ALL</option>
+              <option value="SINGLE">SINGLE</option>
+              <option value="ALBUM">ALBUM</option>
+              <option value="DVD">DVD / BD</option>
+            </select>
+          </label>
+        </div>
+
         <div id="loading-overlay">
           <div class="spinner-ring"></div>
           <div>Loading NPT48 data...</div>
         </div>
 
         <div id="disco-view">
-          <div class="filter-tabs" id="discoFilterTabs">
-            <button class="tab-btn active" data-type="ALL">ALL</button>
-            <button class="tab-btn" data-type="SINGLE">SINGLE</button>
-            <button class="tab-btn" data-type="ALBUM">ALBUM</button>
-            <button class="tab-btn" data-type="DVD">DVD / BD</button>
-          </div>
           <div id="disco-grid" class="disco-grid"></div>
         </div>
       </div>
@@ -107,12 +102,8 @@
         });
     }
 
-    document.getElementById('discoFilterTabs').querySelectorAll('.tab-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        document.querySelectorAll('#discoFilterTabs .tab-btn').forEach(function (b) { b.classList.remove('active'); });
-        btn.classList.add('active');
-        renderGrid(btn.getAttribute('data-type'));
-      });
+    document.getElementById('discoFilter').addEventListener('change', function (e) {
+      renderGrid(e.target.value);
     });
 
     function renderGrid(type) {
@@ -133,11 +124,9 @@
         return '' +
           '<a href="' + esc(link) + '" target="_blank" rel="noopener" class="disco-card" data-pop style="--i:' + (i % 8) + '">' +
             '<div class="disco-card-thumb"><img src="' + esc(img) + '" alt="' + esc(d.songName) + '" loading="lazy" decoding="async" onerror="NPT48_DATA.imgFallback(this)"></div>' +
-            '<div class="disco-card-meta">' +
-              '<span class="tag tag--' + typeKey.toLowerCase() + '">' + TYPE_LABEL[typeKey] + '</span>' +
-              '<span class="disco-release">' + esc(d.release || '') + '</span>' +
-            '</div>' +
+            '<span class="disco-tag">' + TYPE_LABEL[typeKey] + '</span>' +
             '<div class="disco-card-title">' + esc(d.songName) + '</div>' +
+            (d.release ? '<div class="disco-release">' + esc(d.release) + ' Release</div>' : '') +
           '</a>';
       }).join('');
       if (window.NPT48_POPIN) window.NPT48_POPIN.init();
