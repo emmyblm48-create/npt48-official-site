@@ -1089,6 +1089,7 @@ body.is-scrolled .page-top { opacity: 1; visibility: visible; transform: none; t
 .page-band { height: clamp(110px, 12vw, 150px); background: linear-gradient(180deg, rgba(124, 194, 238, 0.12), rgba(124, 194, 238, 0)); }
 .page-band + .page-body { padding-top: clamp(40px, 5vw, 64px); }
 .page-narrow { max-width: 900px; }
+.page-narrow .members-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 44px clamp(18px, 2.4vw, 32px); }
 .list-head {
   display: flex;
   align-items: center;
@@ -1182,11 +1183,7 @@ body.is-scrolled .page-top { opacity: 1; visibility: visible; transform: none; t
 }
 
 /* About */
-.about-card {
-  max-width: 820px;
-  margin: 0 auto;
-  text-align: center;
-}
+.about-card { text-align: center; }
 .about-logo { width: 120px; margin: 0 auto; filter: drop-shadow(0 0 22px rgba(124, 194, 238, 0.5)); }
 .about-name { font-family: var(--font-display); font-size: 36px; margin-top: 24px; }
 .about-sub { font-family: var(--font-display); font-size: 13px; color: var(--ink-soft); letter-spacing: 0.1em; }
@@ -1493,7 +1490,7 @@ html.calm [data-pop="left"] { transform: none; }
   .hero-visual .stripe-ball--navy { width: 66px; height: 66px; right: 4px; top: 4%; }
   .hero-visual .stripe-ball--yellow { width: 24px; height: 24px; right: -4px; top: -2%; }
   .sec-head { align-items: flex-start; flex-direction: column; gap: 12px; }
-  .members-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 18px; }
+  .members-grid, .page-narrow .members-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 18px; }
   .member-circle-name { font-size: 14px; }
   .info-row { grid-template-columns: 100px 1fr; font-size: 14px; }
   .page-head { padding-top: 120px; padding-bottom: 56px; }

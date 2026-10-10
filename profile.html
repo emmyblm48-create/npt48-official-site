@@ -35,35 +35,29 @@
   <script src="assets/js/reveal.js"></script>
 
   <main>
-    <header class="page-head">
-      <div class="dots" aria-hidden="true">
-        <span class="dot dot--white" style="width:90px;height:90px;left:72%;top:30%;--d:9s;opacity:.7"></span>
-        <span class="dot dot--yellow" style="width:20px;height:20px;left:62%;top:64%;--d:6s"></span>
-        <span class="dot dot--ring" style="width:16px;height:16px;left:88%;top:70%;--d:7s"></span>
-        <span class="dot dot--navy" style="width:12px;height:12px;left:52%;top:26%;--d:5s"></span>
-      </div>
-      <div class="page-head-inner">
-        <div class="crumbs"><a href="./">HOME</a> › PROFILE</div>
-        <h1 class="page-title">Profile</h1>
-        <p class="page-sub">โปรไฟล์สมาชิก NPT48</p>
-      </div>
-    </header>
+    <div class="page-band" aria-hidden="true"></div>
 
     <div class="page-body wave-top">
-      <div class="page-body-inner">
+      <div class="page-body-inner page-narrow">
+        <div class="list-head">
+          <h1 class="list-title">PROFILE</h1>
+          <label class="select-pill" id="teamFilterWrap">
+            <span class="sr-only">Filter by team</span>
+            <select id="teamFilter">
+              <option value="ALL">ALL</option>
+              <option value="N">TEAM N</option>
+              <option value="P">TEAM P</option>
+              <option value="T">TEAM T</option>
+              <option value="Trainee">TRAINEE</option>
+            </select>
+          </label>
+        </div>
         <div id="loading-overlay">
           <div class="spinner-ring"></div>
           <div>Loading NPT48 data...</div>
         </div>
 
         <div id="main-view">
-          <div class="filter-tabs" id="teamFilterTabs">
-            <button class="tab-btn active" data-team="ALL">ALL</button>
-            <button class="tab-btn" data-team="N">TEAM N</button>
-            <button class="tab-btn" data-team="P">TEAM P</button>
-            <button class="tab-btn" data-team="T">TEAM T</button>
-            <button class="tab-btn" data-team="Trainee">TRAINEE</button>
-          </div>
           <div id="member-grid"></div>
         </div>
 
@@ -130,14 +124,15 @@
       if (!openFromHash()) showGrid();
     });
 
-    document.getElementById('teamFilterTabs').querySelectorAll('.tab-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        document.querySelectorAll('#teamFilterTabs .tab-btn').forEach(function (b) { b.classList.remove('active'); });
-        btn.classList.add('active');
-        currentTeamFilter = btn.getAttribute('data-team');
-        renderGrid();
-      });
+    document.getElementById('teamFilter').addEventListener('change', function (e) {
+      currentTeamFilter = e.target.value;
+      renderGrid();
     });
+
+    // The team dropdown only applies to the grid, so hide it on a member's page.
+    function setFilterVisible(show) {
+      document.getElementById('teamFilterWrap').style.visibility = show ? '' : 'hidden';
+    }
 
     function memberCardHTML(m, i) {
       var img = window.NPT48_DATA.getDirectImgLink(m.image);
@@ -205,6 +200,7 @@
 
       document.getElementById('main-view').style.display = 'none';
       document.getElementById('detail-view').style.display = 'block';
+      setFilterVisible(false);
       window.scrollTo(0, 0);
       return true;
     }
@@ -212,6 +208,7 @@
     function showGrid() {
       document.getElementById('detail-view').style.display = 'none';
       document.getElementById('main-view').style.display = 'block';
+      setFilterVisible(true);
 
       var card = currentMemberName && document.querySelector('.member-circle[data-name="' + CSS.escape(currentMemberName) + '"]');
       if (card) {
