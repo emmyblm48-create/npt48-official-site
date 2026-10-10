@@ -84,23 +84,8 @@
       </div>
     </section>
 
-    <!-- BIRTHDAY -->
-    <section class="section section--pale wave-top" id="birthday">
-      <div class="section-inner">
-        <div class="bday-wrap" data-pop>
-          <div class="bday-head">
-            <h2 class="sec-title">Happy<br>Birthday<small>สมาชิกที่เกิดเดือนนี้</small></h2>
-            <span class="bday-month" id="birthdayMonthLabel"></span>
-          </div>
-          <div class="bday-list" id="birthdayList">
-            <div class="data-empty">Loading...</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- MEMBERS -->
-    <section class="section section--white section--full wave-top" id="members">
+    <section class="section section--white section--full" id="members">
       <div class="section-inner">
         <div class="sec-head" data-pop="left">
           <h2 class="sec-title">Profile<small>สมาชิก NPT48</small></h2>
@@ -190,33 +175,6 @@
       document.getElementById('pickupMore').href = 'profile#' + encodeURIComponent(m.name);
     }
 
-    function renderBirthdayMonth(members) {
-      var today = new Date();
-      document.getElementById('birthdayMonthLabel').textContent = MONTH_EN[today.getMonth()].toUpperCase() + ' ' + today.getFullYear();
-
-      var listEl = document.getElementById('birthdayList');
-      var celebrants = members.map(function (m) {
-        var bday = m.birthday ? new Date(m.birthday) : null;
-        return (bday && !isNaN(bday.getTime())) ? { member: m, bday: bday } : null;
-      }).filter(function (e) { return e && e.bday.getMonth() === today.getMonth(); })
-        .sort(function (a, b) { return a.bday.getDate() - b.bday.getDate(); });
-
-      if (!celebrants.length) {
-        listEl.innerHTML = '<div class="data-empty">No member birthdays this month.</div>';
-        return;
-      }
-
-      listEl.innerHTML = celebrants.map(function (c) {
-        var img = window.NPT48_DATA.getDirectImgLink(c.member.image);
-        return '' +
-          '<a href="profile#' + encodeURIComponent(c.member.name) + '" class="bday-item">' +
-            '<div class="bday-avatar"><img src="' + esc(img) + '" alt="' + esc(c.member.name) + '" decoding="async" onerror="NPT48_DATA.imgFallback(this)"></div>' +
-            '<span class="bday-name">' + esc(c.member.name) + '</span>' +
-            '<span class="bday-date">' + c.bday.getDate() + ' ' + MONTH_EN[c.bday.getMonth()].toUpperCase() + '</span>' +
-          '</a>';
-      }).join('');
-    }
-
     function renderMembersRail(members) {
       var rail = document.getElementById('membersRail');
       if (!members.length) {
@@ -237,18 +195,15 @@
 
     function loadProfileData() {
       if (!window.NPT48_DATA.isConfigured()) {
-        document.getElementById('birthdayList').innerHTML = '<div class="data-empty">Google Sheets not connected yet</div>';
         document.getElementById('membersRail').innerHTML = '<div class="data-empty">Google Sheets not connected yet</div>';
         return;
       }
       window.NPT48_DATA.fetchSheet('Profile')
         .then(function (data) {
           renderPickup(data);
-          renderBirthdayMonth(data);
           renderMembersRail(data);
         })
         .catch(function () {
-          document.getElementById('birthdayList').innerHTML = '<div class="data-empty">Unable to load data.</div>';
           document.getElementById('membersRail').innerHTML = '<div class="data-empty">Unable to load data. Please try again later.</div>';
         });
     }

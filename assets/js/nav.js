@@ -8,8 +8,7 @@
     { href: 'profile', page: 'profile', label: 'Profile', sub: 'โปรไฟล์สมาชิก' },
     { href: 'discography', page: 'discography', label: 'Discography', sub: 'ผลงานเพลง' },
     { href: './#movie', page: 'movie', label: 'Movie', sub: 'วิดีโอ' },
-    { href: 'about', page: 'about', label: 'About', sub: 'เกี่ยวกับวง' },
-    { href: './#birthday', page: 'birthday', label: 'Birthday', sub: 'วันเกิดเดือนนี้' }
+    { href: 'about', page: 'about', label: 'About', sub: 'เกี่ยวกับวง' }
   ];
 
   var SOCIALS = {
@@ -129,7 +128,6 @@
             '<a href="profile">MEMBERS</a>' +
             '<a href="discography">RELEASES</a>' +
             '<a href="./#movie">MOVIE</a>' +
-            '<a href="./#birthday">BIRTHDAY</a>' +
             '<a href="about">OUR STORY</a>' +
             '<a href="https://www.akb48.co.jp/" target="_blank" rel="noopener">AKB48 GROUP</a>' +
           '</div>' +
