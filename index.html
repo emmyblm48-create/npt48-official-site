@@ -129,6 +129,8 @@
         if (Math.abs(dx) > 4) moved = true;
         e.preventDefault();
         rail.scrollLeft = scrollLeft - dx;
+        // A looping rail may have jumped by one set; carry the drag origin with it
+        if (rail._loopWrap) scrollLeft += rail._loopWrap();
       });
       // Don't follow a link at the end of a drag
       rail.addEventListener('click', function (e) { if (moved) { e.preventDefault(); moved = false; } }, true);
@@ -144,6 +146,54 @@
       prevBtn.addEventListener('click', function () { rail.scrollBy({ left: -step(), behavior: 'smooth' }); });
       nextBtn.addEventListener('click', function () { rail.scrollBy({ left: step(), behavior: 'smooth' }); });
     }
+    // Endless rail: the items are rendered three times (clone · original · clone)
+    // and the view starts on the middle copy. Whenever scrolling settles inside a
+    // clone, it jumps by exactly one set width to the matching original item, which
+    // looks identical, so prev/next, drag and swipe all loop forever.
+    function makeLoop(rail) {
+      var items = Array.prototype.slice.call(rail.children);
+      if (items.length < 2) return;
+      function cloneSet() {
+        return items.map(function (el) {
+          var c = el.cloneNode(true);
+          c.setAttribute('aria-hidden', 'true');
+          c.setAttribute('tabindex', '-1');
+          c.querySelectorAll('a, button').forEach(function (n) { n.setAttribute('tabindex', '-1'); });
+          return c;
+        });
+      }
+      cloneSet().forEach(function (c) { rail.insertBefore(c, items[0]); });
+      cloneSet().forEach(function (c) { rail.appendChild(c); });
+
+      var after = rail.children[items.length * 2];
+      function setWidth() { return after.offsetLeft - items[0].offsetLeft; }
+      // Only loop when the items overflow; otherwise the copies would sit in view
+      if (setWidth() <= rail.clientWidth) {
+        for (var i = 0; i < items.length; i++) { rail.removeChild(rail.firstElementChild); rail.removeChild(rail.lastElementChild); }
+        return;
+      }
+      function jump(dx) {
+        rail.style.scrollSnapType = 'none';
+        rail.scrollLeft += dx;
+        rail.style.scrollSnapType = '';
+        return dx;
+      }
+      rail._loopWrap = function () {
+        var w = setWidth(), x = rail.scrollLeft;
+        if (x < w * 0.5) return jump(w);
+        if (x >= w * 1.5) return jump(-w);
+        return 0;
+      };
+      jump(setWidth() - rail.scrollLeft);
+      // Wrap once a scroll (smooth button scroll, swipe, wheel) has come to rest
+      var timer;
+      rail.addEventListener('scroll', function () {
+        clearTimeout(timer);
+        timer = setTimeout(rail._loopWrap, 140);
+      }, { passive: true });
+      window.addEventListener('resize', function () { rail._loopWrap(); });
+    }
+
     wireRailNav('membersRail', 'membersPrev', 'membersNext');
     wireRailNav('movieGrid', 'moviePrev', 'movieNext');
 
@@ -193,6 +243,7 @@
         .then(function (data) {
           renderPickup(data);
           renderMembersRail(data);
+          if (data.length) makeLoop(document.getElementById('membersRail'));
         })
         .catch(function () {
           document.getElementById('membersRail').innerHTML = '<div class="data-empty">Unable to load data. Please try again later.</div>';
@@ -274,6 +325,7 @@
             return db - da;
           });
           renderMovieGrid(sorted);
+          makeLoop(document.getElementById('movieGrid'));
           renderBannerRail(sorted);
         })
         .catch(function () {
