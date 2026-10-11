@@ -40,15 +40,19 @@
     }
   }
 
+  var CACHE_TTL_MS = 5 * 60 * 1000;
+
   function fetchSheet(sheetName) {
     if (!isConfigured()) {
       return Promise.reject(new Error('SCRIPT_URL not configured'));
     }
 
+    // Cache briefly so page-to-page navigation stays fast, but expire it so
+    // sheet edits show up after a reload instead of sticking for the whole tab session.
     var cacheKey = 'npt48_sheet_' + sheetName;
     try {
-      var cached = sessionStorage.getItem(cacheKey);
-      if (cached) return Promise.resolve(JSON.parse(cached));
+      var cached = JSON.parse(sessionStorage.getItem(cacheKey));
+      if (cached && Date.now() - cached.t < CACHE_TTL_MS) return Promise.resolve(cached.data);
     } catch (e) { /* sessionStorage unavailable or corrupted cache — fall through to fetch */ }
 
     var url = SCRIPT_URL + '?sheet=' + encodeURIComponent(sheetName);
@@ -56,7 +60,7 @@
       if (!res.ok) throw new Error('Network error: ' + res.status);
       return res.json();
     }).then(function (data) {
-      try { sessionStorage.setItem(cacheKey, JSON.stringify(data)); } catch (e) { /* storage full or unavailable */ }
+      try { sessionStorage.setItem(cacheKey, JSON.stringify({ t: Date.now(), data: data })); } catch (e) { /* storage full or unavailable */ }
       return data;
     });
   }
