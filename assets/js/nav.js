@@ -1,6 +1,6 @@
 /* =========================================================
    NPT48 — Shared chrome: striped logo badge, blob MENU button,
-   full-screen split menu, wavy footer and page-top button.
+   full-screen stacked menu, wavy footer and page-top button.
    ========================================================= */
 (function () {
   var NAV_LINKS = [
@@ -113,6 +113,7 @@
       '</button>' +
       '<div class="site-menu" id="siteMenu" role="dialog" aria-modal="true" aria-label="Site menu">' +
         '<div class="site-menu-main">' +
+          '<a href="./" class="site-menu-logo" aria-label="NPT48 home"><img src="assets/images/logo.png" alt="NPT48" width="500" height="500"></a>' +
           '<nav class="site-menu-links" aria-label="Main navigation">' + navLinksHTML() + '</nav>' +
           socialRowHTML() +
         '</div>' +
