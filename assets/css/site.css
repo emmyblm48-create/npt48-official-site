@@ -6,10 +6,10 @@
    ========================================================= */
 
 :root {
-  --blue: #0044d8;          /* main accent */
-  --blue-dark: #0036ad;
-  --blue-soft: #4a6fd6;     /* inactive tabs */
-  --sky: #66ccff;           /* NPT48 official colour, small accents */
+  --blue: #66cbff;          /* main accent (NPT48 sky blue) */
+  --blue-dark: #3db8f5;
+  --blue-soft: #5fb4e0;     /* inactive tabs */
+  --sky: #66ccff;           /* NPT48 official colour */
   --ink: #111111;
   --muted: #6b7280;
   --line: #d9dde3;
@@ -190,7 +190,7 @@ main { padding-top: var(--header-h); }
 .slider-arrow--prev { left: 8px; }
 .slider-arrow--next { right: 8px; }
 .slider-dots { display: flex; justify-content: center; gap: 12px; margin-top: 20px; list-style: none; }
-.slider-dots button { width: 10px; height: 10px; border-radius: 50%; background: #c8d3ee; transition: background .2s; }
+.slider-dots button { width: 10px; height: 10px; border-radius: 50%; background: #c4eaff; transition: background .2s; }
 .slider-dots button.active { background: var(--blue); }
 @media (max-width: 639px) {
   .banner-card { flex-basis: 76%; }
@@ -250,7 +250,7 @@ main { padding-top: var(--header-h); }
 
 /* ---------- Member tiles (home rail, profile grid) ---------- */
 .member-tile { display: block; scroll-snap-align: start; position: relative; }
-.member-photo { aspect-ratio: 3 / 4; overflow: hidden; background: #dbe4f8; }
+.member-photo { aspect-ratio: 3 / 4; overflow: hidden; background: #d9f1ff; }
 .member-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .45s; }
 .member-tile:hover .member-photo img { transform: scale(1.05); }
 .member-name {
@@ -302,7 +302,7 @@ main { padding-top: var(--header-h); }
 @media (max-width: 639px) { .logo-block { padding: 40px 0 48px; } .logo-block img { width: 110px; height: 110px; } }
 
 .member-detail { max-width: 720px; margin: 0 auto; text-align: center; }
-.member-detail-photo { max-width: 470px; margin: 0 auto; aspect-ratio: 3 / 4; background: #dbe4f8; overflow: hidden; }
+.member-detail-photo { max-width: 470px; margin: 0 auto; aspect-ratio: 3 / 4; background: #d9f1ff; overflow: hidden; }
 .member-detail-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
 .member-detail h2 { margin-top: 24px; font-size: 28px; font-weight: 700; letter-spacing: .03em; }
 .member-detail .names { font-size: 14px; color: var(--muted); }
