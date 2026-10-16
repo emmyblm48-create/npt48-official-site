@@ -1,22 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0b1240">
-  <title>NPT48 Official Site — Profile</title>
+  <meta name="theme-color" content="#ffffff">
+  <title>PROFILE | NPT48 OFFICIAL SITE</title>
   <link rel="icon" type="image/png" href="assets/images/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&family=K2D:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/site.css">
-
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-  </style>
 </head>
 <body>
 
@@ -26,50 +20,43 @@
   <script src="assets/js/reveal.js"></script>
 
   <main>
-    <div class="page-band" aria-hidden="true"></div>
+    <div class="content page-title">
+      <h1 class="subtitle" data-pop>PROFILE</h1>
 
-    <div class="page-body wave-top">
-      <div class="page-body-inner page-narrow">
-        <div class="list-head">
-          <h1 class="list-title">PROFILE</h1>
-          <label class="select-pill" id="teamFilterWrap">
-            <span class="sr-only">Filter by team</span>
-            <select id="teamFilter">
-              <option value="ALL">ALL</option>
-              <option value="N">TEAM N</option>
-              <option value="P">TEAM P</option>
-              <option value="T">TEAM T</option>
-              <option value="Trainee">TRAINEE</option>
-            </select>
-          </label>
-          <button type="button" class="pill back-btn" id="backBtn" onclick="goBack()" hidden>‹ BACK</button>
+      <!-- Group view: key visual -->
+      <div id="main-view" class="group-photo">
+        <img src="https://lh3.googleusercontent.com/d/16h5s_zmCcpfUp12RwzNzeFYnjnp109RK=s2000" alt="NPT48" onerror="NPT48_DATA.imgFallback(this)">
+      </div>
+
+      <!-- Member view -->
+      <div id="detail-view" class="member-detail" hidden>
+        <div class="member-detail-photo"><img id="m-img" src="assets/images/logo.png" alt=""></div>
+        <h2 id="m-name"></h2>
+        <p class="names" id="m-names"></p>
+        <div id="m-social"></div>
+        <dl class="info-grid" id="m-info"></dl>
+      </div>
+    </div>
+
+    <div class="logo-block"><img src="assets/images/logo.png" alt="NPT48" width="500" height="500"></div>
+
+    <!-- Member list -->
+    <section class="section section--blue" id="members">
+      <div class="content">
+        <div class="tabs" id="teamTabs" role="tablist" aria-label="Filter by team">
+          <button type="button" data-team="ALL" class="active">ALL</button>
+          <button type="button" data-team="N">TEAM N</button>
+          <button type="button" data-team="P">TEAM P</button>
+          <button type="button" data-team="T">TEAM T</button>
+          <button type="button" data-team="Trainee">TRAINEE</button>
         </div>
-        <div id="loading-overlay">
+        <div id="loading-overlay" style="color:#fff">
           <div class="spinner-ring"></div>
           <div>Loading NPT48 data...</div>
         </div>
-
-        <div id="main-view">
-          <div id="member-grid"></div>
-        </div>
-
-        <div id="detail-view">
-          <div class="detail-layout">
-            <div class="detail-photo"><img id="m-img" alt="Member photo"></div>
-            <div class="detail-content">
-              <div class="info-header">
-                <div class="info-name-row">
-                  <h2 id="m-name-th"></h2>
-                  <div class="social-section" id="m-social"></div>
-                </div>
-                <p id="m-name-en"></p>
-              </div>
-              <div class="info-table" id="m-info-table"></div>
-            </div>
-          </div>
-        </div>
+        <div class="member-grid" id="member-grid"></div>
       </div>
-    </div>
+    </section>
   </main>
 
   <div id="site-footer"></div>
@@ -94,53 +81,35 @@
       window.NPT48_DATA.fetchSheet('Profile')
         .then(function (data) {
           membersData = data;
-          renderGrid();
           document.getElementById('loading-overlay').style.display = 'none';
-          if (!openFromHash()) document.getElementById('main-view').style.display = 'block';
+          renderGrid();
+          openFromHash();
         })
         .catch(function () {
           document.getElementById('loading-overlay').innerHTML = 'Unable to load data. Please try again later.';
         });
     }
 
-    // Links from the home page arrive as profile#<nickname>
+    // Members open as profile#<nickname> (from the grid below or the home page)
     function openFromHash() {
       var name = decodeURIComponent(window.location.hash.slice(1));
-      if (!name) return false;
-      return viewDetail(name, true);
+      if (!name || !viewDetail(name)) showGroup();
     }
 
     window.addEventListener('hashchange', function () {
-      if (!membersData.length) return;
-      if (!openFromHash()) showGrid();
+      if (membersData.length) { openFromHash(); window.scrollTo(0, 0); }
     });
 
-    document.getElementById('teamFilter').addEventListener('change', function (e) {
-      currentTeamFilter = e.target.value;
+    document.getElementById('teamTabs').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-team]');
+      if (!b) return;
+      currentTeamFilter = b.getAttribute('data-team');
+      this.querySelectorAll('button').forEach(function (x) { x.classList.toggle('active', x === b); });
       renderGrid();
     });
 
-    // The team dropdown only applies to the grid, so hide it on a member's page.
-    // and BACK takes its place in the title row while a member is open.
-    function setFilterVisible(show) {
-      document.getElementById('teamFilterWrap').hidden = !show;
-      document.getElementById('backBtn').hidden = show;
-    }
-
-    function memberCardHTML(m, i) {
-      var img = window.NPT48_DATA.getDirectImgLink(m.image);
-      var badge = m.generation ? '<span class="member-circle-badge">' + esc(String(m.generation).replace(/\s*Generation/i, ' Gen')) + '</span>' : '';
-      return '' +
-        '<a href="#' + encodeURIComponent(m.name) + '" class="member-circle" data-name="' + esc(m.name) + '" data-pop style="--i:' + (i % 6) + '">' +
-          '<div class="member-circle-photo">' + badge + '<img src="' + esc(img) + '" alt="' + esc(m.name) + '" loading="lazy" decoding="async" onerror="NPT48_DATA.imgFallback(this)"></div>' +
-          '<div class="member-circle-name">' + esc(m.name) + '</div>' +
-          '<div class="member-circle-en">' + esc(m.fullNameEN || '') + '</div>' +
-        '</a>';
-    }
-
     function renderGrid() {
       var grid = document.getElementById('member-grid');
-
       if (!membersData.length) {
         grid.innerHTML = '<p class="data-empty">Unable to load data. Please try again later.</p>';
         return;
@@ -152,12 +121,26 @@
       list.sort(function (a, b) { return (a.name || '').localeCompare(b.name || ''); });
 
       if (!list.length) {
-        grid.innerHTML = '<p class="data-empty">No members found.</p>';
+        grid.innerHTML = '<p class="data-empty" style="grid-column:1/-1;background:var(--blue)">No members found.</p>';
         return;
       }
 
-      grid.innerHTML = '<div class="members-grid">' + list.map(memberCardHTML).join('') + '</div>';
-      if (window.NPT48_POPIN) window.NPT48_POPIN.init();
+      grid.innerHTML = list.map(function (m) {
+        var img = window.NPT48_DATA.getDirectImgLink(m.image);
+        var badge = m.generation ? '<span class="member-badge">' + esc(String(m.generation).replace(/\s*Generation/i, ' Gen')) + '</span>' : '';
+        return '' +
+          '<a href="#' + encodeURIComponent(m.name) + '" class="member-tile' + (m.name === currentMemberName ? ' active' : '') + '" data-name="' + esc(m.name) + '">' +
+            badge +
+            '<div class="member-photo"><img src="' + esc(img) + '" alt="' + esc(m.name) + '" loading="lazy" decoding="async" onerror="NPT48_DATA.imgFallback(this)"></div>' +
+            '<div class="member-name">' + esc(String(m.name).toUpperCase()) + '</div>' +
+          '</a>';
+      }).join('');
+    }
+
+    function markActive() {
+      document.querySelectorAll('.member-grid .member-tile').forEach(function (t) {
+        t.classList.toggle('active', t.getAttribute('data-name') === currentMemberName);
+      });
     }
 
     function viewDetail(nickname) {
@@ -168,58 +151,44 @@
       img.src = window.NPT48_DATA.getDirectImgLink(m.image);
       img.alt = m.name;
       img.onerror = function () { window.NPT48_DATA.imgFallback(img); };
-      document.getElementById('m-name-th').innerText = m.fullNameTH || m.name;
-      document.getElementById('m-name-en').innerText = m.fullNameEN || '';
+      document.getElementById('m-name').textContent = String(m.name).toUpperCase();
+      // The sheet's "fullNameTH" column holds the romanised name and "fullNameEN" the Thai one
+      document.getElementById('m-names').textContent = [m.fullNameTH, m.fullNameEN].filter(Boolean).join(' / ');
 
       var infoList = [
-        { label: 'Nickname', value: m.name },
-        { label: 'Generation', value: m.generation },
-        { label: 'Team', value: m.team },
-        { label: 'Birthday', value: m.birthday },
-        { label: 'Oshi Mark', value: m.oshiMark },
-        { label: 'Province', value: m.province },
-        { label: 'Blood Type', value: m.bloodType },
-        { label: 'Likes', value: m.like },
-        { label: 'Hobby', value: m.hobby }
+        ['BIRTHDAY', m.birthday],
+        ['GENERATION', m.generation],
+        ['TEAM', m.team],
+        ['OSHI MARK', m.oshiMark],
+        ['PROVINCE', m.province],
+        ['BLOOD TYPE', m.bloodType],
+        ['LIKES', m.like, true],
+        ['HOBBY', m.hobby, true]
       ];
-
-      document.getElementById('m-info-table').innerHTML = infoList.map(function (item) {
-        return '<div class="info-row"><div class="info-label">' + item.label.toUpperCase() + '</div><div class="info-value">' + esc(item.value || '-') + '</div></div>';
+      document.getElementById('m-info').innerHTML = infoList.map(function (it) {
+        return '<div' + (it[2] ? ' class="wide"' : '') + '><dt>' + it[0] + '</dt><dd>' + esc(it[1] || '-') + '</dd></div>';
       }).join('');
 
-      var sHTML = '';
-      if (m.instagram && m.instagram !== '-') sHTML += '<a href="' + esc(m.instagram) + '" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">' + ICON_INSTAGRAM + '</a>';
-      document.getElementById('m-social').innerHTML = sHTML;
+      document.getElementById('m-social').innerHTML = (m.instagram && m.instagram !== '-')
+        ? '<a href="' + esc(m.instagram) + '" class="ig-link" target="_blank" rel="noopener">' + ICON_INSTAGRAM + 'INSTAGRAM</a>'
+        : '';
 
-      document.getElementById('main-view').style.display = 'none';
-      document.getElementById('detail-view').style.display = 'block';
-      setFilterVisible(false);
-      window.scrollTo(0, 0);
+      document.title = String(m.name).toUpperCase() + ' | PROFILE | NPT48 OFFICIAL SITE';
+      document.getElementById('main-view').hidden = true;
+      document.getElementById('detail-view').hidden = false;
+      markActive();
       return true;
     }
 
-    function showGrid() {
-      document.getElementById('detail-view').style.display = 'none';
-      document.getElementById('main-view').style.display = 'block';
-      setFilterVisible(true);
-
-      var card = currentMemberName && document.querySelector('.member-circle[data-name="' + CSS.escape(currentMemberName) + '"]');
-      if (card) {
-        card.scrollIntoView({ block: 'center' });
-      } else {
-        window.scrollTo(0, 0);
-      }
-    }
-
-    function goBack() {
-      if (window.location.hash) {
-        history.pushState(null, '', window.location.pathname + window.location.search);
-      }
-      showGrid();
+    function showGroup() {
+      currentMemberName = null;
+      document.title = 'PROFILE | NPT48 OFFICIAL SITE';
+      document.getElementById('detail-view').hidden = true;
+      document.getElementById('main-view').hidden = false;
+      markActive();
     }
 
     init();
   </script>
-  <script src="assets/js/motion.js"></script>
 </body>
 </html>

@@ -1,22 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0b1240">
-  <title>NPT48 Official Site — Discography</title>
+  <meta name="theme-color" content="#ffffff">
+  <title>DISCOGRAPHY | NPT48 OFFICIAL SITE</title>
   <link rel="icon" type="image/png" href="assets/images/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&family=K2D:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/site.css">
-
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-  </style>
 </head>
 <body>
 
@@ -26,32 +20,26 @@
   <script src="assets/js/reveal.js"></script>
 
   <main>
-    <div class="page-band" aria-hidden="true"></div>
+    <div class="content page-title" style="padding-bottom:80px">
+      <h1 class="subtitle" data-pop>DISCOGRAPHY</h1>
 
-    <div class="page-body wave-top">
-      <div class="page-body-inner page-narrow">
-        <div class="list-head">
-          <h1 class="list-title">DISCOGRAPHY</h1>
-          <label class="select-pill">
-            <span class="sr-only">Filter by type</span>
-            <select id="discoFilter">
-              <option value="ALL">ALL</option>
-              <option value="SINGLE">SINGLE</option>
-              <option value="ALBUM">ALBUM</option>
-              <option value="DVD">DVD / BD</option>
-            </select>
-          </label>
-        </div>
-
-        <div id="loading-overlay">
-          <div class="spinner-ring"></div>
-          <div>Loading NPT48 data...</div>
-        </div>
-
-        <div id="disco-view">
-          <div id="disco-grid" class="disco-grid"></div>
-        </div>
+      <div class="tabs" id="typeTabs" aria-label="Filter by type">
+        <a href="#" data-type="ALL" class="active">ALL</a>
+        <a href="#" data-type="SINGLE">SINGLE</a>
+        <a href="#" data-type="ALBUM">ALBUM</a>
+        <a href="#" data-type="DVD">DVD/BD</a>
       </div>
+
+      <div id="loading-overlay">
+        <div class="spinner-ring"></div>
+        <div>Loading NPT48 data...</div>
+      </div>
+
+      <!-- List -->
+      <div class="disco-list" id="disco-list" hidden></div>
+
+      <!-- Release detail: discography#<title> -->
+      <div class="disco-detail" id="disco-detail" hidden></div>
     </div>
   </main>
 
@@ -59,6 +47,7 @@
 
   <script>
     var discoData = [];
+    var currentType = 'ALL';
     var TYPE_LABEL = { SINGLE: 'SINGLE', ALBUM: 'ALBUM', DVD: 'DVD/BD' };
 
     function esc(s) {
@@ -83,6 +72,19 @@
       return isNaN(d.getTime()) ? 0 : d.getTime();
     }
 
+    function fmtRelease(raw) {
+      var t = parseReleaseDate(raw);
+      if (!t) return esc(raw || '');
+      var d = new Date(t);
+      return d.getFullYear() + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + String(d.getDate()).padStart(2, '0');
+    }
+
+    function linkLabel(url) {
+      if (/youtu\.?be/i.test(url)) return /playlist|list=/i.test(url) ? 'YouTube Playlist' : 'YouTube';
+      if (/spotify/i.test(url)) return 'Spotify';
+      return 'Link';
+    }
+
     function init() {
       if (!window.NPT48_DATA.isConfigured()) {
         document.getElementById('loading-overlay').innerHTML = 'Google Sheets not connected yet — set SCRIPT_URL in <code>assets/js/data.js</code>';
@@ -93,47 +95,103 @@
           discoData = data.slice().sort(function (a, b) {
             return parseReleaseDate(b.release) - parseReleaseDate(a.release);
           });
-          renderGrid('ALL');
           document.getElementById('loading-overlay').style.display = 'none';
-          document.getElementById('disco-view').style.display = 'block';
+          route();
         })
         .catch(function () {
           document.getElementById('loading-overlay').innerHTML = 'Unable to load data. Please try again later.';
         });
     }
 
-    document.getElementById('discoFilter').addEventListener('change', function (e) {
-      renderGrid(e.target.value);
+    function route() {
+      var name = decodeURIComponent(window.location.hash.slice(1));
+      var item = name && discoData.find(function (d) { return d.songName === name; });
+      if (item) showDetail(item); else showList();
+    }
+
+    window.addEventListener('hashchange', function () {
+      if (!discoData.length) return;
+      route();
+      window.scrollTo(0, 0);
     });
 
-    function renderGrid(type) {
-      var grid = document.getElementById('disco-grid');
-      var filtered = type === 'ALL' ? discoData : discoData.filter(function (d) {
-        return classifyType(d.type) === type;
-      });
+    document.getElementById('typeTabs').addEventListener('click', function (e) {
+      var a = e.target.closest('[data-type]');
+      if (!a) return;
+      e.preventDefault();
+      currentType = a.getAttribute('data-type');
+      // From a release page, a tab takes you back to the (filtered) list
+      if (window.location.hash) history.pushState(null, '', window.location.pathname + window.location.search);
+      showList();
+    });
 
+    function markTabs(type) {
+      document.querySelectorAll('#typeTabs [data-type]').forEach(function (a) {
+        a.classList.toggle('active', a.getAttribute('data-type') === type);
+      });
+    }
+
+    function showList() {
+      document.title = 'DISCOGRAPHY | NPT48 OFFICIAL SITE';
+      markTabs(currentType);
+      document.getElementById('disco-detail').hidden = true;
+      var list = document.getElementById('disco-list');
+      list.hidden = false;
+
+      var filtered = currentType === 'ALL' ? discoData : discoData.filter(function (d) {
+        return classifyType(d.type) === currentType;
+      });
       if (!filtered.length) {
-        grid.innerHTML = '<p class="data-empty">No releases in this category yet.</p>';
+        list.innerHTML = '<p class="data-empty" style="grid-column:1/-1">No releases in this category yet.</p>';
         return;
       }
-
-      grid.innerHTML = filtered.map(function (d, i) {
+      list.innerHTML = filtered.map(function (d, i) {
         var img = window.NPT48_DATA.getDirectImgLink(d.image);
-        var typeKey = classifyType(d.type);
-        var link = d.link || '#';
         return '' +
-          '<a href="' + esc(link) + '" target="_blank" rel="noopener" class="disco-card" data-pop style="--i:' + (i % 8) + '">' +
-            '<div class="disco-card-thumb"><img src="' + esc(img) + '" alt="' + esc(d.songName) + '" loading="lazy" decoding="async" onerror="NPT48_DATA.imgFallback(this)"></div>' +
-            '<span class="disco-tag">' + TYPE_LABEL[typeKey] + '</span>' +
-            '<div class="disco-card-title">' + esc(d.songName) + '</div>' +
-            (d.release ? '<div class="disco-release">' + esc(d.release) + ' Release</div>' : '') +
+          '<a href="#' + encodeURIComponent(d.songName) + '" class="disco-item" data-pop style="--i:' + (i % 4) + '">' +
+            '<div class="disco-cover"><img src="' + esc(img) + '" alt="' + esc(d.songName) + '" loading="lazy" decoding="async" onerror="NPT48_DATA.imgFallback(this)"></div>' +
+            '<div>' +
+              '<div class="disco-meta">' + fmtRelease(d.release) + '<span class="sep">|</span>' + TYPE_LABEL[classifyType(d.type)] + '</div>' +
+              '<div class="disco-title">' + esc(d.songName) + '</div>' +
+            '</div>' +
           '</a>';
       }).join('');
       if (window.NPT48_POPIN) window.NPT48_POPIN.init();
     }
 
+    function showDetail(d) {
+      var typeKey = classifyType(d.type);
+      document.title = d.songName + ' | DISCOGRAPHY | NPT48 OFFICIAL SITE';
+      markTabs(typeKey);
+      document.getElementById('disco-list').hidden = true;
+      var box = document.getElementById('disco-detail');
+      box.hidden = false;
+
+      var img = window.NPT48_DATA.getDirectImgLink(d.image);
+      var link = d.link && d.link !== '-' ? d.link : '';
+      box.innerHTML = '' +
+        '<div class="disco-detail-cover"><img src="' + esc(img) + '" alt="' + esc(d.songName) + '" onerror="NPT48_DATA.imgFallback(this)"></div>' +
+        '<p class="meta">[' + TYPE_LABEL[typeKey] + '] ' + fmtRelease(d.release) + ' Release</p>' +
+        '<h2>' + esc(d.songName) + '</h2>' +
+        '<div class="detail-box">' +
+          '<h3>รายละเอียด</h3>' +
+          '<p>NPT48 ' + TYPE_LABEL[typeKey] + ' 「' + esc(d.songName) + '」</p>' +
+          (link ? '<h3>ฟังเพลง・ดู MV (' + linkLabel(link) + ')</h3><p><a href="' + esc(link) + '" target="_blank" rel="noopener">' + esc(link) + '</a></p>' : '') +
+        '</div>' +
+        '<div class="detail-actions">' +
+          (link ? '<a href="' + esc(link) + '" class="btn-outline" target="_blank" rel="noopener">LISTEN / WATCH</a>' : '') +
+          '<a href="discography" class="btn-outline" id="backToList">กลับไปหน้ารายการ</a>' +
+        '</div>';
+
+      document.getElementById('backToList').addEventListener('click', function (e) {
+        e.preventDefault();
+        history.pushState(null, '', window.location.pathname + window.location.search);
+        showList();
+        window.scrollTo(0, 0);
+      });
+    }
+
     init();
   </script>
-  <script src="assets/js/motion.js"></script>
 </body>
 </html>

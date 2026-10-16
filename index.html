@@ -1,22 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0b1240">
-  <title>NPT48 Official Site — Home</title>
+  <meta name="theme-color" content="#ffffff">
+  <title>NPT48 OFFICIAL SITE</title>
   <link rel="icon" type="image/png" href="assets/images/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&family=K2D:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/site.css">
-
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-  </style>
 </head>
 <body>
 
@@ -26,100 +20,88 @@
   <script src="assets/js/reveal.js"></script>
 
   <main>
-    <!-- HERO -->
-    <section class="top-hero">
-      <div class="dots" aria-hidden="true">
-        <span class="dot dot--yellow" data-depth style="width:48px;height:48px;left:-24px;top:34%;--d:9s;--depth:30"></span>
-        <span class="dot dot--ring" data-depth style="width:28px;height:28px;left:25%;top:27%;--d:6s;--depth:18"></span>
-        <span class="dot dot--yellow" data-depth style="width:14px;height:14px;left:39.5%;top:33%;--d:7s;--depth:42"></span>
-        <span class="dot dot--yellow" data-depth style="width:22px;height:22px;left:49%;top:50%;--d:8s;--depth:26"></span>
-        <span class="dot dot--navy" data-depth style="width:48px;height:48px;left:41.5%;top:76%;--d:10s;--depth:34"></span>
-        <span class="stripe-ball stripe-ball--white" data-depth style="width:116px;height:116px;left:6%;top:76%;--d:11s;--depth:22"></span>
-      </div>
-      <span class="scroll-line" aria-hidden="true"></span>
+    <!-- KEY VISUAL -->
+    <div class="hero">
+      <img src="https://lh3.googleusercontent.com/d/16h5s_zmCcpfUp12RwzNzeFYnjnp109RK=s2000" alt="NPT48 — from the mountains to the sea" fetchpriority="high" onerror="NPT48_DATA.imgFallback(this)">
+    </div>
 
-      <div class="hero-copy" data-depth style="--depth:-10">
-        <h1 class="hero-wordmark">NPT48<span>Official Site</span></h1>
-      </div>
+    <!-- BANNER SLIDER -->
+    <div class="slider" id="slider" hidden>
+      <div class="slider-track" id="sliderTrack"></div>
+      <button type="button" class="slider-arrow slider-arrow--prev" id="sliderPrev" aria-label="Previous">&#8249;</button>
+      <button type="button" class="slider-arrow slider-arrow--next" id="sliderNext" aria-label="Next">&#8250;</button>
+      <ul class="slider-dots" id="sliderDots"></ul>
+    </div>
 
-      <div class="hero-visual">
-        <div class="pickup-frame" data-depth style="--depth:10">
-          <span class="orbit-track" aria-hidden="true"></span>
-          <span class="orbit-track orbit-track--gold" aria-hidden="true"></span>
-          <div class="pickup-photo"><img id="pickupImg" src="assets/images/logo.png" alt="" fetchpriority="high"></div>
-          <a href="discography" class="release-mini" id="releaseMini" hidden>
-            <div class="release-mini-inner">
-              <div class="release-mini-brand">NPT48</div>
-              <div class="release-mini-kicker">Latest Release</div>
-              <img id="releaseMiniImg" src="" alt="">
-              <div class="release-mini-title" id="releaseMiniTitle"></div>
-            </div>
-          </a>
-          <div class="pickup-badge">
-            <span class="pickup-kicker">PICK UP!</span>
-            <span class="pickup-name" id="pickupName">NPT48</span>
-            <a href="profile" class="pickup-more" id="pickupMore">PROFILE</a>
-          </div>
-        </div>
-        <span class="stripe-ball stripe-ball--navy" data-depth style="--depth:46" aria-hidden="true"></span>
-        <span class="stripe-ball stripe-ball--yellow" data-depth style="--depth:60" aria-hidden="true"></span>
+    <!-- NEWS -->
+    <section class="section" id="news">
+      <div class="content">
+        <h2 class="subtitle" data-pop>NEWS</h2>
+        <div class="news-list" id="newsList"><div class="data-empty">Loading NPT48 data...</div></div>
+        <button type="button" class="btn-outline" id="newsMore" hidden>MORE</button>
       </div>
     </section>
 
-    <!-- BANNER RAIL -->
-    <section class="banner-band" id="banner" aria-label="Highlights">
-      <div class="rail banner-rail" id="bannerRail">
-        <a href="about" class="banner-card banner-card--kv">
-          <img src="https://lh3.googleusercontent.com/d/16h5s_zmCcpfUp12RwzNzeFYnjnp109RK=s1000" alt="NPT48 — from the mountains to the sea" decoding="async" onerror="NPT48_DATA.imgFallback(this)">
-        </a>
-      </div>
-    </section>
-
-    <!-- MEMBERS -->
-    <section class="section section--white section--full" id="members">
-      <div class="section-inner">
-        <div class="sec-head" data-pop="left">
-          <h2 class="sec-title">Profile<small>สมาชิก NPT48</small></h2>
-          <a href="profile" class="view-all">VIEW ALL</a>
-        </div>
-        <div class="rail-wrap" data-pop>
-          <div class="rail" id="membersRail">
-            <div class="data-empty">Loading NPT48 data...</div>
-          </div>
-          <div class="rail-controls">
-            <button type="button" class="rail-nav-btn" id="membersPrev" aria-label="Previous members"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
-            <button type="button" class="rail-nav-btn" id="membersNext" aria-label="Next members"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
-          </div>
+    <!-- VIDEO -->
+    <section class="section section--blue" id="movie">
+      <div class="content">
+        <h2 class="subtitle" data-pop>VIDEO</h2>
+        <div class="video-frame" id="videoFrame"></div>
+        <div class="video-now" id="videoNow"></div>
+        <div class="rail-wrap movie-rail-wrap">
+          <div class="rail movie-rail" id="movieRail"><div class="data-empty">Loading NPT48 data...</div></div>
+          <button type="button" class="rail-arrow rail-arrow--prev" id="moviePrev" aria-label="Previous videos">&#8249;</button>
+          <button type="button" class="rail-arrow rail-arrow--next" id="movieNext" aria-label="Next videos">&#8250;</button>
         </div>
       </div>
     </section>
 
-    <!-- MOVIE -->
-    <section class="section section--sky section--full" id="movie">
-      <div class="section-inner">
-        <div class="sec-head" data-pop="left">
-          <h2 class="sec-title">Movie<small>วิดีโอล่าสุด</small></h2>
-          <a href="discography" class="view-all">VIEW ALL</a>
-        </div>
-        <div class="rail-wrap movie-rail-wrap" data-pop>
-          <div class="rail movie-rail" id="movieGrid">
-            <div class="data-empty">Loading NPT48 data...</div>
-          </div>
-          <div class="rail-controls">
-            <button type="button" class="rail-nav-btn" id="moviePrev" aria-label="Previous videos"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
-            <button type="button" class="rail-nav-btn" id="movieNext" aria-label="Next videos"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
-          </div>
-        </div>
+    <!-- PROFILE -->
+    <section class="section section--blue section--members" id="members">
+      <h2 class="subtitle" data-pop>PROFILE</h2>
+      <div class="rail-wrap">
+        <div class="rail members-rail" id="membersRail"><div class="data-empty">Loading NPT48 data...</div></div>
+        <button type="button" class="rail-arrow rail-arrow--prev" id="membersPrev" aria-label="Previous members">&#8249;</button>
+        <button type="button" class="rail-arrow rail-arrow--next" id="membersNext" aria-label="Next members">&#8250;</button>
       </div>
+      <div class="content"><a href="profile" class="btn-outline">MORE</a></div>
     </section>
   </main>
 
-  <!-- FOOTER -->
   <div id="site-footer"></div>
 
   <script>
-    // Horizontal rail drag-to-scroll (mouse only; touch scrolls natively)
-    document.querySelectorAll('.rail').forEach(function (rail) {
+    var D = window.NPT48_DATA;
+    var NEWS_SHOWN = 4;
+    var NEW_DAYS = 30;
+
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+
+    function parseDate(raw) {
+      var parts = (raw || '').toString().split(/[.\-\/]/).map(Number);
+      if (parts.length === 3 && parts[0] > 999 && parts.every(function (n) { return !isNaN(n); })) {
+        return new Date(parts[0], parts[1] - 1, parts[2]);
+      }
+      var d = new Date(raw);
+      return isNaN(d.getTime()) ? null : d;
+    }
+
+    function fmtDate(d) {
+      if (!d) return '';
+      return d.getFullYear() + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + String(d.getDate()).padStart(2, '0');
+    }
+
+    function youtubeId(url) {
+      var m = String(url || '').match(/(?:youtu\.be\/|[?&]v=|\/shorts\/|\/embed\/|\/live\/)([\w-]{11})/);
+      return m ? m[1] : null;
+    }
+
+    // ---- Horizontal rails: drag to scroll (mouse; touch scrolls natively) ----
+    function wireDrag(rail) {
       var isDown = false, moved = false, startX, scrollLeft;
       rail.addEventListener('mousedown', function (e) { isDown = true; moved = false; startX = e.pageX; scrollLeft = rail.scrollLeft; rail.style.scrollSnapType = 'none'; });
       window.addEventListener('mouseup', function () { if (!isDown) return; isDown = false; rail.style.scrollSnapType = ''; });
@@ -133,19 +115,16 @@
         if (rail._loopWrap) scrollLeft += rail._loopWrap();
       });
       // Don't follow a link at the end of a drag
-      rail.addEventListener('click', function (e) { if (moved) { e.preventDefault(); moved = false; } }, true);
+      rail.addEventListener('click', function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
       rail.addEventListener('dragstart', function (e) { e.preventDefault(); });
-    });
-
-    function wireRailNav(railId, prevId, nextId) {
-      var rail = document.getElementById(railId);
-      var prevBtn = document.getElementById(prevId);
-      var nextBtn = document.getElementById(nextId);
-      if (!rail || !prevBtn || !nextBtn) return;
-      function step() { return rail.clientWidth * 0.8; }
-      prevBtn.addEventListener('click', function () { rail.scrollBy({ left: -step(), behavior: 'smooth' }); });
-      nextBtn.addEventListener('click', function () { rail.scrollBy({ left: step(), behavior: 'smooth' }); });
     }
+
+    function wireRailNav(rail, prevId, nextId) {
+      function step() { return rail.clientWidth * 0.8; }
+      document.getElementById(prevId).addEventListener('click', function () { rail.scrollBy({ left: -step(), behavior: 'smooth' }); });
+      document.getElementById(nextId).addEventListener('click', function () { rail.scrollBy({ left: step(), behavior: 'smooth' }); });
+    }
+
     // Endless rail: the items are rendered three times (clone · original · clone)
     // and the view starts on the middle copy. Whenever scrolling settles inside a
     // clone, it jumps by exactly one set width to the matching original item, which
@@ -185,7 +164,6 @@
         return 0;
       };
       jump(setWidth() - rail.scrollLeft);
-      // Wrap once a scroll (smooth button scroll, swipe, wheel) has come to rest
       var timer;
       rail.addEventListener('scroll', function () {
         clearTimeout(timer);
@@ -194,147 +172,169 @@
       window.addEventListener('resize', function () { rail._loopWrap(); });
     }
 
-    wireRailNav('membersRail', 'membersPrev', 'membersNext');
-    wireRailNav('movieGrid', 'moviePrev', 'movieNext');
+    // ---- VIDEO player ----
+    var movies = [];
 
-    var MONTH_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-
-    function esc(s) {
-      return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
-        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    function playMovie(i, scroll) {
+      var mv = movies[i];
+      if (!mv) return;
+      var id = youtubeId(mv.link);
+      var frame = document.getElementById('videoFrame');
+      frame.innerHTML = id
+        ? '<iframe src="https://www.youtube-nocookie.com/embed/' + id + (scroll ? '?autoplay=1' : '') + '" title="' + esc(mv.title) + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>'
+        : '<a href="' + esc(mv.link) + '" target="_blank" rel="noopener"><img src="' + esc(mv.img) + '" alt="' + esc(mv.title) + '" onerror="NPT48_DATA.imgFallback(this)"></a>';
+      document.getElementById('videoNow').innerHTML = esc(mv.title) + (mv.desc ? '<small>' + esc(mv.desc) + ' · ' + fmtDate(mv.date) + '</small>' : '');
+      document.querySelectorAll('.movie-item').forEach(function (el) {
+        el.classList.toggle('is-playing', Number(el.getAttribute('data-i')) === i);
       });
+      if (scroll) document.getElementById('movie').scrollIntoView({ behavior: 'smooth' });
     }
 
-    function renderPickup(members) {
-      if (!members.length) return;
-      var m = members[Math.floor(Math.random() * members.length)];
-      var img = document.getElementById('pickupImg');
-      img.src = window.NPT48_DATA.getDirectImgLink(m.image);
-      img.alt = m.name;
-      img.onerror = function () { window.NPT48_DATA.imgFallback(img); };
-      document.getElementById('pickupName').textContent = m.name;
-      document.getElementById('pickupMore').href = 'profile#' + encodeURIComponent(m.name);
+    // Any link marked data-movie plays that video in the VIDEO section instead of leaving the page
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('[data-movie]');
+      if (!a || e.defaultPrevented) return;
+      e.preventDefault();
+      playMovie(Number(a.getAttribute('data-movie')), true);
+    });
+
+    function renderMovies() {
+      var rail = document.getElementById('movieRail');
+      if (!movies.length) { rail.innerHTML = '<div class="data-empty">No videos yet.</div>'; return; }
+      rail.innerHTML = movies.map(function (mv, i) {
+        return '' +
+          '<a href="' + esc(mv.link) + '" class="movie-item" data-movie="' + i + '" data-i="' + i + '">' +
+            '<div class="movie-thumb"><img src="' + esc(mv.img) + '" alt="' + esc(mv.title) + '" loading="lazy" decoding="async" onerror="NPT48_DATA.imgFallback(this)"></div>' +
+            '<div class="movie-title">' + esc(mv.title) + '</div>' +
+            '<div class="movie-date">' + fmtDate(mv.date) + '</div>' +
+          '</a>';
+      }).join('');
+      playMovie(0, false);
+      makeLoop(rail);
     }
 
-    function renderMembersRail(members) {
+    // ---- Banner slider (latest videos) ----
+    function renderSlider() {
+      var list = movies.slice(0, 5);
+      if (!list.length) return;
+      var track = document.getElementById('sliderTrack');
+      var dots = document.getElementById('sliderDots');
+      track.innerHTML = list.map(function (mv, i) {
+        return '<a href="' + esc(mv.link) + '" class="banner-card" data-movie="' + i + '" title="' + esc(mv.title) + '"><img src="' + esc(mv.img) + '" alt="' + esc(mv.title) + '" loading="lazy" decoding="async" onerror="NPT48_DATA.imgFallback(this)"></a>';
+      }).join('');
+      dots.innerHTML = list.map(function (mv, i) {
+        return '<li><button type="button" aria-label="Slide ' + (i + 1) + '" data-slide="' + i + '"></button></li>';
+      }).join('');
+      document.getElementById('slider').hidden = false;
+
+      var cards = track.children;
+      function goTo(i) {
+        i = (i + cards.length) % cards.length;
+        var c = cards[i];
+        track.scrollTo({ left: c.offsetLeft - (track.clientWidth - c.offsetWidth) / 2, behavior: 'smooth' });
+      }
+      function current() {
+        var mid = track.scrollLeft + track.clientWidth / 2, best = 0, bestD = Infinity;
+        for (var i = 0; i < cards.length; i++) {
+          var d = Math.abs(cards[i].offsetLeft + cards[i].offsetWidth / 2 - mid);
+          if (d < bestD) { bestD = d; best = i; }
+        }
+        return best;
+      }
+      function markDot() {
+        var cur = current();
+        dots.querySelectorAll('button').forEach(function (b, i) { b.classList.toggle('active', i === cur); });
+      }
+      dots.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-slide]');
+        if (b) goTo(Number(b.getAttribute('data-slide')));
+      });
+      document.getElementById('sliderPrev').addEventListener('click', function () { goTo(current() - 1); });
+      document.getElementById('sliderNext').addEventListener('click', function () { goTo(current() + 1); });
+      track.addEventListener('scroll', function () { window.requestAnimationFrame(markDot); }, { passive: true });
+      markDot();
+
+      // Auto-advance like a carousel; pause while hovered
+      var hover = false;
+      document.getElementById('slider').addEventListener('mouseenter', function () { hover = true; });
+      document.getElementById('slider').addEventListener('mouseleave', function () { hover = false; });
+      setInterval(function () { if (!hover && !document.hidden) goTo(current() + 1); }, 5000);
+    }
+
+    // ---- NEWS (latest videos + releases, newest first) ----
+    var newsItems = [];
+    var newsLoads = 0;
+
+    function renderNews() {
+      var list = document.getElementById('newsList');
+      if (!newsItems.length) {
+        list.innerHTML = '<div class="data-empty">' + (newsLoads < 2 ? 'Loading NPT48 data...' : 'No news yet.') + '</div>';
+        return;
+      }
+      newsItems.sort(function (a, b) { return (b.date ? b.date.getTime() : 0) - (a.date ? a.date.getTime() : 0); });
+      var now = Date.now();
+      list.innerHTML = newsItems.map(function (n, i) {
+        var isNew = n.date && now - n.date.getTime() < NEW_DAYS * 864e5 && n.date.getTime() <= now;
+        return '' +
+          '<a href="' + esc(n.href) + '" class="news-item"' + (n.movie != null ? ' data-movie="' + n.movie + '"' : '') + (i >= NEWS_SHOWN ? ' hidden' : '') + '>' +
+            '<span class="news-meta">' + fmtDate(n.date) + '<span class="sep">|</span>' + n.cat + (isNew ? '<span class="news-new">NEW</span>' : '') + '</span>' +
+            '<span class="news-title">' + esc(n.title) + '</span>' +
+          '</a>';
+      }).join('');
+      document.getElementById('newsMore').hidden = newsItems.length <= NEWS_SHOWN;
+    }
+
+    document.getElementById('newsMore').addEventListener('click', function () {
+      document.querySelectorAll('.news-item[hidden]').forEach(function (el) { el.hidden = false; });
+      this.hidden = true;
+    });
+
+    // ---- PROFILE rail ----
+    function renderMembers(members) {
       var rail = document.getElementById('membersRail');
-      if (!members.length) {
-        rail.innerHTML = '<div class="data-empty">Unable to load data. Please try again later.</div>';
-        return;
-      }
+      if (!members.length) { rail.innerHTML = '<div class="data-empty">Unable to load data. Please try again later.</div>'; return; }
       rail.innerHTML = members.map(function (m) {
-        var img = window.NPT48_DATA.getDirectImgLink(m.image);
-        var badge = m.generation ? '<span class="member-circle-badge">' + esc(String(m.generation).replace(/\s*Generation/i, ' Gen')) + '</span>' : '';
         return '' +
-          '<a href="profile#' + encodeURIComponent(m.name) + '" class="member-circle">' +
-            '<div class="member-circle-photo">' + badge + '<img src="' + esc(img) + '" alt="' + esc(m.name) + '" loading="lazy" decoding="async" onerror="NPT48_DATA.imgFallback(this)"></div>' +
-            '<div class="member-circle-name">' + esc(m.name) + '</div>' +
-            '<div class="member-circle-en">' + esc(m.fullNameEN || '') + '</div>' +
+          '<a href="profile#' + encodeURIComponent(m.name) + '" class="member-tile">' +
+            '<div class="member-photo"><img src="' + esc(D.getDirectImgLink(m.image)) + '" alt="' + esc(m.name) + '" loading="lazy" decoding="async" onerror="NPT48_DATA.imgFallback(this)"></div>' +
+            '<div class="member-name">' + esc(String(m.name).toUpperCase()) + '</div>' +
           '</a>';
       }).join('');
+      makeLoop(rail);
     }
 
-    function loadProfileData() {
-      if (!window.NPT48_DATA.isConfigured()) {
-        document.getElementById('membersRail').innerHTML = '<div class="data-empty">Google Sheets not connected yet</div>';
-        return;
-      }
-      window.NPT48_DATA.fetchSheet('Profile')
-        .then(function (data) {
-          renderPickup(data);
-          renderMembersRail(data);
-          if (data.length) makeLoop(document.getElementById('membersRail'));
-        })
-        .catch(function () {
-          document.getElementById('membersRail').innerHTML = '<div class="data-empty">Unable to load data. Please try again later.</div>';
+    ['movieRail', 'membersRail'].forEach(function (id) { wireDrag(document.getElementById(id)); });
+    wireRailNav(document.getElementById('movieRail'), 'moviePrev', 'movieNext');
+    wireRailNav(document.getElementById('membersRail'), 'membersPrev', 'membersNext');
+
+    function fail(id) {
+      return function () { document.getElementById(id).innerHTML = '<div class="data-empty">Unable to load data. Please try again later.</div>'; };
+    }
+
+    if (!D.isConfigured()) {
+      ['newsList', 'movieRail', 'membersRail'].forEach(function (id) { document.getElementById(id).innerHTML = '<div class="data-empty">Google Sheets not connected yet</div>'; });
+    } else {
+      D.fetchSheet('Profile').then(renderMembers).catch(fail('membersRail'));
+
+      // The Movie sheet columns (Date, Title Name Song, Description, Link, Img) come back
+      // from the Apps Script under generic field names, not their own header text.
+      D.fetchSheet('Movie').then(function (data) {
+        movies = data.map(function (d) {
+          return { date: parseDate(d.name), title: d.nameEN || '', desc: d.fullNameTH || '', link: d.fullNameEN || '#', img: D.getDirectImgLink(d.generation) };
+        }).sort(function (a, b) { return (b.date ? b.date.getTime() : 0) - (a.date ? a.date.getTime() : 0); });
+        renderMovies();
+        renderSlider();
+        movies.forEach(function (mv, i) {
+          newsItems.push({ date: mv.date, cat: 'MOVIE', title: mv.title + (mv.desc ? ' (' + mv.desc + ')' : ''), href: mv.link, movie: i });
         });
-    }
-    loadProfileData();
+      }).catch(fail('movieRail')).then(function () { newsLoads++; renderNews(); });
 
-    function renderReleaseMini(items) {
-      if (!items.length) return;
-      var latest = items[items.length - 1];
-      var card = document.getElementById('releaseMini');
-      document.getElementById('releaseMiniImg').onerror = function () { window.NPT48_DATA.imgFallback(this); };
-      document.getElementById('releaseMiniImg').src = window.NPT48_DATA.getDirectImgLink(latest.image);
-      document.getElementById('releaseMiniImg').alt = latest.songName || '';
-      document.getElementById('releaseMiniTitle').textContent = latest.songName || '';
-      if (latest.link) { card.href = latest.link; card.target = '_blank'; card.rel = 'noopener'; }
-      card.hidden = false;
-    }
-
-    function loadReleaseMini() {
-      if (!window.NPT48_DATA.isConfigured()) return;
-      window.NPT48_DATA.fetchSheet('Discography').then(renderReleaseMini).catch(function () {});
-    }
-    loadReleaseMini();
-
-    function formatMovieDate(raw) {
-      var d = new Date(raw);
-      if (isNaN(d.getTime())) return String(raw || '');
-      return d.getFullYear() + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + String(d.getDate()).padStart(2, '0');
-    }
-
-    function renderMovieGrid(items) {
-      var grid = document.getElementById('movieGrid');
-      if (!items.length) { grid.innerHTML = '<div class="data-empty">No videos yet.</div>'; return; }
-      grid.innerHTML = items.slice(0, 8).map(function (d) {
-        // The Movie sheet columns (Date, Title Name Song, Description, Link, Img) come back
-        // from the Apps Script under generic field names, not their own header text.
-        var img = window.NPT48_DATA.getDirectImgLink(d.generation);
-        var link = d.fullNameEN || '#';
-        var title = d.nameEN || '';
-        return '' +
-          '<a href="' + esc(link) + '" target="_blank" rel="noopener" class="movie-item">' +
-            '<div class="movie-thumb">' +
-              '<img src="' + esc(img) + '" alt="' + esc(title) + '" loading="lazy" decoding="async" onerror="NPT48_DATA.imgFallback(this)">' +
-            '</div>' +
-            '<div class="movie-title">' + esc(title) + '</div>' +
-            '<div class="movie-date">' + esc(formatMovieDate(d.name)) + '</div>' +
-          '</a>';
-      }).join('');
-    }
-
-    // Banner row under the hero: key visual first, then the latest videos
-    function renderBannerRail(items) {
-      var rail = document.getElementById('bannerRail');
-      rail.insertAdjacentHTML('beforeend', items.slice(0, 4).map(function (d) {
-        var img = window.NPT48_DATA.getDirectImgLink(d.generation);
-        var title = d.nameEN || '';
-        return '' +
-          '<a href="' + esc(d.fullNameEN || '#') + '" target="_blank" rel="noopener" class="banner-card" title="' + esc(title) + '">' +
-            '<img src="' + esc(img) + '" alt="' + esc(title) + '" loading="lazy" decoding="async" onerror="NPT48_DATA.imgFallback(this)">' +
-            '<span class="banner-card-label">MOVIE</span>' +
-          '</a>';
-      }).join(''));
-    }
-
-    function loadMovies() {
-      var grid = document.getElementById('movieGrid');
-      if (!window.NPT48_DATA.isConfigured()) {
-        grid.innerHTML = '<div class="data-empty">Google Sheets not connected yet</div>';
-        return;
-      }
-      window.NPT48_DATA.fetchSheet('Movie')
-        .then(function (data) {
-          var sorted = data.slice().sort(function (a, b) {
-            var da = new Date(a.name).getTime();
-            var db = new Date(b.name).getTime();
-            if (isNaN(da)) da = 0;
-            if (isNaN(db)) db = 0;
-            return db - da;
-          });
-          renderMovieGrid(sorted);
-          makeLoop(document.getElementById('movieGrid'));
-          renderBannerRail(sorted);
-        })
-        .catch(function () {
-          grid.innerHTML = '<div class="data-empty">Unable to load data.</div>';
+      D.fetchSheet('Discography').then(function (data) {
+        data.forEach(function (d) {
+          newsItems.push({ date: parseDate(d.release), cat: 'RELEASE', title: d.songName, href: 'discography#' + encodeURIComponent(d.songName) });
         });
+      }).catch(function () {}).then(function () { newsLoads++; renderNews(); });
     }
-    loadMovies();
   </script>
-
-  <script src="assets/js/motion.js"></script>
 </body>
 </html>
