@@ -23,6 +23,7 @@
   // Footer banners (≠ME-style row). A banner with no URL shows as a plain image.
   var SHOP_URL = '';
   var BANNERS = [
+    ['https://blm48.vercel.app/home', 'assets/images/bnr-blm48.webp', 'BLM48 Official Web Site'],
     [SOCIALS.youtube, 'assets/images/bnr-youtube.webp', 'NPT48 YouTube'],
     [SHOP_URL, 'assets/images/bnr-shop.webp', 'NPT48 Official Shop']
   ];
