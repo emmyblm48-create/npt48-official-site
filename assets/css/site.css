@@ -384,11 +384,11 @@ main { position: relative; }
 .footer-logo { display: inline-block; margin-bottom: 44px; }
 .footer-logo img { width: clamp(64px, 6vw, 90px); height: auto; }
 .footer-logo:hover { opacity: .5; }
-.group-label { font-size: 11px; letter-spacing: .3em; color: var(--muted); margin-bottom: 14px; }
-.logo-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; width: 70%; margin: 0 auto 50px; }
-.logo-grid img { width: 42px; height: auto; transition: opacity .3s; }
-.logo-grid a:hover img { opacity: .5; }
-.bnr-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 3%; width: 70%; margin: 0 auto 50px; }
+.logo-grid { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 14px; max-width: 760px; margin: 0 auto 50px; }
+.logo-grid a { opacity: .75; transition: opacity .3s; }
+.logo-grid img { width: 40px; height: auto; }
+.logo-grid a:hover { opacity: 1; }
+.bnr-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 3%; width: 70%; margin: 0 auto 40px; }
 .bnr-list li { width: 22%; min-width: 200px; line-height: 0; }
 .bnr-list img { width: 100%; height: auto; }
 .bnr-list a { display: block; transition: opacity .3s; }
