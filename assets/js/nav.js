@@ -101,8 +101,8 @@
     }).join('');
 
     mount.innerHTML =
-      '<div class="sns-block">' + snsLinks('sns-circles') + '</div>' +
       '<footer class="site-footer">' +
+        snsLinks('sns-circles') +
         '<a href="./" class="footer-logo" aria-label="NPT48 home"><img src="assets/images/logo.png" alt="NPT48" width="500" height="500" loading="lazy"></a>' +
         '<ul class="bnr-list">' + BANNERS.map(function (b) {
           var img = '<img src="' + b[1] + '" alt="' + b[2] + '" width="2000" height="533" loading="lazy" decoding="async">';

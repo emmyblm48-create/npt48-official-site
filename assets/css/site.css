@@ -368,8 +368,7 @@ main { position: relative; }
   .movie-item { flex-basis: 84vw; }
 }
 
-/* ---------- SNS circles (above the footer) ---------- */
-.sns-block { padding: 90px 0 70px; background: #fff; }
+/* ---------- SNS circles (top of the footer) ---------- */
 .sns-circles { display: flex; justify-content: center; gap: 20px; }
 .sns-circles a {
   display: flex; align-items: center; justify-content: center;
@@ -380,7 +379,8 @@ main { position: relative; }
 .sns-circles a:hover { color: var(--hover); background: var(--accent-dark); }
 
 /* ---------- Footer ---------- */
-.site-footer { background: var(--gray); padding: 60px 0 50px; text-align: center; }
+.site-footer { background: #fff; padding: 90px 0 50px; text-align: center; }
+.site-footer .sns-circles { margin-bottom: 50px; }
 .footer-logo { display: inline-block; margin-bottom: 44px; }
 .footer-logo img { width: clamp(64px, 6vw, 90px); height: auto; }
 .footer-logo:hover { opacity: .5; }
