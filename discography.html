@@ -9,7 +9,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&family=Noto+Sans+Thai:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
@@ -19,11 +19,11 @@
   <script src="assets/js/data.js"></script>
   <script src="assets/js/reveal.js"></script>
 
-  <main>
-    <div class="content page-title" style="padding-bottom:80px">
-      <h1 class="subtitle" data-pop>DISCOGRAPHY</h1>
+  <main class="page">
+    <h1 class="page-tit"><span>DISCOGRAPHY</span></h1>
 
-      <div class="tabs" id="typeTabs" aria-label="Filter by type">
+    <div class="inner">
+      <div class="category-list" id="typeTabs" aria-label="Filter by type">
         <a href="#" data-type="ALL" class="active">ALL</a>
         <a href="#" data-type="SINGLE">SINGLE</a>
         <a href="#" data-type="ALBUM">ALBUM</a>
@@ -39,7 +39,7 @@
       <div class="disco-list" id="disco-list" hidden></div>
 
       <!-- Release detail: discography#<title> -->
-      <div class="disco-detail" id="disco-detail" hidden></div>
+      <div id="disco-detail" hidden></div>
     </div>
   </main>
 
@@ -77,6 +77,11 @@
       if (!t) return esc(raw || '');
       var d = new Date(t);
       return d.getFullYear() + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + String(d.getDate()).padStart(2, '0');
+    }
+
+    function typeTag(raw) {
+      var t = classifyType(raw);
+      return '<span class="tag tag--' + t.toLowerCase() + '">' + TYPE_LABEL[t] + '</span>';
     }
 
     function linkLabel(url) {
@@ -148,12 +153,13 @@
       list.innerHTML = filtered.map(function (d, i) {
         var img = window.NPT48_DATA.getDirectImgLink(d.image);
         return '' +
-          '<a href="#' + encodeURIComponent(d.songName) + '" class="disco-item" data-pop style="--i:' + (i % 4) + '">' +
-            '<div class="disco-cover"><img src="' + esc(img) + '" alt="' + esc(d.songName) + '" loading="lazy" decoding="async" onerror="NPT48_DATA.imgFallback(this)"></div>' +
-            '<div>' +
-              '<div class="disco-meta">' + fmtRelease(d.release) + '<span class="sep">|</span>' + TYPE_LABEL[classifyType(d.type)] + '</div>' +
-              '<div class="disco-title">' + esc(d.songName) + '</div>' +
+          '<a href="#' + encodeURIComponent(d.songName) + '" class="disco-item" data-pop style="--i:' + (i % 3) + '">' +
+            '<div class="disco-cover">' +
+              '<img class="blur" src="' + esc(img) + '" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="NPT48_DATA.imgFallback(this)">' +
+              '<img class="main" src="' + esc(img) + '" alt="' + esc(d.songName) + '" loading="lazy" decoding="async" onerror="NPT48_DATA.imgFallback(this)">' +
             '</div>' +
+            '<div class="disco-meta">' + typeTag(d.type) + fmtRelease(d.release) + '&nbsp;&nbsp;RELEASE</div>' +
+            '<div class="disco-title">' + esc(d.songName) + '</div>' +
           '</a>';
       }).join('');
       if (window.NPT48_POPIN) window.NPT48_POPIN.init();
@@ -170,18 +176,22 @@
       var img = window.NPT48_DATA.getDirectImgLink(d.image);
       var link = d.link && d.link !== '-' ? d.link : '';
       box.innerHTML = '' +
-        '<div class="disco-detail-cover"><img src="' + esc(img) + '" alt="' + esc(d.songName) + '" onerror="NPT48_DATA.imgFallback(this)"></div>' +
-        '<p class="meta">[' + TYPE_LABEL[typeKey] + '] ' + fmtRelease(d.release) + ' Release</p>' +
-        '<h2>' + esc(d.songName) + '</h2>' +
-        '<div class="detail-box">' +
-          '<h3>รายละเอียด</h3>' +
-          '<p>NPT48 ' + TYPE_LABEL[typeKey] + ' 「' + esc(d.songName) + '」</p>' +
-          (link ? '<h3>ฟังเพลง・ดู MV (' + linkLabel(link) + ')</h3><p><a href="' + esc(link) + '" target="_blank" rel="noopener">' + esc(link) + '</a></p>' : '') +
+        '<div class="disco-detail" data-pop>' +
+          '<div class="ph"><img src="' + esc(img) + '" alt="' + esc(d.songName) + '" onerror="NPT48_DATA.imgFallback(this)"></div>' +
+          '<div class="text-area">' +
+            typeTag(d.type) +
+            '<h2>' + esc(d.songName) + '</h2>' +
+            '<p class="date">RELEASE ' + fmtRelease(d.release) + '</p>' +
+            '<div class="txt">' +
+              '<h3>รายละเอียด</h3>' +
+              '<p>NPT48 ' + TYPE_LABEL[typeKey] + ' 「' + esc(d.songName) + '」</p>' +
+              (link ? '<h3>ฟังเพลง・ดู MV (' + linkLabel(link) + ')</h3><p><a href="' + esc(link) + '" target="_blank" rel="noopener">' + esc(link) + '</a></p>' : '') +
+            '</div>' +
+            (link ? '<a href="' + esc(link) + '" class="btn-line" target="_blank" rel="noopener">LISTEN / WATCH</a>' : '') +
+          '</div>' +
         '</div>' +
-        '<div class="detail-actions">' +
-          (link ? '<a href="' + esc(link) + '" class="btn-outline" target="_blank" rel="noopener">LISTEN / WATCH</a>' : '') +
-          '<a href="discography" class="btn-outline" id="backToList">กลับไปหน้ารายการ</a>' +
-        '</div>';
+        '<p class="back"><a href="discography" class="more" id="backToList">BACK</a></p>';
+      if (window.NPT48_POPIN) window.NPT48_POPIN.init();
 
       document.getElementById('backToList').addEventListener('click', function (e) {
         e.preventDefault();

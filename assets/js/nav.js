@@ -1,14 +1,17 @@
 /* =========================================================
-   NPT48 — Shared chrome: fixed white header with caps nav and
-   blue pill buttons, a full-screen menu on small screens, and
-   the footer (page-top, SNS icons, logo, AKB48 Group, links).
+   NPT48 — Shared chrome, modelled on the ≠ME official site:
+   a fixed thin wordmark top-left, a "≠"-style menu button
+   top-right that opens a full-screen diagonal sky-blue menu,
+   and a pale-grey footer (SNS circles, logo, AKB48 Group, links).
    ========================================================= */
 (function () {
   var NAV_LINKS = [
-    { href: 'profile', page: 'profile', label: 'PROFILE', sub: 'โปรไฟล์สมาชิก' },
-    { href: 'discography', page: 'discography', label: 'DISCOGRAPHY', sub: 'ผลงานเพลง' },
-    { href: './#movie', page: 'movie', label: 'MOVIE', sub: 'วิดีโอ' },
-    { href: 'about', page: 'about', label: 'ABOUT', sub: 'เกี่ยวกับวง' }
+    { href: './', page: 'index', label: 'HOME' },
+    { href: './#news', page: 'news', label: 'NEWS' },
+    { href: 'profile', page: 'profile', label: 'PROFILE' },
+    { href: 'discography', page: 'discography', label: 'DISCOGRAPHY' },
+    { href: './#movie', page: 'movie', label: 'MOVIE' },
+    { href: 'about', page: 'about', label: 'ABOUT NPT48' }
   ];
 
   var SOCIALS = {
@@ -32,15 +35,13 @@
     ['https://klp48.my/', 'klp48', 'KLP48']
   ];
 
-  // Full-colour brand marks for the footer SNS row
-  var SNS_ICON = {
-    youtube: '<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="7" width="28" height="18" rx="5" fill="#ff0000"/><path d="M13 11.5v9l8-4.5z" fill="#fff"/></svg>',
-    instagram: '<svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="igGrad" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#feda75"/><stop offset=".35" stop-color="#fa7e1e"/><stop offset=".65" stop-color="#d62976"/><stop offset="1" stop-color="#4f5bd5"/></linearGradient></defs><rect x="3" y="3" width="26" height="26" rx="8" fill="url(#igGrad)"/><circle cx="16" cy="16" r="6" fill="none" stroke="#fff" stroke-width="2.4"/><circle cx="23" cy="9" r="1.6" fill="#fff"/></svg>',
-    tiktok: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M21.5 4c.5 2.7 2.5 4.8 5.3 5.2v4.1c-2-.1-3.8-.8-5.3-1.9v8.8a7.6 7.6 0 1 1-7.6-7.6c.4 0 .8 0 1.2.1v4.2a3.5 3.5 0 1 0 2.4 3.3V4h4z" fill="#111"/></svg>',
-    web: '<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="6" width="24" height="20" rx="2" fill="none" stroke="#111" stroke-width="2"/><path d="M4 12h24M9 17h7M9 21h10" stroke="#111" stroke-width="2"/></svg>'
+  // Single-colour glyphs (they take currentColor)
+  var ICON = {
+    youtube: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.7 15V9l5.8 3z"/></svg>',
+    instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>',
+    tiktok: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.1 2c.4 2.1 1.9 3.6 4 3.9v3.1a7 7 0 0 1-4-1.4v6.6a5.7 5.7 0 1 1-5.7-5.7l.9.1v3.2a2.6 2.6 0 1 0 1.8 2.4V2z"/></svg>'
   };
-
-  var ICON_UP = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>';
+  window.NPT48_ICONS = ICON;
 
   function currentPage() {
     var path = window.location.pathname.split('/').pop() || 'index.html';
@@ -48,44 +49,39 @@
     return name === '' ? 'index' : name;
   }
 
-  function buttonsHTML() {
-    return '<div class="toolbar-buttons">' +
-      '<a class="toolbar-button" href="' + SOCIALS.instagram + '" target="_blank" rel="noopener">FOLLOW</a>' +
-      '<a class="toolbar-button" href="' + SOCIALS.youtube + '" target="_blank" rel="noopener">YOUTUBE</a>' +
-    '</div>';
+  function snsLinks(cls) {
+    return '<ul class="' + cls + '">' +
+      [['youtube', 'YouTube'], ['instagram', 'Instagram'], ['tiktok', 'TikTok']].map(function (s) {
+        return '<li><a href="' + SOCIALS[s[0]] + '" target="_blank" rel="noopener" aria-label="' + s[1] + '">' + ICON[s[0]] + '</a></li>';
+      }).join('') +
+    '</ul>';
   }
+  window.NPT48_SNS = snsLinks;
 
   function injectHeader() {
     var mount = document.getElementById('site-header');
     if (!mount) return;
+    var page = currentPage();
+    if (page === 'index') document.body.classList.add('is-home');
 
     mount.innerHTML =
       '<header class="site-header">' +
-        '<div class="toolbar">' +
-          '<a href="./" class="brand" aria-label="NPT48 home">' +
-            '<img src="assets/images/logo.png" alt="" width="500" height="500">' +
-            '<span class="brand-text"><b>NPT48</b>OFFICIAL SITE</span>' +
-          '</a>' +
-          '<nav class="main-nav" aria-label="Main navigation">' +
-            NAV_LINKS.map(function (l) {
-              return '<a href="' + l.href + '" data-page="' + l.page + '">' + l.label + '</a>';
-            }).join('') +
-          '</nav>' +
-          buttonsHTML() +
-          '<button type="button" class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>' +
-        '</div>' +
+        '<a href="./" class="brand" aria-label="NPT48 home"><img src="assets/images/logo.png" alt="" width="500" height="500"><span>NPT48</span></a>' +
+        '<button type="button" class="nav-btn" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="siteMenu"><span></span><span></span><span></span></button>' +
       '</header>' +
-      '<div class="mobile-menu" id="mobileMenu" aria-label="Site menu">' +
-        '<nav aria-label="Main navigation">' +
-          '<a href="./" data-page="index">HOME<small>หน้าแรก</small></a>' +
-          NAV_LINKS.map(function (l) {
-            return '<a href="' + l.href + '" data-page="' + l.page + '">' + l.label + '<small>' + l.sub + '</small></a>';
-          }).join('') +
+      '<div class="site-menu" id="siteMenu" aria-label="Site menu">' +
+        '<div class="site-menu-logo"><b>NPT48</b><small>New Planet 48</small></div>' +
+        '<nav class="site-menu-nav" aria-label="Main navigation">' +
+          '<ul>' + NAV_LINKS.map(function (l, i) {
+            return '<li style="--i:' + i + '"><a href="' + l.href + '" data-page="' + l.page + '"><span>' + l.label + '</span></a></li>';
+          }).join('') + '</ul>' +
+          snsLinks('site-menu-sns') +
         '</nav>' +
-        buttonsHTML() +
       '</div>';
 
-    markActiveLinks();
+    document.querySelectorAll('.site-menu-nav a').forEach(function (a) {
+      a.classList.toggle('active', a.getAttribute('data-page') === page);
+    });
     wireMenu();
   }
 
@@ -93,47 +89,28 @@
     var mount = document.getElementById('site-footer');
     if (!mount) return;
 
-    var sns = [
-      ['./', SNS_ICON.web, 'Official Website', false],
-      [SOCIALS.youtube, SNS_ICON.youtube, 'YouTube', true],
-      [SOCIALS.instagram, SNS_ICON.instagram, 'Instagram', true],
-      [SOCIALS.tiktok, SNS_ICON.tiktok, 'TikTok', true]
-    ].map(function (s) {
-      return '<a href="' + s[0] + '"' + (s[3] ? ' target="_blank" rel="noopener"' : '') + '>' + s[1] + '<span>' + s[2] + '</span></a>';
-    }).join('');
-
     var logos = GROUPS.map(function (g) {
       return '<a href="' + g[0] + '" target="_blank" rel="noopener"><img src="https://s.akb48.co.jp/v2/index/img/g_' + g[1] + '.png?ver=53" alt="' + g[2] + '" width="100" height="140" loading="lazy" decoding="async"></a>';
     }).join('');
 
     mount.innerHTML =
+      '<div class="sns-block">' + snsLinks('sns-circles') + '</div>' +
       '<footer class="site-footer">' +
-        '<button type="button" class="page-top" id="pageTop" aria-label="Back to top">' + ICON_UP + '</button>' +
-        '<div class="sns">' + sns + '</div>' +
         '<a href="./" class="footer-logo" aria-label="NPT48 home"><img src="assets/images/logo.png" alt="NPT48" width="500" height="500" loading="lazy"></a>' +
         '<div class="group-label">AKB48 GROUP</div>' +
         '<div class="logo-grid">' + logos + '</div>' +
-        '<nav class="footer-menu" aria-label="Footer">' +
-          '<a href="about">เกี่ยวกับ NPT48</a><a href="profile">Profile</a><a href="discography">Discography</a><a href="./#movie">Movie</a>' +
-        '</nav>' +
-        '<div class="footer-copy">&copy; 2026 NPT48. All Rights Reserved.</div>' +
+        '<div class="footer-info">' +
+          '<nav class="footer-menu" aria-label="Footer">' +
+            '<a href="about">ABOUT NPT48</a><a href="profile">PROFILE</a><a href="discography">DISCOGRAPHY</a><a href="./#movie">MOVIE</a>' +
+          '</nav>' +
+          '<div class="footer-copy">&copy; 2026 NPT48. All Rights Reserved.</div>' +
+        '</div>' +
       '</footer>';
-
-    document.getElementById('pageTop').addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
-
-  function markActiveLinks() {
-    var page = currentPage();
-    document.querySelectorAll('.main-nav a, .mobile-menu a').forEach(function (a) {
-      a.classList.toggle('active', a.getAttribute('data-page') === page);
-    });
   }
 
   function wireMenu() {
     var btn = document.getElementById('menuToggle');
-    var menu = document.getElementById('mobileMenu');
+    var menu = document.getElementById('siteMenu');
 
     function setOpen(open) {
       document.body.classList.toggle('menu-open', open);
@@ -144,17 +121,19 @@
     btn.addEventListener('click', function () {
       setOpen(!document.body.classList.contains('menu-open'));
     });
-    menu.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', function () { setOpen(false); });
+    menu.addEventListener('click', function (e) {
+      // Clicking a link or the empty backdrop closes the menu
+      if (e.target.closest('a') || !e.target.closest('.site-menu-nav, .site-menu-logo')) setOpen(false);
     });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && document.body.classList.contains('menu-open')) setOpen(false);
     });
   }
 
+  // On the home page the wordmark only appears once the hero has scrolled away
   function wireScrollState() {
     function update() {
-      document.body.classList.toggle('is-scrolled', window.scrollY > 8);
+      document.body.classList.toggle('is-scrolled', window.scrollY > window.innerHeight * 0.6);
     }
     window.addEventListener('scroll', update, { passive: true });
     update();
@@ -166,6 +145,7 @@
   function onReady() {
     injectFooter();
     wireScrollState();
+    document.body.classList.add('loaded');
   }
 
   if (document.readyState === 'loading') {

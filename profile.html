@@ -9,7 +9,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&family=Noto+Sans+Thai:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
@@ -19,50 +19,44 @@
   <script src="assets/js/data.js"></script>
   <script src="assets/js/reveal.js"></script>
 
-  <main>
-    <div class="content page-title">
-      <h1 class="subtitle" data-pop>PROFILE</h1>
+  <main class="page">
+    <h1 class="page-tit"><span>PROFILE</span></h1>
 
-      <!-- Group view: key visual -->
-      <div id="main-view" class="group-photo">
-        <img src="https://lh3.googleusercontent.com/d/16h5s_zmCcpfUp12RwzNzeFYnjnp109RK=s2000" alt="NPT48" onerror="NPT48_DATA.imgFallback(this)">
-      </div>
-
-      <!-- Member view -->
-      <div id="detail-view" class="member-detail" hidden>
-        <div class="member-detail-photo"><img id="m-img" src="assets/images/logo.png" alt=""></div>
-        <h2 id="m-name"></h2>
-        <p class="names" id="m-names"></p>
-        <div id="m-social"></div>
-        <dl class="info-grid" id="m-info"></dl>
-      </div>
-    </div>
-
-    <div class="logo-block"><img src="assets/images/logo.png" alt="NPT48" width="500" height="500"></div>
-
-    <!-- Member list -->
-    <section class="section section--blue" id="members">
-      <div class="content">
-        <div class="tabs" id="teamTabs" role="tablist" aria-label="Filter by team">
+    <div class="inner">
+      <!-- Member list -->
+      <div id="list-view">
+        <div class="category-list" id="teamTabs" role="tablist" aria-label="Filter by team">
           <button type="button" data-team="ALL" class="active">ALL</button>
           <button type="button" data-team="N">TEAM N</button>
           <button type="button" data-team="P">TEAM P</button>
           <button type="button" data-team="T">TEAM T</button>
           <button type="button" data-team="Trainee">TRAINEE</button>
         </div>
-        <div id="loading-overlay" style="color:#fff">
+        <div id="loading-overlay">
           <div class="spinner-ring"></div>
           <div>Loading NPT48 data...</div>
         </div>
         <div class="member-grid" id="member-grid"></div>
       </div>
-    </section>
+
+      <!-- Member detail: profile#<nickname> -->
+      <div id="detail-view" hidden>
+        <div class="prof-detail" data-pop>
+          <div class="ph"><img id="m-img" src="assets/images/logo.png" alt=""></div>
+          <div class="status">
+            <h2><b id="m-name"></b><span id="m-names"></span></h2>
+            <dl id="m-info"></dl>
+            <div class="prof-sns" id="m-social"></div>
+          </div>
+        </div>
+        <p class="back"><a href="profile" class="more" id="backToList">BACK</a></p>
+      </div>
+    </div>
   </main>
 
   <div id="site-footer"></div>
 
   <script>
-    var ICON_INSTAGRAM = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>';
     var membersData = [];
     var currentMemberName = null;
     var currentTeamFilter = 'ALL';
@@ -93,7 +87,7 @@
     // Members open as profile#<nickname> (from the grid below or the home page)
     function openFromHash() {
       var name = decodeURIComponent(window.location.hash.slice(1));
-      if (!name || !viewDetail(name)) showGroup();
+      if (!name || !viewDetail(name)) showList();
     }
 
     window.addEventListener('hashchange', function () {
@@ -106,6 +100,13 @@
       currentTeamFilter = b.getAttribute('data-team');
       this.querySelectorAll('button').forEach(function (x) { x.classList.toggle('active', x === b); });
       renderGrid();
+    });
+
+    document.getElementById('backToList').addEventListener('click', function (e) {
+      e.preventDefault();
+      history.pushState(null, '', window.location.pathname + window.location.search);
+      showList();
+      window.scrollTo(0, 0);
     });
 
     function renderGrid() {
@@ -121,26 +122,19 @@
       list.sort(function (a, b) { return (a.name || '').localeCompare(b.name || ''); });
 
       if (!list.length) {
-        grid.innerHTML = '<p class="data-empty" style="grid-column:1/-1;background:var(--blue)">No members found.</p>';
+        grid.innerHTML = '<p class="data-empty" style="grid-column:1/-1">No members found.</p>';
         return;
       }
 
-      grid.innerHTML = list.map(function (m) {
+      grid.innerHTML = list.map(function (m, i) {
         var img = window.NPT48_DATA.getDirectImgLink(m.image);
-        var badge = m.generation ? '<span class="member-badge">' + esc(String(m.generation).replace(/\s*Generation/i, ' Gen')) + '</span>' : '';
         return '' +
-          '<a href="#' + encodeURIComponent(m.name) + '" class="member-tile' + (m.name === currentMemberName ? ' active' : '') + '" data-name="' + esc(m.name) + '">' +
-            badge +
+          '<a href="#' + encodeURIComponent(m.name) + '" class="member-tile' + (m.name === currentMemberName ? ' active' : '') + '" data-name="' + esc(m.name) + '" data-pop style="--i:' + (i % 3) + '">' +
             '<div class="member-photo"><img src="' + esc(img) + '" alt="' + esc(m.name) + '" loading="lazy" decoding="async" onerror="NPT48_DATA.imgFallback(this)"></div>' +
-            '<div class="member-name">' + esc(String(m.name).toUpperCase()) + '</div>' +
+            '<div class="member-name">' + esc(String(m.name).toUpperCase()) + (m.fullNameTH ? '<small>' + esc(m.fullNameTH) + '</small>' : '') + '</div>' +
           '</a>';
       }).join('');
-    }
-
-    function markActive() {
-      document.querySelectorAll('.member-grid .member-tile').forEach(function (t) {
-        t.classList.toggle('active', t.getAttribute('data-name') === currentMemberName);
-      });
+      if (window.NPT48_POPIN) window.NPT48_POPIN.init();
     }
 
     function viewDetail(nickname) {
@@ -162,30 +156,29 @@
         ['OSHI MARK', m.oshiMark],
         ['PROVINCE', m.province],
         ['BLOOD TYPE', m.bloodType],
-        ['LIKES', m.like, true],
-        ['HOBBY', m.hobby, true]
+        ['LIKES', m.like],
+        ['HOBBY', m.hobby]
       ];
       document.getElementById('m-info').innerHTML = infoList.map(function (it) {
-        return '<div' + (it[2] ? ' class="wide"' : '') + '><dt>' + it[0] + '</dt><dd>' + esc(it[1] || '-') + '</dd></div>';
+        return '<dt>' + it[0] + '</dt><dd>' + esc(it[1] || '-') + '</dd>';
       }).join('');
 
       document.getElementById('m-social').innerHTML = (m.instagram && m.instagram !== '-')
-        ? '<a href="' + esc(m.instagram) + '" class="ig-link" target="_blank" rel="noopener">' + ICON_INSTAGRAM + 'INSTAGRAM</a>'
+        ? '<a href="' + esc(m.instagram) + '" target="_blank" rel="noopener" aria-label="Instagram">' + window.NPT48_ICONS.instagram + '</a>'
         : '';
 
       document.title = String(m.name).toUpperCase() + ' | PROFILE | NPT48 OFFICIAL SITE';
-      document.getElementById('main-view').hidden = true;
+      document.getElementById('list-view').hidden = true;
       document.getElementById('detail-view').hidden = false;
-      markActive();
+      if (window.NPT48_POPIN) window.NPT48_POPIN.init();
       return true;
     }
 
-    function showGroup() {
+    function showList() {
       currentMemberName = null;
       document.title = 'PROFILE | NPT48 OFFICIAL SITE';
       document.getElementById('detail-view').hidden = true;
-      document.getElementById('main-view').hidden = false;
-      markActive();
+      document.getElementById('list-view').hidden = false;
     }
 
     init();

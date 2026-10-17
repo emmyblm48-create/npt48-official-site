@@ -9,7 +9,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&family=Noto+Sans+Thai:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
@@ -21,50 +21,57 @@
 
   <main>
     <!-- KEY VISUAL -->
-    <div class="hero">
-      <img src="https://lh3.googleusercontent.com/d/16h5s_zmCcpfUp12RwzNzeFYnjnp109RK=s2000" alt="NPT48 — from the mountains to the sea" fetchpriority="high" onerror="NPT48_DATA.imgFallback(this)">
-    </div>
+    <section class="hero">
+      <div class="hero-logo"><b>NPT48</b><small>NEW PLANET 48 OFFICIAL SITE</small></div>
+      <div class="hero-visual">
+        <img src="https://lh3.googleusercontent.com/d/16h5s_zmCcpfUp12RwzNzeFYnjnp109RK=s2000" alt="NPT48 — from the mountains to the sea" fetchpriority="high" onerror="NPT48_DATA.imgFallback(this)">
+      </div>
+      <span class="scroll-line" aria-hidden="true"></span>
+    </section>
 
-    <!-- BANNER SLIDER -->
+    <!-- BANNER CAROUSEL -->
     <div class="slider" id="slider" hidden>
       <div class="slider-track" id="sliderTrack"></div>
-      <button type="button" class="slider-arrow slider-arrow--prev" id="sliderPrev" aria-label="Previous">&#8249;</button>
-      <button type="button" class="slider-arrow slider-arrow--next" id="sliderNext" aria-label="Next">&#8250;</button>
+      <button type="button" class="slider-arrow slider-arrow--prev" id="sliderPrev" aria-label="Previous"></button>
+      <button type="button" class="slider-arrow slider-arrow--next" id="sliderNext" aria-label="Next"></button>
       <ul class="slider-dots" id="sliderDots"></ul>
     </div>
 
     <!-- NEWS -->
-    <section class="section" id="news">
-      <div class="content">
-        <h2 class="subtitle" data-pop>NEWS</h2>
-        <div class="news-list" id="newsList"><div class="data-empty">Loading NPT48 data...</div></div>
-        <button type="button" class="btn-outline" id="newsMore" hidden>MORE</button>
+    <section class="home-sec home-sec--gray" id="news">
+      <div class="sec-tit" data-pop>
+        <h2><span>NEWS</span></h2>
+        <button type="button" class="more" id="newsMore" hidden>VIEW MORE</button>
       </div>
-    </section>
-
-    <!-- VIDEO -->
-    <section class="section section--blue" id="movie">
-      <div class="content">
-        <h2 class="subtitle" data-pop>VIDEO</h2>
-        <div class="video-frame" id="videoFrame"></div>
-        <div class="video-now" id="videoNow"></div>
-        <div class="rail-wrap movie-rail-wrap">
-          <div class="rail movie-rail" id="movieRail"><div class="data-empty">Loading NPT48 data...</div></div>
-          <button type="button" class="rail-arrow rail-arrow--prev" id="moviePrev" aria-label="Previous videos">&#8249;</button>
-          <button type="button" class="rail-arrow rail-arrow--next" id="movieNext" aria-label="Next videos">&#8250;</button>
-        </div>
+      <div class="inner">
+        <ul class="info-list" id="newsList"><li class="data-empty">Loading NPT48 data...</li></ul>
       </div>
     </section>
 
     <!-- PROFILE -->
-    <section class="section section--blue section--members" id="members">
-      <h2 class="subtitle" data-pop>PROFILE</h2>
+    <section class="home-sec home-members" id="members">
+      <div class="sec-tit" data-pop>
+        <h2><span>PROFILE</span></h2>
+        <a href="profile" class="more">VIEW MORE</a>
+      </div>
       <div class="rail-wrap">
         <div class="rail members-rail" id="membersRail"><div class="data-empty">Loading NPT48 data...</div></div>
-        <button type="button" class="rail-arrow rail-arrow--prev" id="membersPrev" aria-label="Previous members">&#8249;</button>
-        <button type="button" class="rail-arrow rail-arrow--next" id="membersNext" aria-label="Next members">&#8250;</button>
+        <button type="button" class="rail-arrow rail-arrow--prev" id="membersPrev" aria-label="Previous members"></button>
+        <button type="button" class="rail-arrow rail-arrow--next" id="membersNext" aria-label="Next members"></button>
       </div>
-      <div class="content"><a href="profile" class="btn-outline">MORE</a></div>
+    </section>
+
+    <!-- MOVIE -->
+    <section class="home-sec home-sec--gray" id="movie">
+      <div class="sec-tit" data-pop>
+        <h2><span>MOVIE</span></h2>
+        <a href="https://www.youtube.com/@NPT48OfficialYouTubeChannel" class="more" target="_blank" rel="noopener">YouTube OFFICIAL CHANNEL</a>
+      </div>
+      <div class="rail-wrap movie-rail-wrap">
+        <div class="rail movie-rail" id="movieRail"><div class="data-empty">Loading NPT48 data...</div></div>
+        <button type="button" class="rail-arrow rail-arrow--prev" id="moviePrev" aria-label="Previous video"></button>
+        <button type="button" class="rail-arrow rail-arrow--next" id="movieNext" aria-label="Next video"></button>
+      </div>
     </section>
   </main>
 
@@ -74,6 +81,7 @@
     var D = window.NPT48_DATA;
     var NEWS_SHOWN = 4;
     var NEW_DAYS = 30;
+    var ARROW = '<svg class="arrow" viewBox="0 0 23 9" fill="none" stroke="currentColor" aria-hidden="true"><path d="M0 8.5h22L14 .5"/></svg>';
 
     function esc(s) {
       return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -117,12 +125,6 @@
       // Don't follow a link at the end of a drag
       rail.addEventListener('click', function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
       rail.addEventListener('dragstart', function (e) { e.preventDefault(); });
-    }
-
-    function wireRailNav(rail, prevId, nextId) {
-      function step() { return rail.clientWidth * 0.8; }
-      document.getElementById(prevId).addEventListener('click', function () { rail.scrollBy({ left: -step(), behavior: 'smooth' }); });
-      document.getElementById(nextId).addEventListener('click', function () { rail.scrollBy({ left: step(), behavior: 'smooth' }); });
     }
 
     // Endless rail: the items are rendered three times (clone · original · clone)
@@ -172,48 +174,97 @@
       window.addEventListener('resize', function () { rail._loopWrap(); });
     }
 
-    // ---- VIDEO player ----
+    // ---- MOVIE: centred carousel; the middle slide is framed and plays inline ----
     var movies = [];
+    var movieRail = document.getElementById('movieRail');
 
-    function playMovie(i, scroll) {
-      var mv = movies[i];
-      if (!mv) return;
-      var id = youtubeId(mv.link);
-      var frame = document.getElementById('videoFrame');
-      frame.innerHTML = id
-        ? '<iframe src="https://www.youtube-nocookie.com/embed/' + id + (scroll ? '?autoplay=1' : '') + '" title="' + esc(mv.title) + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>'
-        : '<a href="' + esc(mv.link) + '" target="_blank" rel="noopener"><img src="' + esc(mv.img) + '" alt="' + esc(mv.title) + '" onerror="NPT48_DATA.imgFallback(this)"></a>';
-      document.getElementById('videoNow').innerHTML = esc(mv.title) + (mv.desc ? '<small>' + esc(mv.desc) + ' · ' + fmtDate(mv.date) + '</small>' : '');
-      document.querySelectorAll('.movie-item').forEach(function (el) {
-        el.classList.toggle('is-playing', Number(el.getAttribute('data-i')) === i);
+    function centreOf(el) { return el.offsetLeft + el.offsetWidth / 2 - movieRail.clientWidth / 2; }
+
+    function currentMovie() {
+      var mid = movieRail.scrollLeft + movieRail.clientWidth / 2, best = null, bestD = Infinity;
+      Array.prototype.forEach.call(movieRail.children, function (el) {
+        var d = Math.abs(el.offsetLeft + el.offsetWidth / 2 - mid);
+        if (d < bestD) { bestD = d; best = el; }
       });
-      if (scroll) document.getElementById('movie').scrollIntoView({ behavior: 'smooth' });
+      return best;
     }
 
-    // Any link marked data-movie plays that video in the VIDEO section instead of leaving the page
+    function stopMovies() {
+      movieRail.querySelectorAll('.movie-thumb iframe').forEach(function (f) { f.remove(); });
+    }
+
+    function markCurrentMovie() {
+      var cur = currentMovie();
+      Array.prototype.forEach.call(movieRail.children, function (el) {
+        if (el !== cur && el.querySelector('iframe')) el.querySelector('iframe').remove();
+        el.classList.toggle('is-current', el === cur);
+      });
+    }
+
+    function playIn(item) {
+      var mv = movies[Number(item.getAttribute('data-i'))];
+      var id = mv && youtubeId(mv.link);
+      if (!id) { window.open(mv ? mv.link : '#', '_blank', 'noopener'); return; }
+      stopMovies();
+      item.querySelector('.movie-thumb').insertAdjacentHTML('beforeend',
+        '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1" title="' + esc(mv.title) + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
+    }
+
+    movieRail.addEventListener('click', function (e) {
+      var item = e.target.closest('.movie-item');
+      if (!item || e.defaultPrevented) return;
+      e.preventDefault();
+      if (item.classList.contains('is-current')) playIn(item);
+      else movieRail.scrollTo({ left: centreOf(item), behavior: 'smooth' });
+    });
+
+    var markTimer;
+    movieRail.addEventListener('scroll', function () {
+      clearTimeout(markTimer);
+      markTimer = setTimeout(markCurrentMovie, 160);
+    }, { passive: true });
+
+    document.getElementById('moviePrev').addEventListener('click', function () { stepMovie(-1); });
+    document.getElementById('movieNext').addEventListener('click', function () { stepMovie(1); });
+    function stepMovie(dir) {
+      var cur = currentMovie();
+      var next = cur && (dir < 0 ? cur.previousElementSibling : cur.nextElementSibling);
+      if (next) movieRail.scrollTo({ left: centreOf(next), behavior: 'smooth' });
+    }
+
+    // Links marked data-movie (NEWS, banners) jump to that video and start it
     document.addEventListener('click', function (e) {
       var a = e.target.closest('[data-movie]');
       if (!a || e.defaultPrevented) return;
       e.preventDefault();
-      playMovie(Number(a.getAttribute('data-movie')), true);
+      var i = a.getAttribute('data-movie');
+      var item = movieRail.querySelector('.movie-item[data-i="' + i + '"]:not([aria-hidden])');
+      if (!item) return;
+      document.getElementById('movie').scrollIntoView({ behavior: 'smooth' });
+      movieRail.scrollLeft = centreOf(item);
+      markCurrentMovie();
+      playIn(item);
     });
 
     function renderMovies() {
-      var rail = document.getElementById('movieRail');
-      if (!movies.length) { rail.innerHTML = '<div class="data-empty">No videos yet.</div>'; return; }
-      rail.innerHTML = movies.map(function (mv, i) {
+      if (!movies.length) { movieRail.innerHTML = '<div class="data-empty">No videos yet.</div>'; return; }
+      movieRail.innerHTML = movies.map(function (mv, i) {
         return '' +
-          '<a href="' + esc(mv.link) + '" class="movie-item" data-movie="' + i + '" data-i="' + i + '">' +
+          '<a href="' + esc(mv.link) + '" class="movie-item" data-i="' + i + '">' +
             '<div class="movie-thumb"><img src="' + esc(mv.img) + '" alt="' + esc(mv.title) + '" loading="lazy" decoding="async" onerror="NPT48_DATA.imgFallback(this)"></div>' +
-            '<div class="movie-title">' + esc(mv.title) + '</div>' +
+            '<div class="movie-title">' + esc(mv.title) + (mv.desc ? ' (' + esc(mv.desc) + ')' : '') + '</div>' +
             '<div class="movie-date">' + fmtDate(mv.date) + '</div>' +
           '</a>';
       }).join('');
-      playMovie(0, false);
-      makeLoop(rail);
+      makeLoop(movieRail);
+      var first = movieRail.querySelector('.movie-item:not([aria-hidden])');
+      movieRail.style.scrollSnapType = 'none';
+      movieRail.scrollLeft = centreOf(first);
+      movieRail.style.scrollSnapType = '';
+      markCurrentMovie();
     }
 
-    // ---- Banner slider (latest videos) ----
+    // ---- Banner carousel (latest videos) ----
     function renderSlider() {
       var list = movies.slice(0, 5);
       if (!list.length) return;
@@ -268,7 +319,7 @@
     function renderNews() {
       var list = document.getElementById('newsList');
       if (!newsItems.length) {
-        list.innerHTML = '<div class="data-empty">' + (newsLoads < 2 ? 'Loading NPT48 data...' : 'No news yet.') + '</div>';
+        list.innerHTML = '<li class="data-empty">' + (newsLoads < 2 ? 'Loading NPT48 data...' : 'No news yet.') + '</li>';
         return;
       }
       newsItems.sort(function (a, b) { return (b.date ? b.date.getTime() : 0) - (a.date ? a.date.getTime() : 0); });
@@ -276,16 +327,18 @@
       list.innerHTML = newsItems.map(function (n, i) {
         var isNew = n.date && now - n.date.getTime() < NEW_DAYS * 864e5 && n.date.getTime() <= now;
         return '' +
-          '<a href="' + esc(n.href) + '" class="news-item"' + (n.movie != null ? ' data-movie="' + n.movie + '"' : '') + (i >= NEWS_SHOWN ? ' hidden' : '') + '>' +
-            '<span class="news-meta">' + fmtDate(n.date) + '<span class="sep">|</span>' + n.cat + (isNew ? '<span class="news-new">NEW</span>' : '') + '</span>' +
-            '<span class="news-title">' + esc(n.title) + '</span>' +
-          '</a>';
+          '<li' + (i >= NEWS_SHOWN ? ' hidden' : '') + '>' +
+            '<a href="' + esc(n.href) + '"' + (n.movie != null ? ' data-movie="' + n.movie + '"' : '') + '>' + ARROW +
+              '<span class="date">' + fmtDate(n.date) + '<span class="tag tag--' + n.cat.toLowerCase() + '">' + n.cat + '</span>' + (isNew ? '<span class="new">NEW</span>' : '') + '</span>' +
+              '<span class="tit">' + esc(n.title) + '</span>' +
+            '</a>' +
+          '</li>';
       }).join('');
       document.getElementById('newsMore').hidden = newsItems.length <= NEWS_SHOWN;
     }
 
     document.getElementById('newsMore').addEventListener('click', function () {
-      document.querySelectorAll('.news-item[hidden]').forEach(function (el) { el.hidden = false; });
+      document.querySelectorAll('#newsList li[hidden]').forEach(function (el) { el.hidden = false; });
       this.hidden = true;
     });
 
@@ -297,15 +350,19 @@
         return '' +
           '<a href="profile#' + encodeURIComponent(m.name) + '" class="member-tile">' +
             '<div class="member-photo"><img src="' + esc(D.getDirectImgLink(m.image)) + '" alt="' + esc(m.name) + '" loading="lazy" decoding="async" onerror="NPT48_DATA.imgFallback(this)"></div>' +
-            '<div class="member-name">' + esc(String(m.name).toUpperCase()) + '</div>' +
+            '<div class="member-name">' + esc(String(m.name).toUpperCase()) + (m.fullNameTH ? '<small>' + esc(m.fullNameTH) + '</small>' : '') + '</div>' +
           '</a>';
       }).join('');
       makeLoop(rail);
     }
 
     ['movieRail', 'membersRail'].forEach(function (id) { wireDrag(document.getElementById(id)); });
-    wireRailNav(document.getElementById('movieRail'), 'moviePrev', 'movieNext');
-    wireRailNav(document.getElementById('membersRail'), 'membersPrev', 'membersNext');
+    (function () {
+      var rail = document.getElementById('membersRail');
+      function step() { return rail.clientWidth * 0.8; }
+      document.getElementById('membersPrev').addEventListener('click', function () { rail.scrollBy({ left: -step(), behavior: 'smooth' }); });
+      document.getElementById('membersNext').addEventListener('click', function () { rail.scrollBy({ left: step(), behavior: 'smooth' }); });
+    })();
 
     function fail(id) {
       return function () { document.getElementById(id).innerHTML = '<div class="data-empty">Unable to load data. Please try again later.</div>'; };
