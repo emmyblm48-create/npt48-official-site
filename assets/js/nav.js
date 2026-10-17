@@ -20,6 +20,13 @@
     tiktok: 'https://www.tiktok.com/@npt48_official'
   };
 
+  // Footer banners (≠ME-style row). A banner with no URL shows as a plain image.
+  var SHOP_URL = '';
+  var BANNERS = [
+    [SOCIALS.youtube, 'assets/images/bnr-youtube.webp', 'NPT48 YouTube'],
+    [SHOP_URL, 'assets/images/bnr-shop.webp', 'NPT48 Official Shop']
+  ];
+
   var GROUPS = [
     ['https://www.akb48.co.jp/', 'akb48', 'AKB48'],
     ['https://www.ske48.co.jp/', 'ske48', 'SKE48'],
@@ -99,6 +106,10 @@
         '<a href="./" class="footer-logo" aria-label="NPT48 home"><img src="assets/images/logo.png" alt="NPT48" width="500" height="500" loading="lazy"></a>' +
         '<div class="group-label">AKB48 GROUP</div>' +
         '<div class="logo-grid">' + logos + '</div>' +
+        '<ul class="bnr-list">' + BANNERS.map(function (b) {
+          var img = '<img src="' + b[1] + '" alt="' + b[2] + '" width="2000" height="533" loading="lazy" decoding="async">';
+          return '<li>' + (b[0] ? '<a href="' + b[0] + '" target="_blank" rel="noopener">' + img + '</a>' : img) + '</li>';
+        }).join('') + '</ul>' +
         '<div class="footer-info">' +
           '<nav class="footer-menu" aria-label="Footer">' +
             '<a href="about">ABOUT NPT48</a><a href="profile">PROFILE</a><a href="discography">DISCOGRAPHY</a><a href="./#movie">MOVIE</a>' +
