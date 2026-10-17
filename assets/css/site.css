@@ -51,12 +51,12 @@ body.menu-open { overflow: hidden; }
 
 /* ---------- Header: floating wordmark + "≠" button ---------- */
 .brand {
-  position: fixed; top: 46px; left: 4%; z-index: 60;
+  position: fixed; top: 49px; left: 4%; z-index: 60;
   display: flex; align-items: center; gap: 10px;
   font-weight: 300; font-size: 28px; line-height: 1; letter-spacing: .02em;
   transition: opacity .4s, visibility .4s;
 }
-.brand img { width: 34px; height: 34px; object-fit: cover; }
+.brand img { width: auto; height: 30px; mix-blend-mode: multiply; }
 .brand:hover { opacity: .5; }
 body.is-home:not(.is-scrolled) .brand { opacity: 0; visibility: hidden; }
 body.menu-open .brand { opacity: 0; visibility: hidden; }
@@ -88,7 +88,7 @@ body.menu-open .nav-btn span:nth-child(2) { top: 6px; }
   }
   body.is-home:not(.is-scrolled) .site-header::before, body.menu-open .site-header::before { opacity: 0; }
   .brand { top: 22px; left: 5%; font-size: 22px; }
-  .brand img { width: 28px; height: 28px; }
+  .brand img { height: 24px; }
   .nav-btn { top: 32px; right: 6%; width: 30px; }
 }
 
