@@ -67,7 +67,7 @@
     mount.innerHTML =
       '<header class="site-header">' +
         '<a href="./" class="brand" aria-label="NPT48 home"><img src="assets/images/logo.png" alt="" width="500" height="500"><span>NPT48</span></a>' +
-        '<button type="button" class="nav-btn" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="siteMenu"><span></span><span></span><span></span></button>' +
+        '<button type="button" class="nav-btn" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="siteMenu"><span></span><span></span></button>' +
       '</header>' +
       '<div class="site-menu" id="siteMenu" aria-label="Site menu">' +
         '<div class="site-menu-logo"><b>NPT48</b><small>New Planet 48</small></div>' +

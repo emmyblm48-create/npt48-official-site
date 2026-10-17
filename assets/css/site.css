@@ -72,7 +72,6 @@ body.menu-open .brand { opacity: 0; visibility: hidden; }
 }
 .nav-btn span:nth-child(1) { top: 0; }
 .nav-btn span:nth-child(2) { top: 10px; }
-.nav-btn span:nth-child(3) { top: 5px; transform: rotate(-55deg); }
 .nav-btn::after { content: ""; position: absolute; inset: -16px -6px; }
 .nav-btn:hover span:nth-child(1) { top: -2px; }
 .nav-btn:hover span:nth-child(2) { top: 12px; }
@@ -80,7 +79,6 @@ body.menu-open .nav-btn { transform: rotate(225deg); }
 body.menu-open .nav-btn span { background: #fff; }
 body.menu-open .nav-btn span:nth-child(1) { top: 6px; transform: rotate(90deg); }
 body.menu-open .nav-btn span:nth-child(2) { top: 6px; }
-body.menu-open .nav-btn span:nth-child(3) { opacity: 0; }
 
 @media (max-width: 767px) {
   /* On phones a soft white band keeps the wordmark readable over scrolled content */
