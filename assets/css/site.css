@@ -738,7 +738,7 @@ body.app-body {
 .app-btn.is-line { background: #00843b; color: #fff; box-shadow: 0 6px 0 #005c29; }
 .app-btn.is-line:hover { box-shadow: 0 3px 0 #005c29; }
 .app-more-link { margin-top: 22px; }
-.app-more-link a { position: relative; padding-bottom: 3px; font-size: 12px; letter-spacing: .1em; border-bottom: 1px solid #bbb; }
+.app-more-link a { position: relative; padding-bottom: 3px; font-size: 12px; letter-spacing: .05em; border-bottom: 1px solid #bbb; }
 .app-more-link a:hover { border-color: var(--ap-ink); }
 
 /* Hero */
@@ -779,6 +779,22 @@ body.app-body {
   background: #fff; border: 2px solid var(--ap-sky); font-size: 22px; color: var(--ap-icon); transition: transform .2s;
 }
 .app-quick a:hover i { transform: translateY(-3px); }
+
+/* Slanted, endlessly scrolling band of outlined text */
+.app-ticker {
+  position: relative; z-index: 2; width: 130vw; margin: -30px 0 clamp(70px, 9vw, 110px) -15vw;
+  padding: clamp(6px, 1vw, 12px) 0; overflow: hidden;
+  background: #9edbff; border-block: 1px solid #5cbcf0;
+  transform: rotate(-6deg);
+}
+.app-ticker-track { display: flex; width: max-content; animation: tickerRun 40s linear infinite; }
+.app-ticker span {
+  flex: none; padding-right: 2.2em; white-space: nowrap;
+  font-family: "Comfortaa", "Noto Sans Thai", sans-serif; font-weight: 300;
+  font-size: clamp(26px, 3.6vw, 44px); line-height: 1.3; letter-spacing: .02em;
+  color: transparent; -webkit-text-stroke: 1px #fff;
+}
+@keyframes tickerRun { to { transform: translateX(-50%); } }
 
 /* Intro */
 .app-intro { text-align: center; padding: 0 0 clamp(60px, 9vw, 100px); }
@@ -887,7 +903,7 @@ body.app-body {
 .ai-item { display: flex; flex-direction: column; }
 .ai-phone { position: relative; z-index: 1; display: flex; justify-content: center; margin-bottom: -34%; }
 .ai-phone img { width: 112%; max-width: none; height: auto; }
-.ai-card { flex: 1; background: var(--ap-sky); padding: calc(34% + 24px) clamp(14px, 1.8vw, 24px) 30px; border-left: 1px solid rgba(255, 255, 255, .7); color: #000; }
+.ai-card { flex: 1; background: var(--ap-sky); padding: calc(34% + 24px) clamp(16px, 2vw, 24px) 30px; border-left: 1px solid rgba(255, 255, 255, .7); color: #000; }
 .ai-item:first-child .ai-card { border-left: 0; }
 .ai-num { display: block; font-size: 11px; font-weight: 700; letter-spacing: .3em; color: #003a5c; margin-bottom: 8px; text-align: center; }
 .ai-card h2 { font-family: var(--ap-thai); font-size: clamp(15px, 1.5vw, 17px); font-weight: 800; line-height: 1.6; text-align: center; margin-bottom: 14px; }
