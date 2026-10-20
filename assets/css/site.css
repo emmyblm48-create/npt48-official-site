@@ -781,11 +781,17 @@ body.app-body {
 .app-quick a:hover i { transform: translateY(-3px); }
 
 /* Slanted, endlessly scrolling band of outlined text */
-.app-ticker {
-  position: relative; z-index: 2; width: 130vw; margin: -30px 0 clamp(70px, 9vw, 110px) -15vw;
+/* It runs along the top edge of the PICK UP #01 band. That band's top edge
+   rises 10.5vw across the page (tan 6deg = .105), the same slope as the
+   ticker, so the two stay flush at any width. The ticker's top-centre is
+   pinned to the middle of that edge and rotated about it. */
+.app-band--ticker { padding-top: calc(10.5vw + clamp(120px, 13vw, 190px)); }
+.app-band--ticker::before { clip-path: polygon(0 10.5vw, 100% 0, 100% 93%, 0 100%); }
+.app-band > .app-ticker {
+  position: absolute; z-index: 2; top: 5.25vw; left: 50%; width: 130vw;
   padding: clamp(6px, 1vw, 12px) 0; overflow: hidden;
   background: #9edbff; border-block: 1px solid #5cbcf0;
-  transform: rotate(-6deg);
+  transform-origin: 50% 0; transform: translateX(-50%) rotate(-6deg);
 }
 .app-ticker-track { display: flex; width: max-content; animation: tickerRun 40s linear infinite; }
 .app-ticker span {
