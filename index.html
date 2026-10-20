@@ -30,8 +30,13 @@
     </section>
 
     <!-- BANNER CAROUSEL -->
-    <div class="slider" id="slider" hidden>
-      <div class="slider-track" id="sliderTrack"></div>
+    <div class="slider" id="slider">
+      <div class="slider-track" id="sliderTrack">
+        <a href="release" class="banner-card"><img src="assets/images/slide-2nd-single.webp" alt="NPT48 2nd Single มารักกันให้เป็นความทรงจำ — 2026.8.28 Release!" width="2000" height="533" decoding="async"></a>
+        <div class="banner-card"><img src="assets/images/slide-shop.webp" alt="NPT48 Official Shop — NPT48 Official Merchandise" width="2000" height="533" loading="lazy" decoding="async"></div>
+        <div class="banner-card"><img src="assets/images/slide-fanclub.webp" alt="NPT48 Official Fan Club — Now accepting new memberships!" width="2000" height="533" loading="lazy" decoding="async"></div>
+        <div class="banner-card"><img src="assets/images/slide-app.webp" alt="NPT48 Official Fan Club — The official app has arrived!" width="2000" height="533" loading="lazy" decoding="async"></div>
+      </div>
       <button type="button" class="slider-arrow slider-arrow--prev" id="sliderPrev" aria-label="Previous"></button>
       <button type="button" class="slider-arrow slider-arrow--next" id="sliderNext" aria-label="Next"></button>
       <ul class="slider-dots" id="sliderDots"></ul>
@@ -264,21 +269,15 @@
       markCurrentMovie();
     }
 
-    // ---- Banner carousel (latest videos) ----
-    function renderSlider() {
-      var list = movies.slice(0, 5);
-      if (!list.length) return;
+    // ---- Banner carousel (fixed banners in the markup) ----
+    (function initSlider() {
       var track = document.getElementById('sliderTrack');
       var dots = document.getElementById('sliderDots');
-      track.innerHTML = list.map(function (mv, i) {
-        return '<a href="' + esc(mv.link) + '" class="banner-card" data-movie="' + i + '" title="' + esc(mv.title) + '"><img src="' + esc(mv.img) + '" alt="' + esc(mv.title) + '" loading="lazy" decoding="async" onerror="NPT48_DATA.imgFallback(this)"></a>';
-      }).join('');
-      dots.innerHTML = list.map(function (mv, i) {
+      var cards = track.children;
+      dots.innerHTML = Array.prototype.map.call(cards, function (c, i) {
         return '<li><button type="button" aria-label="Slide ' + (i + 1) + '" data-slide="' + i + '"></button></li>';
       }).join('');
-      document.getElementById('slider').hidden = false;
 
-      var cards = track.children;
       function goTo(i) {
         i = (i + cards.length) % cards.length;
         var c = cards[i];
@@ -310,7 +309,7 @@
       document.getElementById('slider').addEventListener('mouseenter', function () { hover = true; });
       document.getElementById('slider').addEventListener('mouseleave', function () { hover = false; });
       setInterval(function () { if (!hover && !document.hidden) goTo(current() + 1); }, 5000);
-    }
+    })();
 
     // ---- NEWS (latest videos + releases, newest first) ----
     var newsItems = [];
@@ -380,7 +379,6 @@
           return { date: parseDate(d.name), title: d.nameEN || '', desc: d.fullNameTH || '', link: d.fullNameEN || '#', img: D.getDirectImgLink(d.generation) };
         }).sort(function (a, b) { return (b.date ? b.date.getTime() : 0) - (a.date ? a.date.getTime() : 0); });
         renderMovies();
-        renderSlider();
         movies.forEach(function (mv, i) {
           newsItems.push({ date: mv.date, cat: 'MOVIE', title: mv.title + (mv.desc ? ' (' + mv.desc + ')' : ''), href: mv.link, movie: i });
         });

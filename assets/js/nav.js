@@ -9,6 +9,7 @@
     { href: './', page: 'index', label: 'HOME' },
     { href: './#news', page: 'news', label: 'NEWS' },
     { href: 'profile', page: 'profile', label: 'PROFILE' },
+    { href: 'release', page: 'release', label: 'NEW RELEASE' },
     { href: 'discography', page: 'discography', label: 'DISCOGRAPHY' },
     { href: './#movie', page: 'movie', label: 'MOVIE' },
     { href: 'about', page: 'about', label: 'ABOUT NPT48' }
@@ -70,7 +71,8 @@
     var mount = document.getElementById('site-header');
     if (!mount) return;
     var page = currentPage();
-    if (page === 'index') document.body.classList.add('is-home');
+    // Pages that open on a full-screen key visual hide the wordmark until it scrolls away
+    if (page === 'index' || document.body.hasAttribute('data-kv')) document.body.classList.add('is-home');
 
     mount.innerHTML =
       '<header class="site-header">' +
@@ -112,7 +114,7 @@
         '<div class="logo-grid" aria-label="AKB48 Group">' + logos + '</div>' +
         '<div class="footer-info">' +
           '<nav class="footer-menu" aria-label="Footer">' +
-            '<a href="about">ABOUT NPT48</a><a href="profile">PROFILE</a><a href="discography">DISCOGRAPHY</a><a href="./#movie">MOVIE</a>' +
+            '<a href="about">ABOUT NPT48</a><a href="release">NEW RELEASE</a><a href="profile">PROFILE</a><a href="discography">DISCOGRAPHY</a><a href="./#movie">MOVIE</a>' +
           '</nav>' +
           '<div class="footer-copy">&copy; 2026 NPT48. All Rights Reserved.</div>' +
         '</div>' +
